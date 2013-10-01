@@ -10,15 +10,18 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  # returns if user is logged in
   def valid_user?
     session[:user_id]
   end
 
+  # forces login if user is not valid
   def validate_user!
     attempt_token_login
     redirect_to login_url unless valid_user?
   end
 
+  # attempt token based login (REST requests)
   def attempt_token_login
     if(%w(xml json).include?(request.format.to_s.downcase))
       if(request.headers[:fission_key] && request.headers[:fission_secret])
@@ -27,6 +30,27 @@ class ApplicationController < ActionController::Base
         )
         session[:user_id] = user.id if user
       end
+    end
+  end
+
+  # return instance of current user
+  def current_user
+    unless(@current_user)
+      @current_user = User.find_by_id(session[:user_id])
+    end
+    @current_user
+  end
+
+  # args:: permission(s)
+  # redirect if current user is not allowed
+  def permit(*args)
+    res = args.detect do |arg|
+      current_user.permitted?(arg)
+    end
+    unless(res)
+      redirect_to root_url, error: 'Access denied'
+    else
+      res
     end
   end
 end
