@@ -23,6 +23,7 @@ module BasicCrud
     end
   end
 
+  # Need to add filtering here based on params (i.e. account_id, etc)
   def index
     @items = model_class.restrict(current_user).page(params[:page].to_i)
     @keys = model_class.respond_to?(:display_attributes) ? model_class.display_attributes : model_class.attribute_names
