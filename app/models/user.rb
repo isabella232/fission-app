@@ -14,7 +14,6 @@ class User < ActiveRecord::Base
   has_many :user_emails
   has_many :accounts, :through => :account_users
   has_many :permissions, :through => :user_permissions
-  has_many :emails, :through => :user_emails
 
   belongs_to :base_account, :class_name => 'Account', :dependent => :destroy, :foreign_key => :base_account_id, :inverse_of => :owner
 

@@ -14,7 +14,7 @@ class Account < ActiveRecord::Base
   has_many :account_users
   has_many :users, :through => :account_users
   has_many :account_emails
-  has_many :emails, :through => :account_emails
+  has_many :account_permissions
   has_many :permissions, :through => :account_permissions
   has_many :api_consumers
 end
