@@ -1,0 +1,14 @@
+$LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__)) + '/lib/'
+require 'fission-app/version'
+Gem::Specification.new do |s|
+  s.name = 'fission-app'
+  s.version = FissionApp::VERSION.version
+  s.summary = 'Fission Frontend'
+  s.author = 'Heavywater'
+  s.email = 'fission@hw-ops.com'
+  s.homepage = 'http://github.com/heavywater/fission-app'
+  s.description = 'Fission Frontend'
+  s.require_path = 'lib'
+#  s.add_dependency 'fission'
+  s.files = Dir['**/*']
+end

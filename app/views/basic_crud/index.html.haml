@@ -1,0 +1,12 @@
+%div{class: 'panel panel-default'}
+  %div{class: 'panel-body'}
+    %table{class: 'table table-bordered table-hover'}
+      %thead
+        %tr
+          - @keys.each do |key|
+            %th= key.humanize
+      %tbody
+        - @items.each do |obj|
+          %tr
+            - @keys.each do |key|
+              %td= obj.send(key)

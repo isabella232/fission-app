@@ -24,8 +24,17 @@ FissionApp::Application.routes.draw do
     resources :permissions
   end
 
-  get '/login', :to => 'sessions#new', :as => :login
-  get '/auth/:provider/callback', :to => 'sessions#create_omni', :as => :login_via
-  post '/login', :to => 'sessions#create', :as => :do_login
+  scope :session do
+    get 'login', :to => 'sessions#new', :as => :new_session
+    get 'logout', :to => 'sessions#destroy', :as => :destroy_session
+  end
+
+  scope :auth do
+    post 'identity/register', :to => 'users#create', :as => :register_user
+    match ':provider/callback', :to => 'sessions#create', :as => :create_session, :via => [:get, :post]
+    get 'failure', :to => 'sessions#failure'
+  end
+
+  get 'register', :to => 'users#new', :as => :registration
 
 end

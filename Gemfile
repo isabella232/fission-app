@@ -13,10 +13,19 @@ group :doc do
 end
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'bcrypt-ruby', '~> 3.0.0'
 
 gem 'unicorn'
 gem 'window_rails', git: 'git://github.com/chrisroberts/window_rails.git', branch: 'develop'
 gem 'pg'
 gem 'omniauth', '~> 1.1'
+gem 'omniauth-github'
+gem 'omniauth-identity'
+gem 'oauth_simple'
 gem 'kaminari'
+gem 'haml', '>= 0.3.4', :group => :development
+gem 'simple_form'
+gem 'bootstrap-sass', git: 'git://github.com/thomas-mcdonald/bootstrap-sass', branch: '3'
+gem 'squeel'
+
+gemspec

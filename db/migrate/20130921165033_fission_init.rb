@@ -1,87 +1,105 @@
 class FissionInit < ActiveRecord::Migration
   def change
-    create_table :accounts do
+    create_table :accounts do |t|
       t.text :name, :null => false, :unique => true
+      t.text :alias
       t.timestamps
     end
 
-    create_table :users do
+    create_table :users do |t|
       t.text :username, :null => false, :unique => true
-      t.text :password, :null => false
+      t.text :alias
       t.text :name
+      t.integer :base_account_id, :unique => true
       t.timestamps
     end
     add_index :users, :username
 
-    create_table :account_users do
+    create_table :identities do |t|
+      t.text :unique_id, :null => false
+      t.text :provider, :null => false
+      t.text :name
+      t.text :email
+      t.text :nickname
+      t.text :first_name
+      t.text :last_name
+      t.text :location
+      t.text :description
+      t.text :image
+      t.text :phone
+      t.text :password
+      t.text :password_digest
+      t.integer :user_id, :null => false
+      t.timestamps
+    end
+    add_index :identities, :user_id
+    add_index :identities, [:user_id, :provider, :unique_id], :unique => true
+
+    create_table :account_users do |t|
       t.integer :account_id, :null => false
       t.integer :user_id, :null => false
       t.timestamps
     end
     add_index :account_users, [:account_id, :user_id], :unique => true
+    add_index :account_users, :user_id
 
-    create_table :api_tokens do
-      t.integer :user_id, :null => false
-      t.text :access_key, :null => false
-      t.text :secret_key, :null => false
-      t.timestamp :expires
-      t.timestamps
-    end
-    add_index :api_tokens, [:access_key, :secret_key], :unique => true
-
-    create_table :request_tokens do
-      t.text :token, :null => false, :unique => true
-      t.timestamp :expires
-      t.timestamps
-    end
-
-    create_table :user_request_tokens do
-      t.integer :user_id, :null => false
-      t.text :request_token_id, :null => false
-    end
-    add_index :user_request_tokens, [:user_id, :request_token_id], :unique => true
-
-    create_table :account_request_tokens do
+    create_table :api_consumers do |t|
+      t.text :key, :null => false, :unique => true
+      t.text :secret, :null => false
+      t.boolean :enabled, :null => false, :default => true
+      t.datetime :expires
       t.integer :account_id, :null => false
-      t.text :request_token_id, :null => false
+      t.timestamps
     end
-    add_index :account_request_tokens, [:account_id, :request_token_id], :unique => true
+    add_index :api_consumers, [:account_id, :key], :unique => true
 
-    create_table :permissions do
+    create_table :api_tokens do |t|
+      t.text :key, :null => false
+      t.text :secret, :null => false
+      t.datetime :expires
+      t.boolean :enabled, :null => false, :default => true
+      t.integer :api_consumer_id, :null => false
+      t.integer :user_id, :null => false
+      t.timestamps
+    end
+    add_index :api_tokens, [:api_consumer_id, :key], :unique => true
+    add_index :api_tokens, :user_id
+
+    create_table :permissions do |t|
       t.text :name, :null => false, :unique => true
       t.text :description, :null => false
       t.timestamps
     end
 
-    create_table :account_permissions do
+    create_table :account_permissions do |t|
       t.integer :account_id, :null => false
       t.integer :permission_id, :null => false
       t.timestamps
     end
     add_index :account_permissions, [:account_id, :permission_id], :unique => true
 
-    create_table :user_permissions do
+    create_table :user_permissions do |t|
       t.integer :user_id, :null => false
       t.integer :permission_id, :null => false
       t.timestamps
     end
     add_index :user_permissions, [:user_id, :permission_id], :unique => true
 
-    create_table :user_emails do
+    create_table :user_emails do |t|
       t.text :email, :null => false
       t.integer :user_id, :null => false
       t.timestamps
     end
     add_index :user_emails, [:user_id, :email], :unique => true
 
-    create_table :account_emails do
+    create_table :account_emails do |t|
       t.text :email, :null => false
       t.integer :account_id, :null => false
       t.timestamps
     end
     add_index :account_emails, [:account_id, :email], :unique => true
 
-    create_table :jobs do
+    create_table :jobs do |t|
       t.text :token, :null => false
       t.integer :user_id
       t.integer :account_id
