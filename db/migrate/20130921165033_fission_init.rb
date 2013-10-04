@@ -100,7 +100,6 @@ class FissionInit < ActiveRecord::Migration
     add_index :account_emails, [:account_id, :email], :unique => true
 
     create_table :jobs do |t|
-      t.text :token, :null => false
       t.integer :user_id
       t.integer :account_id
       t.text :uuid, :null => false
