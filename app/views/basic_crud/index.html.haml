@@ -5,8 +5,25 @@
         %tr
           - @keys.each do |key|
             %th= key.humanize
+          %th= 'More'
       %tbody
         - @items.each do |obj|
           %tr
             - @keys.each do |key|
               %td= obj.send(key)
+            %td
+              %div{class: 'dropdown'}
+                %a{href: '#', 'data-toggle' => 'dropdown'}
+                  +
+                  %b.caret
+                %ul{class: 'dropdown-menu', role: 'menu', 'aria-labelledby' => 'dLabel'}
+                  - obj.reflections.each do |k, v|
+                    - $stdout.puts "Processing: #{v.inspect}"
+                    - if v.collection?
+                      - next unless self.respond_to?("#{v.klass.table_name.pluralize}_path")
+                      %li
+                        = link_to k.to_s.humanize, send("#{v.klass.table_name.pluralize}_path")
+                    - else
+                      - next unless self.respond_to?("#{v.klass.table_name.singularize}_path")
+                      %li
+                        = link_to k.to_s.humanize, send("#{v.klass.table_name.singularize}_path", obj.send(k))
