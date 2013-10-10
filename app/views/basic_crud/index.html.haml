@@ -14,7 +14,7 @@
             %td
               %div{class: 'dropdown'}
                 %a{href: '#', 'data-toggle' => 'dropdown'}
-                  +
+                  %b= '+'
                   %b.caret
                 %ul{class: 'dropdown-menu', role: 'menu', 'aria-labelledby' => 'dLabel'}
                   - obj.reflections.each do |k, v|
