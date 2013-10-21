@@ -19,6 +19,21 @@ class User < ActiveRecord::Base
 
   before_validation :create_base_account
 
+  class << self
+    def authenticate(args={})
+      if(args[:username])
+        authenticate_credentials(args[:username], args[:password])
+      elsif(args[:oauth])
+        authenticate_credentials(args[:oauth])
+      else
+        raise 'I have no idea what I\'m doing!'
+      end
+    end
+
+    def authenticate_credentials(username, password)
+    end
+  end
+
   def permitted?(*args)
     true
   end
