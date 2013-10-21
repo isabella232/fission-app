@@ -62,8 +62,27 @@ class ApplicationController < ActionController::Base
       flash.each do |k,v|
         flash[k] = v
       end
-      redirect_to new_session_url
+      respond_to do |format|
+        format.html do
+          redirect_to new_session_url
+        end
+        format.json do
+          unless(api_validate)
+            render :json => json_response('Access denied', :fail)
+          end
+        end
+      end
     end
+  end
+
+  def api_validate
+    # valid authentication paths:
+    # Basic Auth
+    user = authenticate_with_http_basic do |username, password|
+
+    end
+    # OAuth token
+    false
   end
 
   # error:: Exception
