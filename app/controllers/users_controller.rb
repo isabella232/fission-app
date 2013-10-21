@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
 
+  before_action :validate_user!, :except => [:new, :create]
+
   include BasicCrud
 
-  before_action :validate_user!, :except => [:new, :create]
   restrict(:index => [:root, :account_admin])
 
   def new
