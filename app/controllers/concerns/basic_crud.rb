@@ -11,6 +11,7 @@ module BasicCrud
   def self.included(base)
     base.class_eval do
       class << self
+
         [:restrict, :model_class, :model_name, :form_key, :render_overrides].each do |n|
           define_method(n) do |*args|
             unless(args.empty?)
@@ -29,7 +30,7 @@ module BasicCrud
     @keys = model_class.respond_to?(:display_attributes) ? model_class.display_attributes : model_class.attribute_names
     respond_to do |format|
       format.html{ render apply_render }
-      format.json{ render :json => json_result(@items, :success) }
+      format.json{ render :json => json_response(@items, :success) }
     end
   end
 
@@ -45,13 +46,13 @@ module BasicCrud
     if(@item.save)
       respond_to do |format|
         format.html{ render apply_render }
-        format.json{ render :json => json_result(@item, :success) }
+        format.json{ render :json => json_response(@item, :success) }
       end
     else
       respond_to do |format|
         format.html{ render :action => 'show', :error => "Failed to create #{model_name}" }
         format.json do
-          render :json => json_result(@item.errors, :fail), :status => :unprocessible_entity
+          render :json => json_response(@item.errors, :fail), :status => :unprocessible_entity
         end
       end
     end
@@ -61,7 +62,7 @@ module BasicCrud
     @item = fetch_item
     respond_to do |format|
       format.html{ render apply_render }
-      format.json{ render :json => json_result(@item, :success) }
+      format.json{ render :json => json_response(@item, :success) }
     end
   end
 
@@ -79,13 +80,13 @@ module BasicCrud
     if(@item.save)
       respond_to do |format|
         format.html{ render apply_render }
-        format.json{ render :json => json_result(@item, :success) }
+        format.json{ render :json => json_response(@item, :success) }
       end
     else
       respond_to do |format|
         format.html{ render :action => 'edit', :error => "Failed to edit #{model_name}" }
         format.json do
-          render :json => json_result(@item.errors, :fail), :status => :unprocessible_entity
+          render :json => json_response(@item.errors, :fail), :status => :unprocessible_entity
         end
       end
     end
@@ -96,13 +97,13 @@ module BasicCrud
     if(@item.destroy)
       respond_to do |format|
         format.html{ render apply_render }
-        format.json{ render :json => json_result(@item, :success) }
+        format.json{ render :json => json_response(@item, :success) }
       end
     else
       respond_to do |format|
         format.html{ render :action => 'show', :error => "Failed to destroy #{model_name}" }
         format.json do
-          render :json => json_result(@item.errors, :fail), :status => :unprocessible_entity
+          render :json => json_response(@item.errors, :fail), :status => :unprocessible_entity
         end
       end
     end
