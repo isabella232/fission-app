@@ -5,3 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+%w[foo bar baz qux].each do |uid|
+  Identity.find_or_create_via_omniauth(uid: uid)
+end
