@@ -23,9 +23,11 @@ gem 'omniauth-github'
 gem 'omniauth-identity'
 gem 'oauth_simple'
 gem 'kaminari'
-gem 'haml', '>= 0.3.4', :group => :development
+gem 'haml', '>= 0.3.4', group: [ :development, :test ]
 gem 'simple_form'
 gem 'bootstrap-sass', git: 'git://github.com/thomas-mcdonald/bootstrap-sass', branch: '3'
 gem 'squeel'
+
+gem 'rspec-rails', group: :test
 
 gemspec

@@ -19,3 +19,6 @@ bin/*
 *.gem
 .*
 !.gitignore
+
+# Ignore vendor
+vendor/
