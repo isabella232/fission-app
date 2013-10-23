@@ -36,6 +36,9 @@ class ApplicationController < ActionController::Base
 
   # return instance of current user
   def current_user
+    if(ENV['ALLOW_NO_AUTH'])
+      session[:user_id] = User.first.id
+    end
     unless(@current_user)
       @current_user = User.find_by_id(session[:user_id])
     end
