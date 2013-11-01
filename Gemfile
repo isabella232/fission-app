@@ -29,5 +29,6 @@ gem 'bootstrap-sass', git: 'git://github.com/thomas-mcdonald/bootstrap-sass', br
 gem 'squeel'
 
 gem 'rspec-rails', group: :test
+gem 'capybara'
 
 gemspec

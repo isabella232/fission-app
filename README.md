@@ -16,8 +16,8 @@ database.
 2. clone repository
   * git clone https://github.com/heavywater/fission-app
 3. Change to repository directory
-  * `bundle install`
-  * `bundle --binutils`
+  * `bundle install --path vendor`
+  * `bundle --binstubs`
 4. Install postgresql (config/database.yml)
   * create user fission with password fission
   * alter user fission CREATEDB
