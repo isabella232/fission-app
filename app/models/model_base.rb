@@ -18,6 +18,11 @@ class ModelBase < Risky
         end
 
         class << self
+
+          def display_attributes
+            []
+          end
+
           alias_method :risky_links, :links
 
           def links(name, klass=nil)

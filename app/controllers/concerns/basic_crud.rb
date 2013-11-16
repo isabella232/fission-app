@@ -67,7 +67,7 @@ module BasicCrud
   end
 
   def edit
-    @item = model_class.restrict(current_user).find_by_id(params[:id])
+    @item = model_class[params[:id]]
     raise Error.new("#{model_name} requested not found", :not_found) unless @item
     respond_to do |format|
       format.html{ render apply_render }
@@ -123,7 +123,8 @@ module BasicCrud
   # How to restrict access. Can be array applied to all actions or
   # hash with action key and array value for specific application
   def restrict
-    self.class.restrict || []
+    []
+#    self.class.restrict || []
   end
 
   # Class of model being handled
@@ -134,7 +135,7 @@ module BasicCrud
         # NOTE: Yay autoloading
         ObjectSpace.const_get(base)
       end
-      klass = ActiveRecord::Base.descendants.detect do |k|
+      klass = ModelBase.descendants.detect do |k|
         k.name == base
       end
       p klass

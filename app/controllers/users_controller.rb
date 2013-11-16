@@ -2,6 +2,8 @@ class UsersController < ApplicationController
 
   before_action :validate_user!, :except => [:new, :create, :show]
 
+  include BasicCrud
+
   def new
     respond_to do |format|
       format.html do

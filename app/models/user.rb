@@ -13,6 +13,12 @@ class User < ModelBase
   link :base_account, Account
   links :identities, Identity
 
+  class << self
+    def display_attributes
+      [:name]
+    end
+  end
+
   def create_account(name=nil)
     act = Account.new(name || username).save
     # make owner
