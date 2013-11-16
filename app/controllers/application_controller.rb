@@ -40,10 +40,10 @@ class ApplicationController < ActionController::Base
       session[:user_id] = User.first.id
     end
     unless(@current_user)
-      @current_user = User.find_by_id(session[:user_id])
+      @current_user = User[session[:user_id]]
     end
     if(@current_user && session[:account_id])
-      @current_user.config.account_id = session[:account_id] || @current_user.base_account_id
+      @current_user.config.account_id = session[:account_id] || @current_user.base_account.id
     end
     @current_user
   end

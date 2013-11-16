@@ -1,12 +1,6 @@
-# attrs:
-#  * token
-#  * uuid
-#  * location
-#  * state
-#  * reason
-class Job < ActiveRecord::Base
-  validates :token, :uuid, :location, :state, :presence => true
+class Job < ModelBase
+  bucket :jobs
 
-  belongs_to :user
-  belongs_to :account
+  link :user
+  link :account
 end

@@ -17,7 +17,6 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 
 gem 'unicorn'
 gem 'window_rails', git: 'git://github.com/chrisroberts/window_rails.git', branch: 'develop'
-gem 'pg'
 gem 'omniauth', '~> 1.1'
 gem 'omniauth-github'
 gem 'omniauth-identity'
@@ -26,9 +25,10 @@ gem 'kaminari'
 gem 'haml', '>= 0.3.4', group: [ :development, :test ]
 gem 'simple_form'
 gem 'bootstrap-sass', git: 'git://github.com/thomas-mcdonald/bootstrap-sass', branch: '3'
-gem 'squeel'
 
 gem 'rspec-rails', group: :test
 gem 'capybara'
+
+gem 'risky', git: 'git://github.com/chrisroberts/risky.git'
 
 gemspec

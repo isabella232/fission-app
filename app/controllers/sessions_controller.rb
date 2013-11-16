@@ -14,14 +14,13 @@ class SessionsController < ApplicationController
   def create
     respond_to do |format|
       format.html do
-        omniauth = request.env['omniauth.auth']
         user = nil
-        case omniauth[:provider].to_sym
+        case auth_hash.try(:[], :provider).try(:to_sym)
         when :github
-          ident = Identity.find_or_create_via_omniauth(omniauth)
+          ident = Identity.find_or_create_via_omniauth(auth_hash)
           user = ident.user if ident
         else
-          user = User.where(:username => params[:unique_id]).first
+          user = User[params[:unique_id]]
         end
         if(user)
           session[:user_id] = user.id
@@ -49,6 +48,12 @@ class SessionsController < ApplicationController
         redirect_to root_url, notice: 'Logged out'
       end
     end
+  end
+
+  protected
+
+  def auth_hash
+    request.env['omniauth.auth']
   end
 
   class Session

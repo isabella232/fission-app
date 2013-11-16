@@ -1,20 +1,9 @@
-# attrs:
-#   * account_id
-#   * name
-class Account < ActiveRecord::Base
+class Account < ModelBase
 
-  include Restrictor
+  value :name
 
-  # validations
-  validates :name, presence: true, uniqueness: true
+  index :name, :unique => true
+  link :owner
+  links :members
 
-  has_one :owner, :class_name => 'User', :dependent => :nullify, :foreign_key => :base_account_id
-
-  # associations
-  has_many :account_users
-  has_many :users, :through => :account_users
-  has_many :account_emails
-  has_many :account_permissions
-  has_many :permissions, :through => :account_permissions
-  has_many :api_consumers
 end
