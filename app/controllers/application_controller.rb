@@ -42,8 +42,11 @@ class ApplicationController < ActionController::Base
     unless(@current_user)
       @current_user = User[session[:user_id]]
     end
-    if(@current_user && session[:account_id])
-      @current_user.config.account_id = session[:account_id] || @current_user.base_account.id
+    if(@current_user)
+      if(session[:account_id])
+        act = @current_user.accounts.detect{|a| a.key == session[:account_id]}
+      end
+      @current_user.run_state.current_account = act || @current_user.base_account
     end
     @current_user
   end
