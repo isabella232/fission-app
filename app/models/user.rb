@@ -11,25 +11,33 @@ class User < ModelBase
   index :username, :unique => true
 
   link :base_account, Account
+  links :accounts, Account
   links :identities, Identity
+  links :jobs, Job
 
   class << self
     def display_attributes
-      [:name]
+      [:username, :name]
     end
   end
 
   def create_account(name=nil)
-    act = Account.new(name || username).save
-    # make owner
+    act = Account.new.save
+    act.name = name || username
     act.owner = self
     act.save
-    # assign to me if none
     unless(base_account)
-      base_account = act
-      save
+      self.base_account = act
+      unless(self.save)
+        Rails.logger.error self.errors.inspect
+        raise self.errors
+      end
     end
     act
+  end
+
+  def to_s
+    username
   end
 
   def permitted?(*args)
