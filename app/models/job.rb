@@ -1,6 +1,6 @@
 class Job < ModelBase
   bucket :jobs
 
-  link :user
-  link :account
+  link :user, User
+  link :account, Account
 end
