@@ -1,10 +1,11 @@
 %div{class: 'panel panel-default'}
+  %div{class: 'panel-heading'}= @items.first.class.name.humanize.pluralize
   %div{class: 'panel-body'}
     %table{class: 'table table-bordered table-hover'}
       %thead
         %tr
           - @keys.each do |key|
-            %th= key.humanize
+            %th= key.to_s.humanize
           %th= 'More'
       %tbody
         - @items.each do |obj|
@@ -17,13 +18,12 @@
                   %b= '+'
                   %b.caret
                 %ul{class: 'dropdown-menu', role: 'menu', 'aria-labelledby' => 'dLabel'}
-                  - obj.reflections.each do |k, v|
-                    - $stdout.puts "Processing: #{v.inspect}"
-                    - if v.collection?
-                      - next unless self.respond_to?("#{v.klass.table_name.pluralize}_path")
+                  - obj.class.associations.each do |name, opts|
+                    - if opts[:style] == :many
+                      - next unless self.respond_to?("#{opts[:class].table_name}_path")
                       %li
-                        = link_to k.to_s.humanize, send("#{v.klass.table_name.pluralize}_path")
+                        = link_to name.to_s.humanize, send("#{opts[:class].table_name}_path")
                     - else
-                      - next unless self.respond_to?("#{v.klass.table_name.singularize}_path")
+                      - next unless self.respond_to?("#{opts[:class].table_name.singularize}_path")
                       %li
-                        = link_to k.to_s.humanize, send("#{v.klass.table_name.singularize}_path", obj.send(k))
+                        = link_to name.to_s.humanize, send("#{opts[:class].table_name.singularize}_path", obj.send(name))
