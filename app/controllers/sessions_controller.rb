@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
           ident = Identity.find_or_create_via_omniauth(auth_hash)
           user = ident.user if ident
         else
-          user = User[params[:unique_id]]
+          user = User.by_username(params[:unique_id])
         end
         if(user)
           session[:user_id] = user.id
