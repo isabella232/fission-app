@@ -26,7 +26,7 @@ module BasicCrud
 
   # Need to add filtering here based on params (i.e. account_id, etc)
   def index
-    @items = model_class.restrict(current_user).page(params[:page].to_i)
+    @items = Kaminari.paginate_array(model_class.restrict(current_user)).page(params[:page].to_i).per(50)
     @keys = model_class.respond_to?(:display_attributes) ? model_class.display_attributes : model_class.attribute_names
     respond_to do |format|
       format.html{ render apply_render }
