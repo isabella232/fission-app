@@ -6,7 +6,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   end
 
   provider :identity, :fields => [:unique_id], :uid_field => :unique_id, :on_failed_registration => UsersController.action(:new)
-  provider :github, ENV['GITHUB_KEY'], ENV['GITHUB_SECRET'], {:provider_ignores_state => true}
+  provider :github, ENV['GITHUB_KEY'], ENV['GITHUB_SECRET']
 end
 
 OmniAuth.config.on_failure = Proc.new { |env|
