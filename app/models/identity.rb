@@ -21,9 +21,9 @@ class Identity < ModelBase
   value :uid, :class => String
   value :provider, :class => String
   value :email, :class => String
-  value :credentials
-  value :extras
-  value :data
+  value :credentials, :class => ActiveSupport::HashWithIndifferentAccess, :default => {}.with_indifferent_access
+  value :extras, :class => ActiveSupport::HashWithIndifferentAccess, :default => {}.with_indifferent_access
+  value :infos, :class => ActiveSupport::HashWithIndifferentAccess, :default => {}.with_indifferent_access
   value :password_digest, :class => String
 
   attr_accessor :password_confirmation
@@ -35,17 +35,16 @@ class Identity < ModelBase
   class << self
 
     def lookup_key(uid, provider=nil)
-      key = [provider, uid].compact.join('_').to_sym
+      [provider, uid].compact.join('_').to_sym
     end
 
     def lookup(uid, provider=nil)
-      self[lookup_key(uid, provider)]
+      provider ||= 'fission'
+      self.by_provider_identity(lookup_key(uid, provider))
     end
 
     def locate(search_hash)
-      puts '&' * 50
-      p search_hash
-      raise 'wat'
+      lookup(search_hash[:uid], search_hash[:provider])
     end
 
     def find_or_create_via_omniauth(attributes, existing_user=nil)
@@ -62,6 +61,7 @@ class Identity < ModelBase
           unique_id
         user = User.by_username(username)
         if(user)
+          raise 'User exists. Where is ident!?'
         else
           identity = Identity.create(
             attributes.merge(
@@ -70,7 +70,9 @@ class Identity < ModelBase
               :password => 'stub'
             )
           )
-          identity.data = attributes
+          identity.extras = attributes[:extras]
+          identity.credentials = attributes[:credentials]
+          identity.infos = attributes[:info]
           identity.provider = provider
           identity.uid = unique_id
           identity.password = 'stub'
@@ -86,23 +88,27 @@ class Identity < ModelBase
     def create(attributes)
       username = attributes[:username] || attributes[:unique_id]
       user = User.by_username(username)
-      raise 'user exists' if user
-      user = User.new
-      user.username = username
-      user.save
-      user.create_account
+      unless(user)
+        user = User.new
+        user.username = username
+        user.save
+        user.create_account
+      end
 
-      Rails.logger.info "New user creation: #{attributes.inspect}"
-
-      identity = Identity.new
-      identity.provider_identity = lookup_key(attributes[:unique_id], 'fission')
-      identity.password = attributes[:password]
-      identity.email = attributes[:email]
-      identity.uid = attributes[:unique_id]
-      identity.user = user
-      unless(identity.save)
-        Rails.logger.error identity.errors.inspect
-        raise identity.errors
+      ident_key = lookup_key(attributes[:unique_id], 'fission')
+      identity = Identity.by_provider_identity(ident_key)
+      unless(identity)
+        identity = Identity.new
+        identity.provider_identity = lookup_key(attributes[:unique_id], 'fission')
+        identity.password = attributes[:password]
+        identity.password_confirmation = attributes[:password_confirmation]
+        identity.email = attributes[:email]
+        identity.uid = attributes[:unique_id]
+        identity.user = user
+        unless(identity.save)
+          Rails.logger.error identity.errors.inspect
+          raise identity.errors
+        end
       end
       identity
     end
