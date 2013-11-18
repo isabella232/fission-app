@@ -96,11 +96,11 @@ class ApplicationController < ActionController::Base
   def exception_handler(error)
     Rails.logger.error "#{error.class}: #{error} - (user: #{current_user.try(:username)})"
     Rails.logger.debug "#{error.class}: #{error}\n#{error.backtrace.join("\n")}"
+    msg = error.is_a?(Error) ? error.message : 'Unknown error encountered'
+    session[:redirect_count] ||= 0
+    session[:redirect_count] += 1
+    @error_state = true
     respond_to do |format|
-      msg = error.is_a?(Error) ? error.message : 'Unknown error encountered'
-      session[:redirect_count] ||= 0
-      session[:redirect_count] += 1
-      @error_state = true
       format.html do
         flash[:error] = msg
         if(session[:redirect_count] > 5)
