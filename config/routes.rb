@@ -3,19 +3,13 @@ FissionApp::Application.routes.draw do
   root 'dashboard#index'
 
   resources :accounts do
-    resources :request_tokens
-    resources :api_tokens
-    resources :account_permissions, :path => :permissions
-    resources :account_emails, :path => :emails
-    resources :account_users, :path => :users
+    resources :users
+    resource :owner, :controller => :users_controller
   end
 
   resources :users do
-    resources :request_tokens
-    resources :api_tokens
-    resources :user_permssions, :path => :permissions
-    resources :user_emails, :path => :emails
-    resources :account_users, :path => :accounts
+    resources :accounts
+    resource :base_account, :controller => :accounts_controller
   end
 
   resources :jobs
@@ -30,7 +24,8 @@ FissionApp::Application.routes.draw do
   end
 
   scope :auth do
-    post 'identity/register', :to => 'users#create', :as => :register_user
+    post 'identity/authenticate', :to => 'sessions#authenticate', :as => :authenticate_user
+    post ':provider/register', :to => 'users#create', :as => :register_user
     match ':provider/callback', :to => 'sessions#create', :as => :create_session, :via => [:get, :post]
     get 'failure', :to => 'sessions#failure'
   end
