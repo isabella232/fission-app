@@ -5,14 +5,19 @@ FissionApp::Application.routes.draw do
   resources :accounts do
     resources :users
     resource :owner, :controller => :users_controller
+    resources :jobs
   end
 
   resources :users do
     resources :accounts
     resource :base_account, :controller => :accounts_controller
+    resources :jobs
   end
 
-  resources :jobs
+  resources :jobs do
+    resource :account
+    resource :user
+  end
 
   namespace :admin do
     resources :permissions
