@@ -1,5 +1,5 @@
 %div{class: 'panel panel-default'}
-  %div{class: 'panel-heading'}= @items.first.class.name.humanize.pluralize
+  %div{class: 'panel-heading'}= @title
   %div{class: 'panel-body'}
     %table{class: 'table table-bordered table-hover'}
       %thead
@@ -20,10 +20,12 @@
                 %ul{class: 'dropdown-menu', role: 'menu', 'aria-labelledby' => 'dLabel'}
                   - obj.class.associations.each do |name, opts|
                     - if opts[:style] == :many
-                      - next unless self.respond_to?("#{opts[:class].table_name}_path")
+                      - method_name = "#{obj.class.table_name.singularize}_#{opts[:class].table_name}_path"
+                      - next unless self.respond_to?(method_name)
                       %li
-                        = link_to name.to_s.humanize, send("#{opts[:class].table_name}_path")
+                        = link_to name.to_s.humanize, send(method_name, obj, :style => name)
                     - else
-                      - next unless self.respond_to?("#{opts[:class].table_name.singularize}_path")
+                      - method_name = "#{obj.class.table_name.singularize}_#{opts[:class].table_name.singularize}_path"
+                      - next unless self.respond_to?(method_name)
                       %li
-                        = link_to name.to_s.humanize, send("#{opts[:class].table_name.singularize}_path", obj.send(name))
+                        = link_to name.to_s.humanize, send(method_name, obj, obj.send(name), :style => name)
