@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_action :validate_user!, :except => [:new, :create, :show]
+  before_action :validate_user!, :except => [:new, :create]
 
   include BasicCrud
 
