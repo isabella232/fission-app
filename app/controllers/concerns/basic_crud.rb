@@ -26,7 +26,17 @@ module BasicCrud
 
   # Need to add filtering here based on params (i.e. account_id, etc)
   def index
-    @items = Kaminari.paginate_array(model_class.restrict(current_user)).page(params[:page].to_i).per(50)
+    container = params.keys.detect{|k| k.to_s.end_with?('_id')}
+    if(container)
+      klass = container.sub('_id', '').classify.constantize
+      base = klass[params[container]]
+      @items = base.send(params[:style])
+      @title = "#{klass.name.humanize} #{base}: #{params[:style].humanize.downcase}"
+    else
+      @items = model_class.restrict(current_user)
+      @title = model_class.name.humanize.pluralize
+    end
+    @items = Kaminari.paginate_array(@items).page(params[:page].to_i).per(50)
     @keys = model_class.respond_to?(:display_attributes) ? model_class.display_attributes : model_class.attribute_names
     respond_to do |format|
       format.html{ render apply_render }
@@ -113,8 +123,16 @@ module BasicCrud
 
   # Find requested model instance
   def fetch_item
-    item = model_class.restrict(current_user).find_by_id(params[:id])
-    item || raise(Error.new("#{model_name} requested not found", :not_found))
+    container = params.keys.detect{|k| k.to_s.end_with?('_id')}
+    klass = container.sub('_id', '').classify.constantize
+    if(klass)
+      base = klass[params[container]]
+      item = base.send(params[:style])
+      raise 'wat. bad id match!' unless item.id == params[:id]
+      item
+    else
+      model_class[params[:id]]
+    end
   end
 
   # Override these in the controller if you want something custom that
