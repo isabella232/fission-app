@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
 
-  before_action :validate_user!, :except => [:new, :create, :failure]
+  before_action :validate_user!, :except => [:new, :create, :failure, :authenticate]
 
   def new
     respond_to do |format|
@@ -11,19 +11,38 @@ class SessionsController < ApplicationController
     end
   end
 
+  def authenticate
+    respond_to do |format|
+      format.html do
+        ident = Identity.authenticate(
+          {:uid => params[:username], :provider => 'fission'},
+          params[:password]
+        )
+        if(ident)
+          session[:user_id] = ident.user.id
+          redirect_to root_url
+        else
+          raise Error.new('Login failed', :status => :internal_server_error)
+        end
+      end
+    end
+  end
+
   def create
     respond_to do |format|
       format.html do
         user = nil
-        case auth_hash.try(:[], :provider).try(:to_sym)
+        provider = (params[:provider] || auth_hash.try(:[], :provider)).try(:to_sym)
+        case provider
         when :github
           ident = Identity.find_or_create_via_omniauth(auth_hash)
-          user = ident.user if ident
+        when :fission
+          ident = Identity.find_or_create_via_omniauth(params)
         else
-          user = User.by_username(params[:unique_id])
+          raise Error.new('Unsupported provider authentication attempt', :status => :internal_server_error)
         end
-        if(user)
-          session[:user_id] = user.id
+        if(ident)
+          session[:user_id] = ident.user.id
           redirect_to root_url
         else
           Rails.logger.error "Failed to create user!"
