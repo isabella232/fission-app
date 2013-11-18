@@ -2,7 +2,7 @@
   %div{class: 'panel-heading'}
     Login
   %div{class: 'panel-body'}
-    = simple_form_for @session, :url => create_session_url(@provider), :for => 'session' do |f|
+    = simple_form_for @session, :url => authenticate_user_url, :for => 'session' do |f|
       = f.input :username, :input_html => {:name => 'username'}
       = f.input :password, :input_html => {:name => 'password'}
       = f.button :submit
