@@ -2,7 +2,7 @@
   %div{class: 'panel-heading'}
     Register
   %div{class: 'panel-body'}
-    = form_for :user, :url => register_user_url, :method => :post do |f|
+    = form_for :user, :url => create_session_url(:fission), :method => :post do |f|
       = f.simple_fields_for :user do |user_form|
         = user_form.input :unique_id, :label => 'Username', :required => true, :input_html => {:name => :unique_id}
         = user_form.input :email, :label => 'Email', :required => true, :input_html => {:name => :email}
