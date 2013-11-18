@@ -128,7 +128,9 @@ module BasicCrud
     if(klass)
       base = klass[params[container]]
       item = base.send(params[:style])
-      raise 'wat. bad id match!' unless item.id == params[:id]
+      if(params[:id])
+        raise 'wat. bad id match!' unless item.id == params[:id]
+      end
       item
     else
       model_class[params[:id]]
