@@ -6,8 +6,8 @@ class Job < ModelBase
   value :last_update, :class => Time
   value :percent_complete, :class => Fixnum
 
-  link :user, User
-  link :account, Account
+  link :user, User, :to => :jobs
+  link :account, Account, :to => :jobs
 
   class << self
     def display_attributes

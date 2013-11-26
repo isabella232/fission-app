@@ -5,9 +5,9 @@ class Account < ModelBase
   value :name
 
   index :name, :unique => true
-  link :owner, User
-  links :members, User
-  links :jobs, Job
+  link :owner, User, :to => :base_account
+  links :members, User, :to => :accounts
+  links :jobs, Job, :to => :account
 
   class << self
     def display_attributes

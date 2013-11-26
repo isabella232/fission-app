@@ -10,9 +10,9 @@ class User < ModelBase
 
   index :username, :unique => true
 
-  link :base_account, Account
-  links :accounts, Account
-  links :identities, Identity
+  link :base_account, Account, :to => :owner
+  links :accounts, Account, :to => :members
+  links :identities, Identity, :to => :user, :dependent => true
   links :jobs, Job
 
   class << self

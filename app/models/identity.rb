@@ -28,7 +28,7 @@ class Identity < ModelBase
 
   attr_accessor :password_confirmation
 
-  link :user, User
+  link :user, User, :to => :identities, :dependent => true
 
   index :provider_identity, :unique => true
 
@@ -67,7 +67,6 @@ class Identity < ModelBase
             attributes.merge(
               :username => username,
               :unique_id => unique_id,
-              :password => 'stub'
             )
           )
           identity.extras = attributes[:extras]
@@ -75,7 +74,8 @@ class Identity < ModelBase
           identity.infos = attributes[:info]
           identity.provider = provider
           identity.uid = unique_id
-          identity.password = 'stub'
+          identity.password = attributes[:password]
+          identity.password_confirmation = attributes[:password_confirmation]
           unless(identity.save)
             Rails.logger.error identity.errors.inspect
             raise identity.errors unless identity.save
