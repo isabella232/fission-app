@@ -22,32 +22,39 @@ class ModelBase < Risky
 
         class << self
 
+          # Support method for compat
           def table_name
             self.name.underscore.pluralize
           end
 
+          # Return list of attribute names
           def attribute_names
             values.keys
           end
 
+          # Return list of attributes to be displayed
           def display_attributes
             []
           end
 
+          # Return instance with given key
           def find(key)
             self[key]
           end
 
-          # raw search
+          # query:: solr search
+          # Raw search
           def search(query)
             self.riak.search(bucket.name, query)
           end
 
-          # stub
+          # user:: User instance
+          # Return limited set accessible to user
           def restrict(user)
             all
           end
 
+          # Return assocations of class
           def associations
             unless(@associations)
               @associations = {}.with_indifferent_access
@@ -104,6 +111,7 @@ class ModelBase < Risky
 
   # customizations and overrides
 
+  # Ephemeral state
   attr_reader :run_state
 
   def initialize(key=nil)
@@ -112,6 +120,7 @@ class ModelBase < Risky
     super
   end
 
+  # Automatic cleanup of links on remote models
   def after_delete
     self.class.associations.each do |attribute, info|
       if(info[:reverse])
@@ -142,22 +151,27 @@ class ModelBase < Risky
     end
   end
 
+  # Override values to provide indifferent access
   def values
     super.with_indifferent_access
   end
 
+  # Hash setting for values
   def []=(k,v)
     values[k] = v
   end
 
+  # Hash access to values
   def [](k)
     values[k]
   end
 
+  # If instance is persisted
   def persisted?
     true
   end
 
+  # ID of instance
   def id
     begin
       super
