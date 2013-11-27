@@ -31,10 +31,10 @@ module BasicCrud
       klass = container.sub('_id', '').classify.constantize
       base = klass[params[container]]
       @items = base.send(params[:style])
-      @title = "#{klass.name.humanize} #{base}: #{params[:style].humanize.downcase}"
+      @title = "#{klass.table_name.humanize} #{base}: #{params[:style].humanize.downcase}"
     else
       @items = model_class.restrict(current_user)
-      @title = model_class.name.humanize.pluralize
+      @title = model_class.table_name.humanize.pluralize
     end
     @items = Kaminari.paginate_array(@items).page(params[:page].to_i).per(50)
     @keys = model_class.respond_to?(:display_attributes) ? model_class.display_attributes : model_class.attribute_names
@@ -151,14 +151,9 @@ module BasicCrud
   def model_class
     unless(self.class.model_class)
       base = self.class.name.sub(%r{Controller$}, '').singularize
-      unless(Rails.env.production?)
-        # NOTE: Yay autoloading
-        ObjectSpace.const_get(base)
-      end
       klass = ModelBase.descendants.detect do |k|
-        k.name == base
+        k.name.split('::').last == base
       end
-      p klass
       self.class.model_class(klass)
     end
     self.class.model_class
