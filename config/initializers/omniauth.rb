@@ -4,12 +4,6 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   else
     Rails.application.config.omniauth_provider = :developer
   end
-
-  provider(:identity,
-    :fields => [:username],
-    :uid_field => :unique_id,
-    :on_failed_registration => UsersController.action(:new)
-  )
   provider(:github, ENV['GITHUB_KEY'], ENV['GITHUB_SECRET'])
 end
 
