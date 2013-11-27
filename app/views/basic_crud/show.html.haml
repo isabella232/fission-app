@@ -1,5 +1,5 @@
 %div{class: 'panel panel-primary'}
-  %div{class: 'panel-heading'}= "#{@item.class.to_s.humanize} #{@item}"
+  %div{class: 'panel-heading'}= "#{@item.class.table_name.humanize} #{@item}"
   %div{class: 'panel-body'}
     %table.table
       %tbody
