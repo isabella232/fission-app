@@ -9,6 +9,6 @@ Gem::Specification.new do |s|
   s.homepage = 'http://github.com/heavywater/fission-app'
   s.description = 'Fission Frontend'
   s.require_path = 'lib'
-#  s.add_dependency 'fission'
+  s.add_dependency 'fission-data'
   s.files = Dir['**/*']
 end

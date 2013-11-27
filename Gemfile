@@ -29,6 +29,9 @@ gem 'bootstrap-sass', git: 'git://github.com/thomas-mcdonald/bootstrap-sass', br
 gem 'rspec-rails', group: :test
 gem 'capybara'
 
-gem 'risky', git: 'git://github.com/chrisroberts/risky.git'
+gem 'risky', git: 'git://github.com/chrisroberts/risky.git', branch: 'updates'
+
+gem 'fission-data', git: 'git@github.com:heavywater/fission-data.git'
+gem 'pry-rails'
 
 gemspec
