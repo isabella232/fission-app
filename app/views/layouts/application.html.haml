@@ -30,7 +30,7 @@
             %ul{class: 'nav navbar-nav navbar-right'}
               %li.dropdown
                 %a{href: '#', 'data-toggle' => 'dropdown'}
-                  %img{class: 'pull-left', src: current_user.identities.first.image, width: 30, height: 30}
+                  %img{class: 'pull-left', src: current_user.identities.first[:infos].try(:[], :image), width: 30, height: 30}
                   %b.caret
                 %ul{class: 'dropdown-menu'}
                   %li

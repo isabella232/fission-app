@@ -40,10 +40,13 @@ class ApplicationController < ActionController::Base
       session[:user_id] = User.first.id
     end
     unless(@current_user)
-      @current_user = User.find_by_id(session[:user_id])
+      @current_user = User[session[:user_id]]
     end
-    if(@current_user && session[:account_id])
-      @current_user.config.account_id = session[:account_id] || @current_user.base_account_id
+    if(@current_user)
+      if(session[:account_id])
+        act = @current_user.accounts.detect{|a| a.key == session[:account_id]}
+      end
+      @current_user.run_state.current_account = act || @current_user.base_account
     end
     @current_user
   end
@@ -93,11 +96,11 @@ class ApplicationController < ActionController::Base
   def exception_handler(error)
     Rails.logger.error "#{error.class}: #{error} - (user: #{current_user.try(:username)})"
     Rails.logger.debug "#{error.class}: #{error}\n#{error.backtrace.join("\n")}"
+    msg = error.is_a?(Error) ? error.message : 'Unknown error encountered'
+    session[:redirect_count] ||= 0
+    session[:redirect_count] += 1
+    @error_state = true
     respond_to do |format|
-      msg = error.is_a?(Error) ? error.message : 'Unknown error encountered'
-      session[:redirect_count] ||= 0
-      session[:redirect_count] += 1
-      @error_state = true
       format.html do
         flash[:error] = msg
         if(session[:redirect_count] > 5)
