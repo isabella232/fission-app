@@ -36,8 +36,8 @@ end
 gem 'window_rails', git: 'git://github.com/chrisroberts/window_rails.git', branch: 'develop'
 gem 'risky', git: 'git://github.com/chrisroberts/risky.git', branch: 'updates'
 
-if(ENV['FISSION_LOCALS'] == true)
-    gem 'fission-app-jobs', path: '../fission-app-jobs', require: 'fission-app-jobs/version'
+if(ENV['FISSION_LOCALS'] == 'true')
+  gem 'fission-app-jobs', path: '../fission-app-jobs', require: 'fission-app-jobs/version'
   gem 'fission-data', path: '../fission-data'
   gem 'fission_stripe', path: '../fission_stripe'
 else
