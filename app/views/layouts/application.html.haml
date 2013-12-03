@@ -12,7 +12,7 @@
     = stylesheet_link_tag 'application', media: 'all'
     = javascript_include_tag 'application'
     = csrf_meta_tags
-    %body
+    %body{style: 'padding-bottom: 70px;'}
       %div{class: 'navbar navbar-inverse navbar-static-top'}
         %div{class: 'navbar-header'}
           %button{'type' => 'button', 'class' => 'navbar-toggle', 'data-toggle' => 'collapse', 'data-target' => '.navbar-collapse'}
@@ -39,11 +39,14 @@
                     %a{href: destroy_session_url}= 'Logout'
       %div.container
         = render partial: 'layouts/alerts'
-        %div.row
-          %div{class: 'col-md-6 col-md-offset-2', id: 'content'}
-            = yield
-          %div{class: 'col-md-3 col-md-offset-1', id: 'sidebar'}
-            = render partial: 'layouts/side_bar' if valid_user?
+        - unless @layout_freeform
+          %div.row
+            %div{class: 'col-md-6 col-md-offset-2', id: 'content'}
+              = yield
+            %div{class: 'col-md-3 col-md-offset-1', id: 'sidebar'}
+              = render partial: 'layouts/side_bar' if valid_user?
+        - else
+          = yield
       %div{class: 'navbar navbar-default navbar-fixed-bottom', role: 'footer'}
         %p{class: 'navbar-text navbar-left'}= "v#{FissionApp::VERSION.version} - #{FissionApp::VERSION.codename}"
         %p{class: 'navbar-text navbar-right'}!= "&copy; #{Time.now.year}"
