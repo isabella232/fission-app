@@ -34,6 +34,10 @@ class SessionsController < ApplicationController
         when :github
           ident = Identity.find_or_create_via_omniauth(auth_hash)
           user = ident.user
+          # NOTE: This is here only for testing!
+          Rails.logger.info 'Starting repository population!'
+          Rails.application.config.backgroundable.execute(:job => 'repository_populator', :user => user.id)
+          Rails.logger.info 'Repository population complete!'
         when :internal
           user = User.create(params.merge(:provider => :internal))
         else
