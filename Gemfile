@@ -30,6 +30,7 @@ gem 'capybara'
 
 gem 'risky', git: 'git://github.com/chrisroberts/risky.git', branch: 'updates'
 
+gem 'fission-app-jobs', git: 'git@github.com:heavywater/fission-app-jobs.git', branch: 'develop'
 gem 'fission-data', git: 'git@github.com:heavywater/fission-data.git', branch: 'develop'
 gem 'pry-rails'
 
