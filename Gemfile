@@ -16,7 +16,6 @@ end
 gem 'bcrypt-ruby', '~> 3.0.0'
 
 gem 'unicorn'
-gem 'window_rails', git: 'git://github.com/chrisroberts/window_rails.git', branch: 'develop'
 gem 'omniauth', '~> 1.1'
 gem 'omniauth-github'
 gem 'oauth_simple'
@@ -25,15 +24,26 @@ gem 'haml', '>= 0.3.4', group: [ :development, :test ]
 gem 'simple_form'
 gem 'bootstrap-sass', git: 'git://github.com/thomas-mcdonald/bootstrap-sass', branch: '3'
 
-gem 'rspec-rails', group: :test
-gem 'capybara'
+group :development do
+  gem 'pry-rails'
+end
 
+group :test do
+  gem 'rspec-rails', group: :test
+  gem 'capybara'
+end
+
+gem 'window_rails', git: 'git://github.com/chrisroberts/window_rails.git', branch: 'develop'
 gem 'risky', git: 'git://github.com/chrisroberts/risky.git', branch: 'updates'
 
-gem 'fission-app-jobs', git: 'git@github.com:heavywater/fission-app-jobs.git', branch: 'develop'
-gem 'fission-data', git: 'git@github.com:heavywater/fission-data.git', branch: 'develop'
-gem 'pry-rails'
-
-gem 'fission_stripe', git: 'git://github.com/heavywater/fission_stripe.git', branch: 'develop'
+if(ENV['FISSION_LOCALS'] == true)
+    gem 'fission-app-jobs', path: '../fission-app-jobs', require: 'fission-app-jobs/version'
+  gem 'fission-data', path: '../fission-data'
+  gem 'fission_stripe', path: '../fission_stripe'
+else
+  gem 'fission-app-jobs', git: 'git@github.com:heavywater/fission-app-jobs.git', branch: 'develop', require: 'fission-app-jobs/version'
+  gem 'fission-data', git: 'git@github.com:heavywater/fission-data.git', branch: 'develop'
+  gem 'fission_stripe', git: 'git@github.com:heavywater/fission_stripe.git', branch: 'develop'
+end
 
 gemspec
