@@ -6,6 +6,11 @@ FissionApp::Application.routes.draw do
     resources :users
     resource :owner, :controller => :users_controller
     resources :jobs
+    resources :repositories
+  end
+
+  resources :repositories do
+    resource :owner, :controller => :accounts_controller
   end
 
   resources :users do
