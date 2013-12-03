@@ -19,7 +19,6 @@ gem 'unicorn'
 gem 'window_rails', git: 'git://github.com/chrisroberts/window_rails.git', branch: 'develop'
 gem 'omniauth', '~> 1.1'
 gem 'omniauth-github'
-gem 'omniauth-identity'
 gem 'oauth_simple'
 gem 'kaminari'
 gem 'haml', '>= 0.3.4', group: [ :development, :test ]
@@ -31,7 +30,9 @@ gem 'capybara'
 
 gem 'risky', git: 'git://github.com/chrisroberts/risky.git', branch: 'updates'
 
-gem 'fission-data', git: 'git@github.com:heavywater/fission-data.git'
+gem 'fission-data', git: 'git@github.com:heavywater/fission-data.git', branch: 'develop'
 gem 'pry-rails'
+
+gem 'fission_stripe', git: 'git://github.com/heavywater/fission_stripe.git', branch: 'develop'
 
 gemspec
