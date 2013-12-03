@@ -8,7 +8,7 @@
             %th= key.to_s.humanize
           %th= 'More'
       %tbody
-        - @items.each do |obj|
+        - @items.sort{|x,y| x[@keys.first] <=> y[@keys.first]}.each do |obj|
           %tr
             - @keys.each do |key|
               %td= obj.send(key)
@@ -18,7 +18,7 @@
                   %b= '+'
                   %b.caret
                 %ul{class: 'dropdown-menu', role: 'menu', 'aria-labelledby' => 'dLabel'}
-                  - obj.class.associations.each do |name, opts|
+                  - obj.class.associations.sort{|x,y| x.first <=> y.first }.each do |name, opts|
                     - if opts[:style] == :many
                       - method_name = "#{obj.class.table_name.singularize}_#{opts[:class].table_name}_path"
                       - next unless self.respond_to?(method_name)
