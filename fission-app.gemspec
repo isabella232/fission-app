@@ -10,5 +10,6 @@ Gem::Specification.new do |s|
   s.description = 'Fission Frontend'
   s.require_path = 'lib'
   s.add_dependency 'fission-data'
+  s.executables << 'fission-app'
   s.files = Dir['**/*']
 end
