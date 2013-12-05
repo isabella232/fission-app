@@ -3,19 +3,20 @@ FissionApp::Application.routes.draw do
   root 'dashboard#index'
 
   resources :accounts do
+    resource :order, :controller => :stripe
     resources :users
-    resource :owner, :controller => :users_controller
+    resource :owner, :controller => :users
     resources :jobs
     resources :repositories
   end
 
   resources :repositories do
-    resource :owner, :controller => :accounts_controller
+    resource :owner, :controller => :accounts
   end
 
   resources :users do
     resources :accounts
-    resource :base_account, :controller => :accounts_controller
+    resource :base_account, :controller => :accounts
     resources :jobs
   end
 
