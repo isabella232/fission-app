@@ -124,7 +124,7 @@ module BasicCrud
   # Find requested model instance
   def fetch_item
     container = params.keys.detect{|k| k.to_s.end_with?('_id')}
-    klass = container.sub('_id', '').classify.constantize
+    klass = container.sub('_id', '').classify.constantize if container
     if(klass)
       base = klass[params[container]]
       item = base.send(params[:style])
