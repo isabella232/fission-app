@@ -9,7 +9,7 @@
           %th= 'More'
       %tbody
         - @items.sort{|x,y| x[@keys.first] <=> y[@keys.first]}.each do |obj|
-          %tr
+          %tr.linked{href: send("#{obj.class.table_name.singularize}_url", obj), style: 'cursor: pointer'}
             - @keys.each do |key|
               %td= obj.send(key)
             %td
@@ -30,3 +30,10 @@
                       - next unless obj.send(name)
                       %li
                         = link_to name.to_s.humanize, send(method_name, obj, obj.send(name), :style => name)
+
+:javascript
+  jQuery(document).ready(function($){
+    $(".linked").click(function(){
+      window.document.location = $(this).attr("href");
+    });
+  });
