@@ -35,9 +35,9 @@ class SessionsController < ApplicationController
           ident = Identity.find_or_create_via_omniauth(auth_hash)
           user = ident.user
           # NOTE: This is here only for testing!
-          Rails.logger.info 'Starting repository population!'
-          Rails.application.config.backgroundable.execute(:job => 'repository_populator', :user => user.id)
-          Rails.logger.info 'Repository population complete!'
+          Rails.logger.info 'Starting account population!'
+          Rails.application.config.backgroundable.trigger!(:job => 'account_populator', :user => user.id)
+          Rails.logger.info 'Repository account population!'
         when :internal
           user = User.create(params.merge(:provider => :internal))
         else
