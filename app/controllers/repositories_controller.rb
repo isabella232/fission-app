@@ -33,7 +33,7 @@ class RepositoriesController < ApplicationController
       raise "Failed to save repository! #{repo.errors.inspect}" unless repo.save
     end
     # TODO: Needs to allow option passing for filter and url modification
-    github.create_hook(
+    result = github.create_hook(
       gh_repo.full_name,'web', {
         :url => Rails.application.config.fission.rest_endpoint,
         :content_type => :json
@@ -42,6 +42,8 @@ class RepositoriesController < ApplicationController
         :active => true
       }
     )
+    repo.metadata(:github, :hook)[:web] = result.id
+    repo.save
     respond_to do |format|
       format.html do
         flash[:success] = "Repository Enabled! (#{gh_repo.full_name})"
@@ -51,6 +53,15 @@ class RepositoriesController < ApplicationController
   end
 
   def disable
+    repo = Repository[params[:repository_id]]
+    github.remove_hook(repo.name, repo.metadata[:github][:hook][:web])
+    repo.delete
+    respond_to do |format|
+      format.html do
+        flash[:success] = "Repository Removed! (#{repo.name})"
+        redirect_to account_repositories_url(@account)
+      end
+    end
   end
 
   protected
