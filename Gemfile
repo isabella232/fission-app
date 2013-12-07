@@ -33,6 +33,7 @@ group :test do
   gem 'capybara'
 end
 
+gem 'octokit'
 gem 'window_rails', git: 'git://github.com/chrisroberts/window_rails.git', branch: 'develop'
 gem 'risky', git: 'git://github.com/chrisroberts/risky.git', branch: 'updates'
 
