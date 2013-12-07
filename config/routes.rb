@@ -12,6 +12,8 @@ FissionApp::Application.routes.draw do
 
   resources :repositories do
     resource :owner, :controller => :accounts
+    get 'disable', :to => :disable
+    get 'enable', :to => :enable
   end
 
   resources :users do
