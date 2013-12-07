@@ -12,7 +12,7 @@ module BasicCrud
     base.class_eval do
       class << self
 
-        [:restrict, :model_class, :model_name, :form_key, :render_overrides].each do |n|
+        [:restrict, :model_class, :model_name, :form_key, :render_overrides, :labels, :footers, :links].each do |n|
           define_method(n) do |*args|
             unless(args.empty?)
               config.send("#{n}=", args.size > 1 ? args : args.first)
@@ -176,6 +176,21 @@ module BasicCrud
     self.class.render_overrides || {}
   end
 
+  # Footer overrides to add footer partials to main panel
+  def footers
+    self.class.footers || {}
+  end
+
+  # Label overrides to add labels to data
+  def labels
+    self.class.labels || {}
+  end
+
+  # Links overrides to disable display globally or based on user attribute
+  def links
+    self.class.labels || {}
+  end
+
   ## Okay, all done!
 
   ## internal helpers
@@ -183,6 +198,19 @@ module BasicCrud
   # Return proper render information
   def apply_render
     action = params[:action].to_sym
+    @footer = footers[action] || footers[:default]
+    @labels = labels[action] || labels[:default]
+    unless(links[action] == false)
+      unless(links[:default] == false)
+        link_val = links[action] || links[:default]
+        if(link_val)
+          if(link_val.is_a?(Proc))
+            @links = link_val
+          end
+        end
+        @links ||= proc{|arg|true}
+      end
+    end
     if(val = render_overrides[action])
       val == true ? params[:action] : val
     else
