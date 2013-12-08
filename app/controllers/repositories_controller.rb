@@ -22,6 +22,10 @@ class RepositoriesController < ApplicationController
   def enable
     gh_repo = github.repository(Base64.decode64(params[:repository_id]))
     repo = Repository.lookup(gh_repo.full_name, :github)
+    endpoint = URI.parse(Rails.application.config.fission.rest_endpoint)
+    if(params[:filter_branch])
+      endpoint.query = "filter=#{params[:filter_branch]}"
+    end
     unless(repo)
       repo = Repository.new(
         :name => gh_repo.full_name,
@@ -32,17 +36,16 @@ class RepositoriesController < ApplicationController
       repo.owner = @account
       raise "Failed to save repository! #{repo.errors.inspect}" unless repo.save
     end
-    # TODO: Needs to allow option passing for filter and url modification
     result = github.create_hook(
       gh_repo.full_name,'web', {
-        :url => Rails.application.config.fission.rest_endpoint,
+        :url => endpoint.to_s,
         :content_type => :json
       }, {
         :events => [:push],
         :active => true
       }
     )
-    repo.metadata(:github, :hook)[:web] = result.id
+    repo.set_metadata(:github, :hook, :web, result.id)
     repo.save
     respond_to do |format|
       format.html do
@@ -54,7 +57,10 @@ class RepositoriesController < ApplicationController
 
   def disable
     repo = Repository[params[:repository_id]]
-    github.remove_hook(repo.name, repo.metadata[:github][:hook][:web])
+    hook_id = repo.get_metadata(:github, :hook, :web)
+    if(hook_id)
+      github.remove_hook(repo.name, hook_id)
+    end
     repo.delete
     respond_to do |format|
       format.html do
