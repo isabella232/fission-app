@@ -10,6 +10,6 @@
         "secret_key": "stub"
     },
     "static_pages": {
-        "path": "/tmp/pages"
+        "path": null
     }
 }
