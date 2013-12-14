@@ -13,6 +13,12 @@ class FissionApp::Application
   config.fission.rest_endpoint = config.fission.config[:fission][:rest_endpoint]
   config.fission.rest_endpoint_ssl = config.fission.config[:fission][:rest_endpoint_ssl]
 
-  config.fission.static_pages = config.fission.config[:static_pages][:path]
+  if(config.fission.config[:static_pages] && config.fission.config[:static_pages][:path])
+    config.fission.static_pages = config.fission.config[:static_pages][:path]
+  else
+    config.fission.static_pages = File.join(
+      Gem::Specification.find_by_name('fission-app-static').full_gem_path, 'data'
+    )
+  end
 
 end
