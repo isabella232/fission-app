@@ -8,7 +8,8 @@ class StaticPagesController < ActionController::Base
   def display
     respond_to do |format|
       format.html do
-        if(entry = @pages[params[:path]])
+        key = params[:path].sub(%r{^/}, '')
+        if(entry = @pages[key])
           @content = entry[:content]
         else
           # TODO: Needs proper 404ing
@@ -28,15 +29,18 @@ class StaticPagesController < ActionController::Base
       next if @pages[path] && @pages[path][:mtime] == mtime
       @pages[path] = {
         :mtime => mtime,
-        :content => read_static_file(path)
+        :content => read_static_file(path, base_directory)
       }.with_indifferent_access
     end
   end
 
-  def read_static_file(path)
-    if(path.end_with('.yml'))
+  def read_static_file(path, prefix=nil)
+    if(prefix)
+      path = Dir.glob(File.join(prefix, "#{path}*")).first
+    end
+    if(path.end_with?('.yml'))
       YAML.load(File.read(path))
-    elsif(path.end_with('.json'))
+    elsif(path.end_with?('.json'))
       JSON.load(File.read(path))
     else
       raise "Unknown file extension type encountered on: #{path}"
@@ -45,8 +49,11 @@ class StaticPagesController < ActionController::Base
 
   def time_files_in(dir)
     result = {}.with_indifferent_access
-    Dir.glob(File.join(dir, '*')).each do |path|
-      result[path] = File.mtime(path)
+    Dir.glob(File.join(dir, '**/*')).each do |path|
+      next unless File.file?(path)
+      key = path.sub(dir, '')
+      key = key.sub(File.extname(key), '').sub(%r{^/}, '')
+      result[key] = File.mtime(path)
     end
     result
   end
