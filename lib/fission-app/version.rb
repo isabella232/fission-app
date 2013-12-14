@@ -1,7 +1,7 @@
 module FissionApp
   class Version < Gem::Version
     attr_reader :codename
-    def initialize(version, codename)
+    def initialize(version, codename=nil)
       super(version)
       @codename = codename
     end
