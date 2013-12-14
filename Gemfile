@@ -34,7 +34,6 @@ group :test do
 end
 
 gem 'octokit'
-gem 'window_rails', git: 'git://github.com/chrisroberts/window_rails.git', branch: 'develop'
 gem 'risky', git: 'git://github.com/chrisroberts/risky.git', branch: 'updates'
 
 if(ENV['FISSION_LOCALS'] == 'true')
@@ -46,5 +45,7 @@ else
   gem 'fission-data', git: 'git@github.com:heavywater/fission-data.git', branch: 'develop'
   gem 'fission_stripe', git: 'git@github.com:heavywater/fission_stripe.git', branch: 'develop'
 end
+
+#gem 'trinidad'
 
 gemspec
