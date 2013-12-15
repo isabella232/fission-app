@@ -2,7 +2,7 @@ FissionApp::Application.routes.draw do
 
   root 'dashboard#index'
 
-  get 's/:path', to: 'static_pages#display', :constraints => {:path => /.*/}
+  get 's(/:path)', to: 'static_pages#display', :constraints => {:path => /.*/}
 
   resources :accounts do
     resource :order, :controller => :stripe
