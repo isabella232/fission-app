@@ -1,4 +1,6 @@
-class StaticPagesController < ActionController::Base
+class StaticPagesController < ApplicationController
+
+  before_action :validate_user!, :except => [:display]
 
   before_action do
     @pages ||= {}.with_indifferent_access
@@ -8,7 +10,7 @@ class StaticPagesController < ActionController::Base
   def display
     respond_to do |format|
       format.html do
-        key = params[:path].sub(%r{^/}, '')
+        key = (params[:path] || 'index').sub(%r{^/}, '')
         if(entry = @pages[key])
           @content = entry[:content]
         else
