@@ -36,3 +36,23 @@ database.
 ## Usage examples
 
 Run rails application. Do website stuff.
+
+### Start without database
+
+```
+FISSION_DATA=false ./bin/rails s
+```
+
+It's important to note most of the app will not work.
+
+### Using local repository checkouts
+
+```
+FISSION_LOCALS=true ./bin/rails s
+```
+
+This will use local paths instead of repos for fission
+related gems. It assumes everything will be in the same
+directory on the local machine. It requires all fission
+used gems to be local. Look in the Gemfile to see the
+full list.
