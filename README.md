@@ -51,6 +51,12 @@ It's important to note most of the app will not work.
 FISSION_LOCALS=true ./bin/rails s
 ```
 
+This will use local paths instead of repos for fission
+related gems. It assumes everything will be in the same
+directory on the local machine. It requires all fission
+used gems to be local. Look in the Gemfile to see the
+full list.
+
 ### Enable github OAuth support
 
 Use the hw-test for local testing:
@@ -61,9 +67,3 @@ GITHUB_KEY='KEY' GITHUB_SECRET='SECRET' bundle exec rails s
 
 The key and secret and be found in the application section
 on github: https://github.com/organizations/heavywater/settings/applications/69745
-
-This will use local paths instead of repos for fission
-related gems. It assumes everything will be in the same
-directory on the local machine. It requires all fission
-used gems to be local. Look in the Gemfile to see the
-full list.
