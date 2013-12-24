@@ -7,7 +7,11 @@
         %div.step{ id: step[:id] }
           %div.row
             %div.col-sm-5
-              %img{ src: step[:img] }
+              - if step[:code]
+                %div
+                  %pre.highlight{ class: step[:code][:lang] }= step[:code][:content]
+              - else
+                %img{ src: step[:img] }
             %div.col-sm-7
               %h2= step[:title]
               %h4= step[:subtitle]
@@ -23,4 +27,8 @@
               - step[:content].each do |p|
                 %p= p
             %div.col-sm-5
-              %img{ src: step[:img] }
+              - if step[:code]
+                %div
+                  %pre.highlight{ class: step[:code][:lang] }= step[:code][:content]
+              - else
+                %img{ src: step[:img] }

@@ -10,4 +10,8 @@
             %i.fa.fa-arrow-circle-right
 
       %div.col-sm-4
-        %img{ src: @content[:banner][:img] }
+        - if @content[:banner][:code]
+          %div
+            %pre.highlight{ class: @content[:banner][:code][:lang] }= @content[:banner][:code][:content]
+        - else
+          %img{ src: @content[:banner][:img] }
