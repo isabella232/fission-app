@@ -11,4 +11,15 @@
  *= require_self
  *= require_tree .
  */
+
+/* Third-party CSS */
 @import "bootstrap";
+@import "font-awesome/css/font-awesome";
+
+/* Theme CSS */
+@import "theme/colors";
+@import "theme/fission";
+
+/* Views CSS (overrides for specific views) */
+@import "views/auth";
+
