@@ -1,0 +1,109 @@
+@import "colors";
+@import "buttons";
+
+.banner {
+  margin-top: -20px;
+  background-color: $color-primary;
+  min-height: 250px;
+  .row {
+    margin: 20px 0px;
+  };
+  .row .col-sm-8, .col-sm-4 {
+    padding: 0px;
+  };
+  h1, h2, h3, h4 {
+    color: $color-text;
+    margin-top: 0px;
+  };
+  p {
+    color: $color-lightest;
+  };
+  img {
+    float: right;
+    width: 100%;
+  };
+}
+
+.problem {
+  margin-top: 20px;
+  i {
+    font-size: 50px;
+    margin-bottom: 5px;
+  }
+  p {
+    font-size: 150%;
+  }
+}
+
+.problem:hover {
+  i {
+    font-size: 55px;
+    margin-bottom: 0px;
+  }
+}
+
+.features {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  .feature {
+    margin-bottom: 20px;
+    .icon {
+      height: 90px;
+    }
+    i {
+      color: $color-primary;
+      display: block;
+      text-align: center;
+      font-size: 70px;
+      margin-bottom: 5px;
+    };
+    i:hover {
+      font-size: 75px;
+      margin-bottom: 0px;
+    }
+    h3 {
+      display: block;
+      text-align: center;
+      margin-top: 10px;
+    };
+    p {
+      display: block;
+      text-align: center;
+      margin-bottom: 0px;
+    };
+    a:hover {
+      text-decoration: none;
+    };
+    .btn {
+      display: block;
+      width: 50%;
+      margin-left: auto;
+      margin-right: auto;
+    };
+  }
+}
+
+.process {
+  background-color: $color-darkest;
+  color: $color-text;
+  .row {
+    margin-top: 20px;
+  };
+  img {
+      border-radius: 5px;
+      width: 100%;
+      height: 100%;
+      padding-bottom: 10px;
+  };
+  h1 {
+    display: inline;
+    color: black;
+  };
+  h4 {
+    color: $color-lightest;
+  };    
+  p {
+      color: black;
+  };
+}
+

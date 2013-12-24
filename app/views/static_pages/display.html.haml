@@ -1,1 +1,17 @@
-%div= @content
+// Landing page banner content
+// Displayed if @content[:banner] exists
+= render partial: 'layouts/static_banner'
+
+// Landing page problem statement
+// Displayed if @content[:problem] exists
+= render partial: 'layouts/static_bigquote'
+
+%hr
+
+// Landing page features/highlights
+// Displayed if @content[:features] exists
+= render partial: 'layouts/static_features'
+
+// Landing page storyboard
+// Displayed if @content[:solution] exists
+= render partial: 'layouts/static_solution'
