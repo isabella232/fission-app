@@ -29,17 +29,17 @@
   i {
     font-size: 50px;
     margin-bottom: 5px;
-  }
+  };
   p {
     font-size: 150%;
-  }
+  };
 }
 
 .problem:hover {
   i {
     font-size: 55px;
     margin-bottom: 0px;
-  }
+  };
 }
 
 .features {
@@ -49,7 +49,7 @@
     margin-bottom: 20px;
     .icon {
       height: 90px;
-    }
+    };
     i {
       color: $color-primary;
       display: block;
@@ -60,7 +60,7 @@
     i:hover {
       font-size: 75px;
       margin-bottom: 0px;
-    }
+    };
     h3 {
       display: block;
       text-align: center;
@@ -86,14 +86,16 @@
 .process {
   background-color: $color-darkest;
   color: $color-text;
-  .row {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  .highlight {
     margin-top: 20px;
   };
   img {
       border-radius: 5px;
       width: 100%;
       height: 100%;
-      padding-bottom: 10px;
+      margin-top: 20px;
   };
   h1 {
     display: inline;
@@ -106,4 +108,3 @@
       color: black;
   };
 }
-
