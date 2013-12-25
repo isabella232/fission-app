@@ -8,12 +8,12 @@
   border: 0px;
   border-left: $color-darkest solid 5px;
   background-color: $color-darker;
-  color: $color-text;
+  color: $color;
 }
 
 .fission-button:hover {
   text-decoration: none;
-  color: $color-text;
+  color: $color;
 };
 
 .fission-button:active {
