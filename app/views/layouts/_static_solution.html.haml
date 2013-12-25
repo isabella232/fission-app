@@ -1,10 +1,10 @@
 // A "storyboard" of features
 // Requires an array of hashes: containing {id: "", img: "", title: "", subtitle: "", content: [""]}
-%div.process
+%div.solution
   %div.container
     - @content[:solution].each do |step|
       - if (@content[:solution].index(step) % 2) == 0
-        %div.step{ id: step[:id] }
+        %div.step.navfix{ id: step[:id] }
           %div.row
             %div.col-sm-5
               - if step[:code]
@@ -13,19 +13,19 @@
               - else
                 %img{ src: step[:img] }
             %div.col-sm-7
-              %h2= step[:title]
-              %h4= step[:subtitle]
+              %h2!= step[:title]
+              %h4!= step[:subtitle]
               - step[:content].each do |p|
-                %p= p
+                %p!= p
 
       - else
-        %div.step{ id: step[:id] }
+        %div.step.navfix{ id: step[:id] }
           %div.row
             %div.col-sm-7
-              %h2= step[:title]
-              %h4= step[:subtitle]
+              %h2!= step[:title]
+              %h4!= step[:subtitle]
               - step[:content].each do |p|
-                %p= p
+                %p!= p
             %div.col-sm-5
               - if step[:code]
                 %div
