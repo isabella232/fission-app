@@ -8,6 +8,7 @@ class FissionApp::Application
     )
   ).with_indifferent_access
 
+  config.fission.pricing = config.fission.config[:pricing]
   config.fission.json_support = config.fission.config[:json_style]
   config.fission.site_brand = config.fission.config[:site_brand]
   config.fission.rest_endpoint = config.fission.config[:fission][:rest_endpoint]
