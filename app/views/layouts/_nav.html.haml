@@ -19,7 +19,7 @@
             %a{ href: accounts_url }= 'Accounts'
         - else
           - if @nav
-            - nav.each do |section|
+            - @nav.each do |section|
               %li
                 %a{ href: section[:url] }= section[:name]
       %ul.nav.navbar-nav.navbar-right
