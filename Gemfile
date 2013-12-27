@@ -46,12 +46,12 @@ gem 'risky', git: 'git://github.com/chrisroberts/risky.git', branch: 'updates'
 if(ENV['FISSION_LOCALS'] == 'true')
   gem 'fission-app-jobs', path: '../fission-app-jobs', require: 'fission-app-jobs/version'
   gem 'fission-data', path: '../fission-data'
-  gem 'fission_stripe', path: '../fission_stripe'
+  gem 'fission-app-stripe', path: '../fission-app-stripe'
   gem 'fission-app-static', path: '../fission-app-static'
 else
   gem 'fission-app-jobs', git: 'git@github.com:heavywater/fission-app-jobs.git', branch: 'develop', require: 'fission-app-jobs/version'
   gem 'fission-data', git: 'git@github.com:heavywater/fission-data.git', branch: 'develop'
-  gem 'fission_stripe', git: 'git@github.com:heavywater/fission_stripe.git', branch: 'develop'
+  gem 'fission-app-stripe', git: 'git@github.com:heavywater/fission-app-stripe.git', branch: 'develop'
   gem 'fission-app-static', git: 'git@github.com:heavywater/fission-app-static', branch: 'develop'
 end
 
