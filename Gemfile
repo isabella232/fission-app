@@ -33,6 +33,7 @@ gem 'bootstrap-sass'
 group :development do
   gem 'warbler'
   gem 'pry-rails'
+  gem 'guard-livereload', require: false
 end
 
 group :test do
