@@ -1,0 +1,12 @@
+// A full-width quote with font-awesome quote icons
+%div.problem
+  - if @content[:problem]
+    %div.container
+      %div.row
+        %div.col-sm-1
+          %i.fa.fa-quote-left.quotes
+        %div.col-sm-10
+          - @content[:problem].each do |p|
+            %p!= p
+        %div.col-sm-1
+          %i.fa.fa-quote-right.quotes.pull-right

@@ -2,8 +2,8 @@
     "site_brand": "Fission",
     "json_style": "jsend",
     "fission": {
-        "rest_endpoint": "http://alpha.hw-ops.com",
-        "rest_endpoint_ssl": "https://alpha.hw-ops.com"
+        "rest_endpoint": "http://snowflake.hw-ops.com",
+        "rest_endpoint_ssl": "https://snowflake.hw-ops.com"
     },
     "stripe": {
         "publishable_key": "stub",

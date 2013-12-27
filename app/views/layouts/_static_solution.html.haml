@@ -1,0 +1,34 @@
+// A "storyboard" of features
+// Requires an array of hashes: containing {id: "", img: "", title: "", subtitle: "", content: [""]}
+%div.solution
+  %div.container
+    - @content[:solution].each do |step|
+      - if (@content[:solution].index(step) % 2) == 0
+        %div.step.navfix{ id: step[:id] }
+          %div.row
+            %div.col-sm-5
+              - if step[:code]
+                %div
+                  %pre.highlight{ class: step[:code][:lang] }= step[:code][:content]
+              - else
+                %img{ src: step[:img] }
+            %div.col-sm-7
+              %h2!= step[:title]
+              %h4!= step[:subtitle]
+              - step[:content].each do |p|
+                %p!= p
+
+      - else
+        %div.step.navfix{ id: step[:id] }
+          %div.row
+            %div.col-sm-7
+              %h2!= step[:title]
+              %h4!= step[:subtitle]
+              - step[:content].each do |p|
+                %p!= p
+            %div.col-sm-5
+              - if step[:code]
+                %div
+                  %pre.highlight{ class: step[:code][:lang] }= step[:code][:content]
+              - else
+                %img{ src: step[:img] }

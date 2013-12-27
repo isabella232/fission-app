@@ -1,0 +1,17 @@
+%div.banner
+  %div.container
+    %div.row
+      %div.col-sm-8
+        %h2!= @content[:banner][:title]
+        %p!= @content[:banner][:subtitle]
+        %a{ href: @content[:banner][:button][:url] }
+          %div.fission-button{ type: "button" }
+            = @content[:banner][:button][:text]
+            %i.fa.fa-arrow-circle-right
+
+      %div.col-sm-4
+        - if @content[:banner][:code]
+          %div
+            %pre.highlight{ class: @content[:banner][:code][:lang] }= @content[:banner][:code][:content]
+        - else
+          %img{ src: @content[:banner][:img] }
