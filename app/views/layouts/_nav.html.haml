@@ -9,10 +9,7 @@
         %span{class: 'icon-bar'}
         %span{class: 'icon-bar'}
         %span{class: 'icon-bar'}
-      - if @content
-        %a.navbar-brand{ href: "/s/" }= @content[:app] || Rails.application.config.fission.site_brand
-      - else
-        %a.navbar-brand{ href: "/s/" }= Rails.application.config.fission.site_brand
+        %a.navbar-brand{ href: "/s/" }= @app_name || Rails.application.config.fission.site_brand
     %div.collapse.navbar-collapse
       %ul.nav.navbar-nav
         - if current_user
@@ -21,11 +18,10 @@
           %li
             %a{ href: accounts_url }= 'Accounts'
         - else
-          - if @content 
-            - if @content[:nav]
-              - @content[:nav].each do |section|
-                %li
-                  %a{ href: section[:url] }= section[:name]
+          - if @nav
+            - nav.each do |section|
+              %li
+                %a{ href: section[:url] }= section[:name]
       %ul.nav.navbar-nav.navbar-right
         - if current_user
           %li.dropdown
