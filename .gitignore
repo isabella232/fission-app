@@ -22,3 +22,5 @@ vendor/*
 !.gitignore
 
 Gemfile.lock
+
+/lib/java*
