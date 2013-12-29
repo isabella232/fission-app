@@ -6,7 +6,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'jbuilder', '~> 1.2'
-gem 'rouge'
+gem 'rouge', git: 'git://github.com/chrisroberts/rouge.git', branch: 'fix/lazyload'
 
 group :doc do
   gem 'sdoc', require: false
