@@ -1,3 +1,5 @@
+require 'fission-app-jobs/utils'
+
 module Fission
   module App
     class Backgroundable
