@@ -5,7 +5,7 @@ $nav_height: 51px;
 
 .navfix {
   padding-top: $nav_height;
-}
+};
 
 .banner {
   background-color: $color-primary;
@@ -27,7 +27,7 @@ $nav_height: 51px;
     float: right;
     width: 100%;
   };
-}
+};
 
 .problem {
   margin-top: 20px;
@@ -39,14 +39,14 @@ $nav_height: 51px;
     font-size: 125%;
     text-align: justify;
   };
-}
+};
 
 .problem:hover {
   i {
     font-size: 55px;
     margin-bottom: 0px;
   };
-}
+};
 
 .features {
   padding-top: 20px;
@@ -87,7 +87,7 @@ $nav_height: 51px;
       margin-right: auto;
     };
   }
-}
+};
 
 .solution {
   background-color: $color-darkest;
@@ -115,5 +115,12 @@ $nav_height: 51px;
     h4 {
       color: $color-lightest;
     };
+  };
+};
+
+.sidebar {
+  margin-top: 20px;
+  .fission-button {
+    display: block;
   };
 }
