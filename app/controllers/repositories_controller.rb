@@ -21,36 +21,47 @@ class RepositoriesController < ApplicationController
 
   def enable
     gh_repo = github.repository(Base64.decode64(params[:repository_id]))
-    repo = Repository.lookup(gh_repo.full_name, :github)
-    endpoint = URI.parse(Rails.application.config.fission.rest_endpoint)
-    if(params[:filter_branch])
-      endpoint.query = "filter=#{params[:filter_branch]}"
-    end
-    unless(repo)
-      repo = Repository.new(
-        :name => gh_repo.full_name,
-        :url => gh_repo.rels[:git].href,
-        :clone_url => gh_repo.rels[:clone].href,
-        :private => gh_repo.private
+    account = @account || Account.find_by_name(gh_repo.full_name.split('/').first)
+    if(account.subscription_id)
+      repo = Repository.lookup(gh_repo.full_name, :github)
+      endpoint = URI.parse(Rails.application.config.fission.rest_endpoint)
+      if(params[:filter_branch] && !params[:filter_branch].strip.empty?)
+        endpoint.query = "filter=#{params[:filter_branch]}"
+      end
+      unless(repo)
+        repo = Repository.new(
+          :name => gh_repo.full_name,
+          :url => gh_repo.rels[:git].href,
+          :clone_url => gh_repo.rels[:clone].href,
+          :private => gh_repo.private
+        )
+        repo.owner = account
+        raise "Failed to save repository! #{repo.errors.inspect}" unless repo.save
+      end
+      result = github.create_hook(
+        gh_repo.full_name,'web', {
+          :url => endpoint.to_s,
+          :content_type => :json
+        }, {
+          :events => [:push],
+          :active => true
+        }
       )
-      repo.owner = @account
-      raise "Failed to save repository! #{repo.errors.inspect}" unless repo.save
-    end
-    result = github.create_hook(
-      gh_repo.full_name,'web', {
-        :url => endpoint.to_s,
-        :content_type => :json
-      }, {
-        :events => [:push],
-        :active => true
-      }
-    )
-    repo.set_metadata(:github, :hook, :web, result.id)
-    repo.save
-    respond_to do |format|
-      format.html do
-        flash[:success] = "Repository Enabled! (#{gh_repo.full_name})"
-        redirect_to account_repositories_url(@account)
+      repo.set_metadata(:github, :hook, :web, result.id)
+      repo.save
+      respond_to do |format|
+        format.html do
+          flash[:success] = "Repository Enabled! (#{gh_repo.full_name})"
+          redirect_to @account ? account_repositories_url(@account) : root_url
+        end
+      end
+    else
+      respond_to do |format|
+        format.html do
+          flash[:info] = 'Cannot enable repository until account is enabled'
+          session[:repo_enable_account_redirect] = params.dup
+          redirect_to account_order_url(account)
+        end
       end
     end
   end
@@ -68,16 +79,6 @@ class RepositoriesController < ApplicationController
         redirect_to account_repositories_url(@account)
       end
     end
-  end
-
-  protected
-
-  def fetch_github_repos
-    Fission::App::Jobs.fetch_all(github.org(@account.name), :repos)
-  end
-
-  def github
-    Octokit::Client.new(:access_token => current_user.token_for(:github))
   end
 
 end
