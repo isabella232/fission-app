@@ -67,3 +67,11 @@ GITHUB_KEY='KEY' GITHUB_SECRET='SECRET' bundle exec rails s
 
 The key and secret and be found in the application section
 on github: https://github.com/organizations/heavywater/settings/applications/69745
+
+### Enable Stripe support
+
+Add environment keys for stripe:
+
+```
+STRIPE_SECRET_KEY='fubar' STRIPE_PUBLISHABLE_KEY='fubar' bundle exec rails s
+```

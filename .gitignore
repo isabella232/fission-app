@@ -22,3 +22,9 @@ vendor/*
 !.gitignore
 
 Gemfile.lock
+
+# Ignore jars
+/lib/java*
+
+# Ignore war builds
+*.war
