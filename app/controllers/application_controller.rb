@@ -126,4 +126,14 @@ class ApplicationController < ActionController::Base
     session[:redirect_count] = 0 unless @error_state
   end
 
+  def fetch_github_repos(*accounts)
+    [accounts].flatten.compact.map do |account|
+      Fission::App::Jobs.fetch_all(github.org(account), :repos)
+    end.flatten.sort{|x,y| x.full_name <=> y.full_name}
+  end
+
+  def github
+    Octokit::Client.new(:access_token => current_user.token_for(:github))
+  end
+
 end
