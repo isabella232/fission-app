@@ -16,4 +16,4 @@
             %input#branch_filter{type: 'text', name: 'filter_branch', class: 'form-control', placeholder: 'None'}
           %button#repo_enable_button{type: 'submit', class: 'btn btn-default'}= 'Enable'
 
-= render :partial => 'repositories/js'
+= render :partial => 'repositories/js', :locals => {:repositories => defined?(repositories) ? repositories : nil}

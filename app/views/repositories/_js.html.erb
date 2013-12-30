@@ -1,16 +1,23 @@
 <%= javascript_tag do %>
   jQuery(document).ready(function($){
     <% if(defined?(repositories)) -%>
-      $('input#repository').typeahead({
-        name: 'repository',
-        local: [<%=
+      $('input#repository').autocomplete({
+        minLength: 0,
+        focus: function(event, ui){
+          $('input#repository').val(ui.item.value);
+          return false;
+        },
+        select: function(event, ui){
+          repo_url = ui.item.url;
+          return false;
+        },
+        source: [<%=
                    repositories.map{|repo|
                      val = []
-                     val << "value: '#{repository_enable_url(Base64.encode(repo.full_name))}'"
-                     val << "name: '#{repo.full_name}'"
-                     val << "tokens: ['#{repo.full_name}', '#{repo.name}']"
+                     val << "url: '#{repository_enable_url(Base64.encode64(repo.full_name))}'"
+                     val << "value: '#{repo.full_name}'"
                      "{#{val.join(', ')}}"
-                   }
+                   }.join(', ').html_safe
                  %>]
       });
     <% end -%>
@@ -20,7 +27,7 @@
       window.document.location = $(this).attr("href");
     });
     $(".repo-enable").click(function(){
-      <% if(defined?(repositories)) ->
+      <% if(defined?(repositories)) -%>
         $("h4#repo_add_title").text("Enable Repository");
       <% else -%>
         repo_url = $(this).attr("repo-url");
