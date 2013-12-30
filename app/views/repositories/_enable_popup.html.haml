@@ -4,27 +4,16 @@
       %div{class: 'modal-header'}
         %button.close{:type => 'button', 'data-dismiss' => 'modal', 'aria-hidden' => true}
           &times;
-        %h4#repo_add_title{class: 'modal-title'}= 'Repo enable'
+        %h4#repo_add_title{class: 'modal-title'}= defined?(title) ? title : 'Repo enable'
       %div{class: 'modal-body'}
-        = form_tag '#', :method => :post, :id => 'repo_enable', :role => 'form'  do
-          %div{class: 'form-group'}
+        = form_tag '#', :method => :post, :id => 'repo_enable', :role => 'form' do
+          - if(defined?(repositories))
+            %div.form-group
+              %label{for: 'repository'}= 'Repository'
+              %input#repository{type: 'text', name: 'repository', class: 'form-control', placeholder: 'Repository'}
+          %div.form-group
             %label{for: 'branch_filter'}= 'Filter branch'
             %input#branch_filter{type: 'text', name: 'filter_branch', class: 'form-control', placeholder: 'None'}
           %button#repo_enable_button{type: 'submit', class: 'btn btn-default'}= 'Enable'
 
-:javascript
-  jQuery(document).ready(function($){
-    var repo_url = null;
-    $(".linked").click(function(){
-      window.document.location = $(this).attr("href");
-    });
-    $(".repo-enable").click(function(){
-      repo_url = $(this).attr("repo-url");
-      $("h4#repo_add_title").text("Enable " + $(this).attr("repo-name"));
-      return true;
-    });
-    $("button#repo_enable_button").click(function(){
-      $('form#repo_enable').attr("action", repo_url);
-      $('form#repo_enable').submit();
-    });
-  });
+= render :partial => 'repositories/js'
