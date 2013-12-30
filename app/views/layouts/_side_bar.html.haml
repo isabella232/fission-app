@@ -1,11 +1,12 @@
-%div{class: 'panel panel-primary'}
-  %div{class: 'panel-heading'}
-    %h3{class: 'panel-title'}= "Account: #{current_user.run_state.current_account.name}"
-  %div{class: 'panel-body'}
+%div.panel.panel-default.sidebar
+  %div.panel-heading
+    %h3.panel-title= "User: #{current_user.run_state.current_account.name}"
+  %div.panel-body
+    %p= "Manage your Packager.co user account settings here."
   %table.table
     %tr
       %td
-        OHAI
+        %div.fission-button{ href: "#ohai" }= "OHAI"
     %tr
       %td
-        OBAI
+        %div.fission-button{ href: "#obai" }= "OBAI"
