@@ -1,5 +1,49 @@
-%div{class: 'panel panel-primary'}
-  %div{class: 'panel-heading'}
-    Dashboard Yo!
-  %div{class: 'panel-body'}
-    Stuff in here!
+%div.container
+  %row
+    %div.col-xs-3.add-repo
+      %div.fission-button{ href: "#add-repo" }= "Add a repository"
+    %div.col-xs-9.add-repo
+      %p= "Add a new repository!"
+
+%div.container
+  %row
+    %div.col-md-9
+      %div.panel.panel-default.repositories
+        %div.panel-heading
+          %h2= "Repositories"
+        %div.panel-body
+          %p= "Manage configuration settings for your source code repositories here."
+        %table.table.table-striped
+          %tr
+            %th= "Name"
+            %th= ""
+          - @repos.each do |repo|
+            %tr
+              %td
+                %a.h4{ href: repo.clone_url }= repo.name
+              %td
+                %a.fission-button.pull-right{ href: "##{repo.short_name}-settings" }= "Settings"
+
+      %div.panel.panel-default.accounts
+        %div.panel-heading
+          %h2= "Accounts"
+        %div.panel-body
+          %p= "Manage multiple GitHub Organizations (here called 'Accounts') from your Packager dashboard!"
+        %table.table.table-striped
+          %tr
+            %th= "Name"
+            %th= "Plan"
+            %th= ""
+          - @accounts.each do |account|
+            %tr
+              %td
+                %a.h4{ href: "http://github.com/#{account.name}" }= account.name
+              %td
+                %p= "Gold"
+              %td
+                %a.fission-button.pull-right.repo_enable{ href: "#" }= "Manage"
+
+    %div.col-md-3
+      = render partial: "layouts/side_bar"    
+
+%div.container.navfix
