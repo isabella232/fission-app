@@ -1,7 +1,7 @@
 %div.container
   %row
     %div.col-xs-3.add-repo
-      %div.fission-button{ href: "#add-repo" }= "Add a repository"
+      %div.repo-enable.fission-button{ href: "#", 'data-toggle' => 'modal', 'data-target' => '#repo_add_options' }= "Add a repository"
     %div.col-xs-9.add-repo
       %p= "Add a new repository!"
 
@@ -44,6 +44,8 @@
                 %a.fission-button.pull-right.repo_enable{ href: "#" }= "Manage"
 
     %div.col-md-3
-      = render partial: "layouts/side_bar"    
+      = render partial: "layouts/side_bar"
 
 %div.container.navfix
+
+= render :partial => 'repositories/enable_popup', :locals => {:repositories => @unregistered_repos}
