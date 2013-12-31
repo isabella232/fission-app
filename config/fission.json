@@ -14,31 +14,144 @@
     },
     "pricing": {
         "packager": {
-            "basic": {
-                "title": "Basic Pkgr",
-                "summary": "The basic package!",
+            "bronze": {
+                "title": "Bronze",
+                "summary": "For small projects, to ship 1-2 new packages per day.",
                 "price": "19900",
                 "description": [
-                    "bullet 1",
-                    "bullet 2"
+                    {
+                        "label": "30 package builds/mo",
+                        "icon": "fa-plus-square"
+                    },
+                    {
+                        "label": "Shared host",
+                        "icon": "fa-plus-square"
+                    },
+                    {
+                        "label": "Unlimited Repos",
+                        "icon": "fa-plus-square"
+                    },
+                    {
+                        "label": "Unlimited users",
+                        "icon": "fa-plus-square"
+                    },
+                    {
+                        "label": "GitHub Releases",
+                        "icon": "fa-plus-square"
+                    },
+                    {
+                        "label": "",
+                        "icon": ""
+                    },
+                    {
+                        "label": "",
+                        "icon": ""
+                    }
                 ]
             },
-            "unbasic": {
-                "title": "Un-Basic Pkgr",
-                "summary": "The un-basic package!",
-                "price": "49900",
+            "silver": {
+                "title": "Silver",
+                "summary": "For small teams, to ship 3-4 packages per day.",
+                "price": "39900",
                 "description": [
-                    "bullet 1",
-                    "bullet 2"
+                    {
+                        "label": "100 package builds/mo",
+                        "icon": "fa-plus-square"
+                    },
+                    {
+                        "label": "Shared host",
+                        "icon": "fa-plus-square"
+                    },
+                    {
+                        "label": "Unlimited Repos",
+                        "icon": "fa-plus-square"
+                    },
+                    {
+                        "label": "Unlimited users",
+                        "icon": "fa-plus-square"
+                    },
+                    {
+                        "label": "GitHub Releases",
+                        "icon": "fa-plus-square"
+                    },
+                    {
+                        "label": "",
+                        "icon": ""
+                    },
+                    {
+                        "label": "",
+                        "icon": ""
+                    }
                 ]
             },
-            "advanced": {
-                "title": "Advanced Pkgr",
-                "summary": "The advanced package!",
+            "gold": {
+                "title": "Gold",
+                "summary": "For medium-sized teams, to ship 10+ packages per day.",
+                "price": "99900",
+                "description": [
+                    {
+                        "label": "400 package builds/mo",
+                        "icon": "fa-plus-square"
+                    },
+                    {
+                        "label": "Shared host",
+                        "icon": "fa-plus-square"
+                    },
+                    {
+                        "label": "Unlimited Repos",
+                        "icon": "fa-plus-square"
+                    },
+                    {
+                        "label": "Unlimited users",
+                        "icon": "fa-plus-square"
+                    },
+                    {
+                        "label": "GitHub Releases",
+                        "icon": "fa-plus-square"
+                    },
+                    {
+                        "label": "Private Repository",
+                        "icon": "fa-plus-square"
+                    },
+                    {
+                        "label": "",
+                        "icon": ""
+                    }
+                ]
+            },
+            "platinum": {
+                "title": "Platinum",
+                "summary": "For teams with many projects, to ship 30-50 packages per day.",
                 "price": "199900",
                 "description": [
-                    "bullet 1",
-                    "bullet 2"
+                    {
+                        "label": "1000+ package builds/mo",
+                        "icon": "fa-plus-square"
+                    },
+                    {
+                        "label": "Shared host",
+                        "icon": "fa-plus-square"
+                    },
+                    {
+                        "label": "Unlimited Repos",
+                        "icon": "fa-plus-square"
+                    },
+                    {
+                        "label": "Unlimited users",
+                        "icon": "fa-plus-square"
+                    },
+                    {
+                        "label": "GitHub Releases",
+                        "icon": "fa-plus-square"
+                    },
+                    {
+                        "label": "Private Repository",
+                        "icon": "fa-plus-square"
+                    },
+                    {
+                        "label": "Optional Support",
+                        "icon": "fa-plus-square"
+                    }
                 ]
             }
         },
