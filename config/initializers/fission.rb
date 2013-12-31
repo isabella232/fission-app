@@ -26,7 +26,8 @@ class FissionApp::Application
   config.fission.site_brand = config.fission.config[:site_brand]
   config.fission.rest_endpoint = config.fission.config[:fission][:rest_endpoint]
   config.fission.rest_endpoint_ssl = config.fission.config[:fission][:rest_endpoint_ssl]
-  config.fission.github = config.fission.config.fetch([:github], {})
+  config.fission.github = config.fission.config.fetch(:github, {}).with_indifferent_access
+  config.fission.stripe = config.fission.config.fetch(:stripe, {}).with_indifferent_access
 
   if(config.fission.config[:static_pages] && config.fission.config[:static_pages][:path])
     config.fission.static_pages = config.fission.config[:static_pages][:path]
