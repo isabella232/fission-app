@@ -22,6 +22,20 @@
   margin-right: 5px;
 };
 
-.stripe-button-el {
-  /*@extend: "fission-button";*/
+.fission-button-big {
+  @extend .fission-button;
+
+  margin-top: 20px;
+  padding: 15px 30px;
+  border-left: $color-darkest solid 7.5px;
+  font-size: 175%;
+  .subtext {
+    font-size: 75%;
+  }
 }
+
+.fission-button:active {
+  border-left: none;
+  margin-right: 7.5px;
+};
+

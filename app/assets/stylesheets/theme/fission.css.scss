@@ -7,6 +7,10 @@ $nav_height: 51px;
   padding-top: $nav_height;
 };
 
+.footerfix {
+  padding-bottom: 100px;
+}
+
 .full-width {
   display: block;
 }
@@ -150,6 +154,17 @@ $nav_height: 51px;
     };
   };
 };
+
+.calltoaction {
+  text-align: center;
+  h3 {
+    color: $color-primary;
+  };
+  .under {
+    text-decoration: underline;
+    font-weight: bold;
+  }
+}
 
 .pricing {
   i {
