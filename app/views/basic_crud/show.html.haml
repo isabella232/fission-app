@@ -1,8 +1,5 @@
 %div.container.container-padding
-  %div.alert.alert-info
-    %strong= "INFO:"
-    = "no dedicated view is available for this content; defaulting to basic crud view."
-%div.container
+  = render partial: "layouts/temp"
   %div.panel.panel-default
     %div.panel-heading= "#{@item.class.table_name.humanize} #{@item}"
     %div.panel-body
