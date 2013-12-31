@@ -26,7 +26,7 @@ gem 'omniauth', '~> 1.1'
 gem 'omniauth-github'
 gem 'oauth_simple'
 gem 'kaminari'
-gem 'haml', '>= 0.3.4', group: [ :development, :test ]
+gem 'haml', '>= 0.3.4'
 gem 'simple_form'
 gem 'bootstrap-sass'
 
