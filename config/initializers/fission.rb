@@ -16,6 +16,11 @@ class FissionApp::Application
 
   config.fission.config = JSON.load(File.read(fission_file)).with_indifferent_access
 
+  unless(valid_config_paths.last == fission_file)
+    base_file = JSON.load(File.read(valid_config_paths.last)).with_indifferent_access
+    config.fission.config = base_file.deep_merge(config.fission.config)
+  end
+
   config.fission.pricing = config.fission.config[:pricing]
   config.fission.json_support = config.fission.config[:json_style]
   config.fission.site_brand = config.fission.config[:site_brand]
