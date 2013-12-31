@@ -214,6 +214,7 @@ module BasicCrud
     if(val = render_overrides[action])
       val == true ? params[:action] : val
     else
+      flash[:warning] = 'no dedicated view is available for this content; defaulting to basic crud view.'
       ['basic_crud', params[:action]].join('/')
     end
   end
