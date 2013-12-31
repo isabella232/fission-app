@@ -2,11 +2,19 @@ class FissionApp::Application
 
   config.fission = ActiveSupport::Configurable::Configuration.new
 
-  config.fission.config = JSON.load(
-    File.read(
-      File.join(File.dirname(__FILE__), '..', 'fission.json')
-    )
-  ).with_indifferent_access
+  valid_config_paths = [
+    ENV['FISSION_APP_JSON'],
+    '/etc/fission/app.json',
+    File.join(File.dirname(__FILE__), '..', 'fission.json')
+  ].compact
+
+  fission_file = valid_config_paths.detect do |path|
+    File.exists?(path)
+  end
+
+  raise "No fission configuration file detected!" unless fission_file
+
+  config.fission.config = JSON.load(File.read(fission_file)).with_indifferent_access
 
   config.fission.pricing = config.fission.config[:pricing]
   config.fission.json_support = config.fission.config[:json_style]

@@ -4,7 +4,9 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   else
     Rails.application.config.omniauth_provider = :developer
   end
-  provider(:github, ENV['GITHUB_KEY'], ENV['GITHUB_SECRET'], scope: 'user,repo')
+  github_key = ENV.fetch('GITHUB_KEY', Rails.application.config.fission.github[:key])
+  github_secret = ENV.fetch('GITHUB_SECRET', Rails.application.config.fission.github[:secret])
+  provider(:github, github_key, github_secret, scope: 'user,repo')
 end
 
 OmniAuth.config.on_failure = Proc.new { |env|
