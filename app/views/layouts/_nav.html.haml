@@ -14,9 +14,8 @@
       %ul.nav.navbar-nav
         - if current_user
           %li.active
-            %a{ href: root_url }= 'Dashboard'
-          // %li
-          //   %a{ href: accounts_url }= 'Accounts'
+            / %a{ href: root_url }= 'Dashboard'
+            %a{ href: '/auth/github' }= 'Dashboard'
         - else
           - if @nav
             - @nav.each do |section|
