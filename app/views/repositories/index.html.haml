@@ -1,7 +1,11 @@
-%div{class: 'panel panel-default'}
-  %div{class: 'panel-heading'}= "#{@account.name} Repositories"
-  %div{class: 'panel-body'}
-    %table{class: 'table table-bordered table-hover'}
+%div.container.container-padding
+  %h1= "#{@account.name} Settings"
+  %div.panel.panel-default
+    %div.panel-heading
+      %h2= "Active Repositories"
+    %div.panel-body
+      %p= "Currently active repositories."
+    %table.table.table-bordered.table-hover
       %thead
         %tr
           %th= 'Name'
@@ -16,6 +20,11 @@
               %a{href: repository_disable_url(repo, :account_id => @account), style: 'color: red'}
                 %span{class: 'glyphicon glyphicon-remove'}
 
+  %div.panel.panel-default
+    %div.panel-heading
+      %h2= "Inactive Repositories"
+    %div.panel-body
+      %p= "Select a repository to enable it."
     %table{class: 'table table-bordered table-hover'}
       %thead
         %tr
@@ -31,7 +40,7 @@
               %a{:href => '#', 'data-toggle' => 'modal', 'data-target' => '#repo_add_options', style: 'color: green', 'repo-name' => repo.full_name, 'repo-url' => repository_enable_url(Base64.encode64(repo.full_name), :account_id => @account), class: 'repo-enable'}
                 %span{class: 'glyphicon glyphicon-plus'}
 
-  - if @footer
-    %div{class: 'panel-footer'}= render(partial: @footer, locals: {obj: @items})
+    - if @footer
+      %div{class: 'panel-footer'}= render(partial: @footer, locals: {obj: @items})
 
-= render :partial => 'repositories/enable_popup'
+  = render :partial => 'repositories/enable_popup'

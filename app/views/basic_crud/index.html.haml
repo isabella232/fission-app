@@ -1,7 +1,8 @@
-%div{class: 'panel panel-default'}
-  %div{class: 'panel-heading'}= @title
-  %div{class: 'panel-body'}
-    %table{class: 'table table-bordered table-hover'}
+%div.container.container-padding
+  %div.panel.panel-default
+    %div.panel-heading= @title
+    %div.panel-body
+    %table.table.table-bordered.table-hover
       %thead
         %tr
           - if @labels
@@ -22,8 +23,8 @@
               %td.linked{href: send("#{obj.class.table_name.singularize}_url", obj), style: 'cursor: pointer'}= obj.send(key)
             - if show_links
               %td= render(partial: 'basic_crud/link_dropdown', locals: {obj: obj, links: @links})
-  - if @footer
-    %div{class: 'panel-footer'}= render(partial: @footer, locals: {obj: @items})
+    - if @footer
+      %div.panel-footer= render(partial: @footer, locals: {obj: @items})
 
 :javascript
   jQuery(document).ready(function($){

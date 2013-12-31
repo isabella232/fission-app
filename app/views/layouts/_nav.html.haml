@@ -13,10 +13,10 @@
     %div.collapse.navbar-collapse
       %ul.nav.navbar-nav
         - if current_user
-          %li
+          %li.active
             %a{ href: root_url }= 'Dashboard'
-          %li
-            %a{ href: accounts_url }= 'Accounts'
+          // %li
+          //   %a{ href: accounts_url }= 'Accounts'
         - else
           - if @nav
             - @nav.each do |section|
@@ -26,11 +26,11 @@
         - if current_user
           %li.dropdown
             %a{href: '#', 'data-toggle' => 'dropdown'}
-              %img.pull-left{ src: current_user.identities.first[:infos].try(:[], :image), width: 30, height: 30 }
+              %img.avatar.pull-left{ src: current_user.identities.first[:infos].try(:[], :image) }
               %b.caret
             %ul{class: 'dropdown-menu'}
-              %li
-                %a{ href: edit_user_url(current_user.id) }= 'Profile'
+              // %li
+              //   %a{ href: edit_user_url(current_user.id) }= 'Profile'
               %li
                 %a{ href: destroy_session_url }= 'Logout'
 
