@@ -20,4 +20,8 @@
 .fission-button:active {
   border-left: none;
   margin-right: 5px;
+};
+
+.stripe-button-el {
+  /*@extend: "fission-button";*/
 }

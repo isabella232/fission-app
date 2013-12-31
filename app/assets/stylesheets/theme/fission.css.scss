@@ -7,6 +7,31 @@ $nav_height: 51px;
   padding-top: $nav_height;
 };
 
+.full-width {
+  display: block;
+}
+
+.container-padding {
+  padding-top: 20px;
+}
+
+.navbar {
+  .dropdown > a {
+    display: inline-block;
+    vertical-align: middle;
+  };
+  .avatar {
+    display: inherit;
+    vertical-align: middle;
+    height: 35px;
+    margin-top: -7.5px;
+    margin-bottom: -7.5px;
+  }
+  b {
+    margin-left: 5px;
+  }
+}
+
 .banner {
   background-color: $color-primary;
   min-height: 250px;
@@ -117,6 +142,42 @@ $nav_height: 51px;
     };
   };
 };
+
+.pricing {
+  i {
+    color: $color-darkest;
+    margin-left: 5px;
+  }
+  .package {
+    display: block;
+    /*padding-left: 10px;*/
+    /*padding-right: 10px;*/
+  };
+  /*
+  .package:first-child {
+    padding-left: 15px;
+  };
+  .package:last-child {
+    padding-right: 15px;
+  };
+  */
+  .panel-heading {
+    background-color: $color-primary;
+    color: $color;
+    border-bottom: none;
+  };
+  .panel-body {
+    background-color: $color-darker;
+    color: $color;
+    min-height: 180px;
+  };
+  .feature:first-child {
+    font-weight: bold;
+  }
+  small {
+    color: $color-lightest;
+  };
+}
 
 .sidebar {
   margin-top: 20px;
