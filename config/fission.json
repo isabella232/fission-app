@@ -1,5 +1,5 @@
 {
-    "site_brand": "Fission",
+    "site_brand": "Packager",
     "json_style": "jsend",
     "fission": {
         "rest_endpoint": "http://snowflake.hw-ops.com",
