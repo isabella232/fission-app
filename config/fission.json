@@ -5,6 +5,10 @@
         "rest_endpoint": "http://snowflake.hw-ops.com",
         "rest_endpoint_ssl": "https://snowflake.hw-ops.com"
     },
+    "github": {
+        "key": "065cdd509e767dbc97cc",
+        "secret": "d7513658cba6b2c467622cf1b90e7dccd446cad5"
+    },
     "stripe": {
         "publishable_key": "stub",
         "secret_key": "stub"
@@ -16,7 +20,7 @@
         "packager": {
             "bronze": {
                 "title": "Bronze",
-                "summary": "For small projects, to ship 1-2 new packages per day.",
+                "summary": "For small projects, to ship 1 new package per day.",
                 "price": "19900",
                 "description": [
                     {
@@ -51,11 +55,11 @@
             },
             "silver": {
                 "title": "Silver",
-                "summary": "For small teams, to ship 3-4 packages per day.",
-                "price": "39900",
+                "summary": "For small teams, to ship 3 new packages per day.",
+                "price": "49900",
                 "description": [
                     {
-                        "label": "100 package builds/mo",
+                        "label": "90 package builds/mo",
                         "icon": "fa-plus-square"
                     },
                     {
@@ -86,11 +90,11 @@
             },
             "gold": {
                 "title": "Gold",
-                "summary": "For medium-sized teams, to ship 10+ packages per day.",
-                "price": "99900",
+                "summary": "For medium-sized teams, to ship 10 new packages per day.",
+                "price": "129900",
                 "description": [
                     {
-                        "label": "400 package builds/mo",
+                        "label": "300 package builds/mo",
                         "icon": "fa-plus-square"
                     },
                     {
@@ -121,8 +125,8 @@
             },
             "platinum": {
                 "title": "Platinum",
-                "summary": "For teams with many projects, to ship 30-50 packages per day.",
-                "price": "199900",
+                "summary": "For teams with many projects, to ship 30+ packages per day.",
+                "price": "299900",
                 "description": [
                     {
                         "label": "1000+ package builds/mo",
