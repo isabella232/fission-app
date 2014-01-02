@@ -72,7 +72,11 @@ class ApplicationController < ActionController::Base
       end
       respond_to do |format|
         format.html do
-          redirect_to new_session_url
+          if(page = Rails.application.config.fission.config[:static_pages].try(:[], :landing))
+            redirect_to File.join('/s', page)
+          else
+            redirect_to new_session_url
+          end
         end
         format.json do
           unless(api_validate)
