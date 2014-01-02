@@ -9,9 +9,14 @@
         "key": "065cdd509e767dbc97cc",
         "secret": "d7513658cba6b2c467622cf1b90e7dccd446cad5"
     },
+    "whitelist": {
+        "users": [
+            "chrisroberts"
+        ]
+    },
     "stripe": {
-        "publishable_key": "stub",
-        "secret_key": "stub"
+        "publishable_key": "pk_test_y4g9kOk27pcJES5iZ5Sp7LK2",
+        "secret_key": "sk_test_GleaJrgPFnD25GLsTvDdhApI"
     },
     "static_pages": {
         "path": null,
