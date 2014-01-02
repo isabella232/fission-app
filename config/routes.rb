@@ -34,6 +34,7 @@ FissionApp::Application.routes.draw do
     get 'login', :to => 'sessions#new', :as => :new_session
     get 'logout', :to => 'sessions#destroy', :as => :destroy_session
   end
+  get 'login', :to => 'sessions#new', :as => :new_session
 
   scope :auth do
     post 'identity/authenticate', :to => 'sessions#authenticate', :as => :authenticate_user
