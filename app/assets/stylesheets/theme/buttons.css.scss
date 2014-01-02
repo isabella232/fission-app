@@ -39,3 +39,8 @@
   margin-right: 7.5px;
 };
 
+.button:active, .button:hover, .button:focus {
+  box-shadow: none;
+  -webkit-box-shadow: none;
+     -moz-box-shadow: none;
+};
