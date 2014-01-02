@@ -22,7 +22,7 @@ class RepositoriesController < ApplicationController
   def enable
     gh_repo = github.repository(Base64.decode64(params[:repository_id]))
     account = @account || Account.find_by_name(gh_repo.full_name.split('/').first)
-    if(account.subscription_id)
+    if(account.stripe_id)
       repo = Repository.lookup(gh_repo.full_name, :github)
       endpoint = URI.parse(Rails.application.config.fission.rest_endpoint)
       if(params[:filter_branch] && !params[:filter_branch].strip.empty?)
