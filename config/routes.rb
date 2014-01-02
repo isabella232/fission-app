@@ -43,5 +43,6 @@ FissionApp::Application.routes.draw do
   end
 
   get 'register', :to => 'users#new', :as => :registration
+  get 'dashboard', :to => 'dashboard#index', :as => :dashboard
 
 end
