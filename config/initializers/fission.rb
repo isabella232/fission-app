@@ -28,6 +28,10 @@ class FissionApp::Application
   config.fission.rest_endpoint_ssl = config.fission.config[:fission][:rest_endpoint_ssl]
   config.fission.github = config.fission.config.fetch(:github, {}).with_indifferent_access
   config.fission.stripe = config.fission.config.fetch(:stripe, {}).with_indifferent_access
+  config.fission.whitelist = config.fission.config.fetch(:whitelist, {}).with_indifferent_access
+
+  config.fission.whitelist[:users] ||= []
+  config.fission.whitelist[:redirect_to] ||= '/s/beta'
 
   if(config.fission.config[:static_pages] && config.fission.config[:static_pages][:path])
     config.fission.static_pages = config.fission.config[:static_pages][:path]

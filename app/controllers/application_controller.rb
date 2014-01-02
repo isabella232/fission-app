@@ -84,6 +84,10 @@ class ApplicationController < ActionController::Base
           end
         end
       end
+    else
+      unless(Rails.application.config.fission.whitelist[:users].include?(current_user.username))
+        redirect_to Rails.application.config.fission.whitelist[:redirect_to]
+      end
     end
   end
 
