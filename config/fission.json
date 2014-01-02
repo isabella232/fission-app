@@ -14,7 +14,8 @@
         "secret_key": "stub"
     },
     "static_pages": {
-        "path": null
+        "path": null,
+        "landing": "packager"
     },
     "pricing": {
         "packager": {
