@@ -20,9 +20,10 @@
     = render partial: 'layouts/nav'
 
     // Main page content
-    %div.navfix#top
-      = render partial: 'layouts/alerts'
-      = yield
+    %div.wrap
+      %div.navfix#top
+        = render partial: 'layouts/alerts'
+        = yield
 
     // Footer content
     = render partial: 'layouts/footer'
