@@ -28,7 +28,7 @@
                         "icon": "fa-plus-square"
                     },
                     {
-                        "label": "Shared host",
+                        "label": "Shared host(s)",
                         "icon": "fa-plus-square"
                     },
                     {
@@ -63,7 +63,7 @@
                         "icon": "fa-plus-square"
                     },
                     {
-                        "label": "Shared host",
+                        "label": "Shared host(s)",
                         "icon": "fa-plus-square"
                     },
                     {
@@ -98,7 +98,7 @@
                         "icon": "fa-plus-square"
                     },
                     {
-                        "label": "Shared host",
+                        "label": "Shared host(s)",
                         "icon": "fa-plus-square"
                     },
                     {
@@ -133,7 +133,7 @@
                         "icon": "fa-plus-square"
                     },
                     {
-                        "label": "Shared host",
+                        "label": "Dedicated host(s)",
                         "icon": "fa-plus-square"
                     },
                     {
