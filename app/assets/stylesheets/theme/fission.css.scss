@@ -180,35 +180,30 @@ html, body {
   i {
     color: $color-darkest;
     margin-left: 5px;
-  }
+  };
   .package {
     display: block;
-    /*padding-left: 10px;*/
-    /*padding-right: 10px;*/
-  };
-  /*
-  .package:first-child {
-    padding-left: 15px;
-  };
-  .package:last-child {
-    padding-right: 15px;
-  };
-  */
-  .panel-heading {
-    background-color: $color-primary;
-    color: $color;
-    border-bottom: none;
-  };
-  .panel-body {
-    background-color: $color-darker;
-    color: $color;
-    min-height: 180px;
-  };
-  .feature:first-child {
-    font-weight: bold;
-  }
-  small {
-    color: $color-lightest;
+    h1, h2 {
+      margin-top: 0px;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .panel-heading {
+      background-color: $color-primary;
+      color: $color;
+      border-bottom: none;
+    };
+    .panel-body {
+      background-color: $color-darker;
+      color: $color;
+      min-height: 130px;
+    };
+    .feature:first-child {
+      font-weight: bold;
+    }
+    small {
+      color: $color-lightest;
+    };
   };
 }
 

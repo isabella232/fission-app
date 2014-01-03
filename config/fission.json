@@ -26,15 +26,11 @@
         "packager": {
             "bronze": {
                 "title": "Bronze",
-                "summary": "For small projects, to ship 1 new package per day.",
+                "summary": "Ship 1 release per day.",
                 "price": "19900",
                 "description": [
                     {
-                        "label": "30 package builds/mo",
-                        "icon": "fa-plus-square"
-                    },
-                    {
-                        "label": "Shared host(s)",
+                        "label": "30 releases/mo",
                         "icon": "fa-plus-square"
                     },
                     {
@@ -46,8 +42,8 @@
                         "icon": "fa-plus-square"
                     },
                     {
-                        "label": "GitHub Releases",
-                        "icon": "fa-plus-square"
+                        "label": "",
+                        "icon": ""
                     },
                     {
                         "label": "",
@@ -61,15 +57,11 @@
             },
             "silver": {
                 "title": "Silver",
-                "summary": "For small teams, to ship 3 new packages per day.",
+                "summary": "Ship 3 releases per day.",
                 "price": "49900",
                 "description": [
                     {
-                        "label": "90 package builds/mo",
-                        "icon": "fa-plus-square"
-                    },
-                    {
-                        "label": "Shared host(s)",
+                        "label": "90 releases/mo",
                         "icon": "fa-plus-square"
                     },
                     {
@@ -81,8 +73,8 @@
                         "icon": "fa-plus-square"
                     },
                     {
-                        "label": "GitHub Releases",
-                        "icon": "fa-plus-square"
+                        "label": "",
+                        "icon": ""
                     },
                     {
                         "label": "",
@@ -96,15 +88,11 @@
             },
             "gold": {
                 "title": "Gold",
-                "summary": "For medium-sized teams, to ship 10 new packages per day.",
+                "summary": "Ship 10 releases per day.",
                 "price": "129900",
                 "description": [
                     {
-                        "label": "300 package builds/mo",
-                        "icon": "fa-plus-square"
-                    },
-                    {
-                        "label": "Shared host(s)",
+                        "label": "300 releases/mo",
                         "icon": "fa-plus-square"
                     },
                     {
@@ -113,10 +101,6 @@
                     },
                     {
                         "label": "Unlimited users",
-                        "icon": "fa-plus-square"
-                    },
-                    {
-                        "label": "GitHub Releases",
                         "icon": "fa-plus-square"
                     },
                     {
@@ -126,20 +110,20 @@
                     {
                         "label": "",
                         "icon": ""
+                    },
+                    {
+                        "label": "",
+                        "icon": ""
                     }
                 ]
             },
             "platinum": {
                 "title": "Platinum",
-                "summary": "For teams with many projects, to ship 30+ packages per day.",
+                "summary": "Ship 30+ releases per day.",
                 "price": "299900",
                 "description": [
                     {
-                        "label": "1000+ package builds/mo",
-                        "icon": "fa-plus-square"
-                    },
-                    {
-                        "label": "Dedicated host(s)",
+                        "label": "1000+ releases/mo",
                         "icon": "fa-plus-square"
                     },
                     {
@@ -151,11 +135,11 @@
                         "icon": "fa-plus-square"
                     },
                     {
-                        "label": "GitHub Releases",
+                        "label": "Private Repository",
                         "icon": "fa-plus-square"
                     },
                     {
-                        "label": "Private Repository",
+                        "label": "Dedicated <abbr title='Continuous Integration'>CI</abbr> Server(s)",
                         "icon": "fa-plus-square"
                     },
                     {
