@@ -65,6 +65,8 @@ class SessionsController < ApplicationController
   def destroy
     respond_to do |format|
       format.html do
+        current_user.session_data = {}.with_indifferent_access
+        current_user.save
         reset_session
         redirect_to root_url, notice: 'Logged out'
       end

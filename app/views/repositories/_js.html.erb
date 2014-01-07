@@ -14,8 +14,8 @@
         source: [<%=
                    repositories.map{|repo|
                      val = []
-                     val << "url: '#{repository_enable_url(Base64.encode64(repo.full_name))}'"
-                     val << "value: '#{repo.full_name}'"
+                     val << "url: '#{repository_enable_url(Base64.encode64(repo[:full_name]))}'"
+                     val << "value: '#{repo[:full_name]}'"
                      "{#{val.join(', ')}}"
                    }.join(', ').html_safe
                  %>]
