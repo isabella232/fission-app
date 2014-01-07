@@ -20,7 +20,11 @@
           - @accounts.each do |account|
             %tr
               %td= account.name
-              %td= "(unknown)"
+              %td
+                - if account.subscription_id
+                  %b= Rails.application.config.fission.pricing[:packager][account.subscription_id][:title]
+                - else
+                  = 'None'
               %td
                 %a.fission-button.pull-right.repo_enable{ href: "/accounts/#{account.key}/order/new" }= "Subscription"
 
