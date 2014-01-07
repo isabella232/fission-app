@@ -3,7 +3,11 @@ class DashboardController < ApplicationController
   def index
     @accounts = Account.restrict(current_user)
     @repos = Repository.restrict(current_user)
-    @unregistered_repos = unregistered_repos(@repos)
+    # TODO: This needs to be timed and managed internally
+    unless(session[:unregistered_repos])
+      session[:unregistered_repos] = unregistered_repos(@repos)
+    end
+    @unregistered_repos = session[:unregistered_repos]
   end
 
   protected
