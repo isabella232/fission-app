@@ -12,5 +12,5 @@ module FissionApp
       version.send(*args)
     end
   end
-  VERSION = Version.new('0.1.0', 'Shut up and take my money')
+  VERSION = Version.new('0.1.1', 'The fixening')
 end
