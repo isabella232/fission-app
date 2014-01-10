@@ -20,7 +20,7 @@
     },
     "static_pages": {
         "path": null,
-        "landing": "packager"
+        "landing": "/"
     },
     "pricing": {
         "packager": {
