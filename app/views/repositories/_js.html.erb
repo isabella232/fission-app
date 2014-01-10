@@ -1,6 +1,6 @@
 <%= javascript_tag do %>
   jQuery(document).ready(function($){
-    <% if(defined?(repositories)) -%>
+    <% if(defined?(repositories) && repositories) -%>
       $('input#repository').autocomplete({
         minLength: 0,
         focus: function(event, ui){
@@ -27,7 +27,7 @@
       window.document.location = $(this).attr("href");
     });
     $(".repo-enable").click(function(){
-      <% if(defined?(repositories)) -%>
+      <% if(defined?(repositories) && repositories) -%>
         $("h4#repo_add_title").text("Enable Repository");
       <% else -%>
         repo_url = $(this).attr("repo-url");

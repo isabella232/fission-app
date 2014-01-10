@@ -1,7 +1,7 @@
 %div.container.container-padding.add-repo
   %div.row
     %div.col-md-12
-      %div.repo-enable.fission-button{ href: "#", 'data-toggle' => 'modal', 'data-target' => '#repo_add_options' }= "Add a repository"
+      %div.repo-enable.fission-button{ href: "#", 'data-toggle' => 'modal', 'data-target' => '#repo_options_add' }= "Add a repository"
       %p= "Add a new repository!"
 
 %div.container.dashboard
@@ -43,8 +43,9 @@
               %td
                 %a.h4{ href: repo.clone_url }= repo.name
               %td
-                %a.fission-button.pull-right{ href: "##{repo.short_name}-settings" }= "Settings"
+                %div.fission-button.repo-enable{ href: '#', 'data-toggle' => 'modal', 'repo-name' => repo.name, 'data-target' => '#repo_options_update'}= 'Settings'
 
 %div.container.navfix
 
-= render :partial => 'repositories/enable_popup', :locals => {:repositories => @unregistered_repos}
+= render :partial => 'repositories/enable_popup', :locals => {:repositories => @unregistered_repos, :name => 'add'}
+= render :partial => 'repositories/enable_popup', :locals => {:name => 'update'}

@@ -1,4 +1,4 @@
-%div#repo_add_options{:class => 'modal fade', :role => 'modal', 'aria-labelledby' => 'repo_add_options_label', 'aria-hidden' => true}
+%div{:id => "repo_options_#{defined?(name) ? name : 'default'}", :class => 'modal fade', :role => 'modal', 'aria-labelledby' => 'repo_add_options_label', 'aria-hidden' => true}
   %div{class: 'modal-dialog'}
     %div{class: 'modal-content'}
       %div{class: 'modal-header'}
@@ -16,4 +16,4 @@
             %input#branch_filter{type: 'text', name: 'filter_branch', class: 'form-control', placeholder: 'None'}
           %button#repo_enable_button{type: 'submit', class: 'btn btn-default'}= 'Enable'
 
-= render :partial => 'repositories/js', :locals => {:repositories => defined?(repositories) ? repositories : nil}
+= render :partial => 'repositories/js', :locals => {:repositories => defined?(repositories) ? repositories : nil, :name => defined?(name) ? name : 'default'}
