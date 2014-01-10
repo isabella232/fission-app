@@ -27,6 +27,8 @@ class RepositoriesController < ApplicationController
       endpoint = URI.parse(Rails.application.config.fission.rest_endpoint)
       if(params[:filter_branch] && !params[:filter_branch].strip.empty?)
         endpoint.query = "filter=#{params[:filter_branch]}"
+      else
+        endpoint.query = 'filter=master'
       end
       unless(repo)
         repo = Repository.new(
