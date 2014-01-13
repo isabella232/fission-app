@@ -34,10 +34,12 @@ class SessionsController < ApplicationController
         when :github
           ident = Identity.find_or_create_via_omniauth(auth_hash)
           user = ident.user
-          # NOTE: This is here only for testing!
-          Rails.logger.info 'Starting account population!'
-          Rails.application.config.backgroundable.trigger!(:job => 'account_populator', :user => user.id)
-          Rails.logger.info 'Repository account population!'
+          # NOTE: This needs to be extracted and moved to background job
+          if(whitelisted = whitelist_validate!)
+            Rails.logger.info 'Starting account population!'
+            Rails.application.config.backgroundable.trigger!(:job => 'account_populator', :user => user.id)
+            Rails.logger.info 'Account population complete!'
+          end
         when :internal
           user = User.create(params.merge(:provider => :internal))
         else
@@ -45,7 +47,7 @@ class SessionsController < ApplicationController
         end
         if(user)
           session[:user_id] = user.id
-          redirect_to root_url
+          redirect_to root_url if whitelisted
         else
           Rails.logger.error "Failed to create user!"
           raise Error.new('Failed to create new user', :status => :internal_server_error)
