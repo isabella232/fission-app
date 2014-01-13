@@ -85,9 +85,20 @@ class ApplicationController < ActionController::Base
         end
       end
     else
-      unless(Rails.application.config.fission.whitelist[:users].include?(current_user.username))
+      whitelist_validate!
+    end
+  end
+
+  # redirect:: do redirect
+  # Validate user is in whitelist. Redirect user if applicable.
+  def whitelist_validate!(redirect=true)
+    unless(Rails.application.config.fission.whitelist[:users].include?(current_user.username))
+      if(redirect)
         redirect_to Rails.application.config.fission.whitelist[:redirect_to]
       end
+      false
+    else
+      true
     end
   end
 
