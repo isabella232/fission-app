@@ -1,4 +1,8 @@
 %div.navbar.navbar-default.navbar-static-bottom{ role: 'footer' }
   %div.container
-    %p.navbar-text.navbar-left= "v#{FissionApp::VERSION.version} - #{FissionApp::VERSION.codename}"
-    %p.navbar-text.navbar-right!= "&copy; #{Time.now.year}"
+    %p.navbar-text.navbar-left
+      %abbr{ title: FissionApp::VERSION.codename }= "v#{FissionApp::VERSION.version}"
+    %p.navbar-text!= "a <a href='http://heavywaterops.com'>Heavy Water Operations</a> product"
+    %p.navbar-text.navbar-right
+      != "&copy; #{Time.now.year}"
+      %strong= "Heavy Water Operations, LLC (OR)"
