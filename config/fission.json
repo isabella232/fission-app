@@ -1,6 +1,13 @@
 {
     "site_brand": "Packager",
     "json_style": "jsend",
+    "analytics": {
+        "account": "UA-39138312",
+        "properties": {
+            "packager.co": 4
+        },
+        "default_property": "packager.co"
+    },
     "fission": {
         "rest_endpoint": "http://snowflake.hw-ops.com",
         "rest_endpoint_ssl": "https://snowflake.hw-ops.com"

@@ -21,6 +21,9 @@ class ApplicationController < ActionController::Base
   # Permission helpers
   helper_method :permit
 
+  # Set analytics variables
+  before_action :analytics
+
   # Always validate
   before_action :validate_user!
 
@@ -153,6 +156,23 @@ class ApplicationController < ActionController::Base
 
   def github
     Octokit::Client.new(:access_token => current_user.token_for(:github))
+  end
+
+  def analytics
+    if(Rails.env == 'production')
+      dns = request.env.fetch('SERVER_NAME', '')
+      property = Rails.application.config.fission.analytics[:properties].detect do |key, value|
+        dns.include?(key.to_s)
+      end
+      if(property)
+        @analytics = {
+          :ref => [Rails.application.config.fission.analytics[:account], property.last].join('-'),
+          :name => property.first
+        }
+      else
+        Rails.logger.warn "Failed to locate analytics property using connected DNS (#{dns})"
+      end
+    end
   end
 
 end
