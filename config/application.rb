@@ -24,5 +24,6 @@ module FissionApp
     # config.i18n.default_locale = :de
 
     config.json_format = :jsend
+    config.serve_static_assets = true
   end
 end
