@@ -33,7 +33,7 @@ class SessionsController < ApplicationController
         case provider
         when :github
           ident = Identity.find_or_create_via_omniauth(auth_hash)
-          user = ident.user
+          @current_user = user = ident.user
           # NOTE: This needs to be extracted and moved to background job
           if(whitelisted = whitelist_validate!)
             Rails.logger.info 'Starting account population!'
@@ -45,6 +45,7 @@ class SessionsController < ApplicationController
         else
           raise Error.new('Unsupported provider authentication attempt', :status => :internal_server_error)
         end
+        @current_user = nil
         if(user)
           session[:user_id] = user.id
           redirect_to root_url if whitelisted
