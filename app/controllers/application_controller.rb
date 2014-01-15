@@ -1,6 +1,7 @@
 require 'fission-app/errors'
 
 class ApplicationController < ActionController::Base
+
   # Load in any modules we care about
   include JsonApi
   include FissionApp::Errors
