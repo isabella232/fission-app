@@ -22,7 +22,7 @@
               %td= account.name
               %td
                 - if account.subscription_id
-                  %b= Rails.application.config.fission.pricing[:packager].try(:[], account.subscription_id).try(:[], :title) || 'unknown'
+                  %b= Rails.application.config.fission.pricing[:packager].try(:[], account.subscription_plan_id).try(:[], :title) || 'unknown'
                 - else
                   = 'None'
               %td
