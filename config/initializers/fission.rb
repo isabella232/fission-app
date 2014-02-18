@@ -42,4 +42,23 @@ class FissionApp::Application
     )
   end
 
+  config.fission.fission_router = config.fission.config.fetch(:router_source, {}).with_indifferent_access
+
+end
+
+require 'fission-app/backgroundable'
+
+unless(Rails.application.config.fission.fission_router.empty?)
+
+  require 'carnivore'
+
+  Carnivore.configure do
+    Carnivore::Source.build(
+      :type => Rails.application.config.fission.fission_router[:type],
+      :args => Rails.application.config.fission.fission_router[:args].with_indifferent_access.merge(:name => :router)
+    )
+  end
+  Rails.application.config.backgroundable = Fission::App::Backgroundable.new(:endpoint => :router)
+else
+  Rails.application.config.backgroundable = Fission::App::Backgroundable.new
 end

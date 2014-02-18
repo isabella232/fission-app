@@ -11,7 +11,20 @@ module Fission
       end
 
       def trigger!(args={})
-        endpoint.transmit(args)
+        task = args.delete(:task) || :app_jobs
+        if(endpoint.is_a?(Symbol))
+          payload = {
+            :data => {
+              :app => args,
+              :router => {
+                :route => [task]
+              }
+            }
+          }
+          Carnivore::Supervisor.supervisor[endpoint].transmit(payload)
+        else
+          endpoint.transmit(args)
+        end
       end
 
       class LocalExecution
