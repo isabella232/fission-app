@@ -1,7 +1,5 @@
 FissionApp::Application.routes.draw do
 
-  root 'dashboard#index'
-
   resources :accounts do
     resource :order, :controller => :stripe
     resources :users
@@ -45,5 +43,7 @@ FissionApp::Application.routes.draw do
 
   get 'register', :to => 'users#new', :as => :registration
   get 'dashboard', :to => 'dashboard#index', :as => :dashboard
+
+  root 'static#display'
 
 end
