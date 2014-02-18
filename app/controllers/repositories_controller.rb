@@ -54,7 +54,7 @@ class RepositoriesController < ApplicationController
       respond_to do |format|
         format.html do
           flash[:success] = "Repository Enabled! (#{gh_repo.full_name})"
-          redirect_to @account ? account_repositories_url(@account) : root_url
+          redirect_to @account ? account_repositories_url(@account) : default_url
         end
       end
     else

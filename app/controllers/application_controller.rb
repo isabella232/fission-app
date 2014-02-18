@@ -35,6 +35,10 @@ class ApplicationController < ActionController::Base
 
   ## Helpers
 
+  def default_url
+    valid_user? ? dashboard_url : root_url
+  end
+
   # returns if user is logged in
   def valid_user?
     !!current_user

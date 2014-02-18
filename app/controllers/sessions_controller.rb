@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
         user = User.authenticate(params)
         if(user)
           session[:user_id] = user.id
-          redirect_to root_url
+          redirect_to dashboard_url
         else
           raise Error.new('Login failed', :status => :internal_server_error)
         end
@@ -48,7 +48,7 @@ class SessionsController < ApplicationController
         @current_user = nil
         if(user)
           session[:user_id] = user.id
-          redirect_to root_url if whitelisted
+          redirect_to dashboard_url if whitelisted
         else
           Rails.logger.error "Failed to create user!"
           raise Error.new('Failed to create new user', :status => :internal_server_error)
@@ -70,7 +70,7 @@ class SessionsController < ApplicationController
       format.html do
         current_user.clear_session!
         reset_session
-        redirect_to root_url, notice: 'Logged out'
+        redirect_to default_url, notice: 'Logged out'
       end
     end
   end
