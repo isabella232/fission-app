@@ -58,7 +58,7 @@ unless(Rails.application.config.fission.fission_router.empty?)
       :args => Rails.application.config.fission.fission_router[:args].with_indifferent_access.merge(:name => :router)
     )
   end
-  Rails.application.config.backgroundable = Fission::App::Backgroundable.new(:endpoint => :router)
+  Rails.application.config.backgroundable = Fission::App::Backgroundable.new(:endpoint => :fission)
 else
   Rails.application.config.backgroundable = Fission::App::Backgroundable.new
 end
