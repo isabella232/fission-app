@@ -37,7 +37,13 @@ class SessionsController < ApplicationController
           # NOTE: This needs to be extracted and moved to background job
           if(whitelisted = whitelist_validate!)
             Rails.logger.info 'Starting account population!'
-            Rails.application.config.backgroundable.trigger!(:job => 'account_populator', :user => user.id)
+            Rails.application.config.backgroundable.trigger!(
+              :task => 'app_jobs',
+              :app => {
+                :job => 'account_populator',
+                :user => user.id
+              }
+            )
             Rails.logger.info 'Account population complete!'
           end
         when :internal
