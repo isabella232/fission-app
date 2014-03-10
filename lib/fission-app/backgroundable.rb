@@ -12,16 +12,9 @@ module Fission
 
       def trigger!(args={})
         task = args.delete(:task) || :app_jobs
-        if(endpoint.is_a?(Symbol))
-          payload = {
-            :data => {
-              :app => args,
-              :router => {
-                :route => [task]
-              }
-            }
-          }
-          Carnivore::Supervisor.supervisor[endpoint].transmit(payload)
+        if(endpoint == :fission)
+          payload = Fission::Utils.new_payload(task, args)
+          Fission::Utils.transmit(task, payload)
         else
           endpoint.transmit(args)
         end
@@ -30,9 +23,13 @@ module Fission
       class LocalExecution
 
         def transmit(args={})
-          job = args[:job]
-          require "fission-app-jobs/utils/#{job}"
-          Fission::App::Jobs::Utils.const_get(job.classify).new.run!(args)
+          if(args[:task] == 'app_jobs')
+            job = args[:app][:job]
+            require "fission-app-jobs/utils/#{job}"
+            Fission::App::Jobs::Utils.const_get(job.classify).new.run!(args)
+          else
+            raise LoadError.new "Only `app_jobs` task is allowed in `LocalExecution` mode!"
+          end
         end
 
       end
