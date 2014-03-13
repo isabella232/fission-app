@@ -16,7 +16,7 @@ module Fission
           payload = Fission::Utils.new_payload(task, args)
           Fission::Utils.transmit(task, payload)
         else
-          endpoint.transmit(args)
+          endpoint.transmit({:task => task}.merge(args))
         end
       end
 
