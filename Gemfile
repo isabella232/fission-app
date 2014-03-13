@@ -48,11 +48,13 @@ if(ENV['FISSION_LOCALS'] == 'true')
   gem 'fission-data', path: '../fission-data'
   gem 'fission-app-stripe', path: '../fission-app-stripe'
   gem 'fission-app-static', path: '../fission-app-static'
+  gem 'fission-app-docs', path: '../fission-app-docs'
 else
   gem 'fission-app-jobs', git: 'git@github.com:heavywater/fission-app-jobs.git', branch: 'develop', require: 'fission-app-jobs/version'
   gem 'fission-data', git: 'git@github.com:heavywater/fission-data.git', branch: 'develop'
   gem 'fission-app-stripe', git: 'git@github.com:heavywater/fission-app-stripe.git', branch: 'develop'
   gem 'fission-app-static', git: 'git@github.com:heavywater/fission-app-static', branch: 'develop'
+  gem 'fission-app-docs', git: 'git@github.com:heavywater/fission-app-docs', branch: 'develop'
 end
 
 gemspec
