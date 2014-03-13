@@ -26,7 +26,7 @@ module Fission
           if(args[:task] == 'app_jobs')
             job = args[:app][:job]
             require "fission-app-jobs/utils/#{job}"
-            Fission::App::Jobs::Utils.const_get(job.classify).new.run!(args)
+            Fission::App::Jobs::Utils.const_get(job.classify).new.run!(args[:app])
           else
             raise LoadError.new "Only `app_jobs` task is allowed in `LocalExecution` mode!"
           end
