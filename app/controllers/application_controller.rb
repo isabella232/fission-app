@@ -28,6 +28,9 @@ class ApplicationController < ActionController::Base
   # Always validate
   before_action :validate_user!
 
+  # Set helpdesk variables
+  before_action :helpdesk
+
   # Just say no to infinity
   after_action :reset_redirect_counter
 
@@ -177,6 +180,30 @@ class ApplicationController < ActionController::Base
       else
         Rails.logger.warn "Failed to locate analytics property using connected DNS (#{dns})"
       end
+    end
+  end
+
+  def helpdesk
+    if(current_user && Rails.application.config.fission.intercom_io[:enabled])
+      unless(session[:intercom_args])
+        @intercom_args = {
+          :name => current_user.username,
+          :email => current_user.email,
+          :created_at => current_user.created_at.to_time.to_i,
+          :app_id => Rails.application.config.fission.intercom_io[:app_id],
+          :accounts => Account.restrict(current_user).size,
+          :repos => Repository.restrict(current_user).size
+        }
+        if(Rails.application.config.fission.intercom_io[:secure_mode])
+          @intercom_args.merge!(
+            :user_hash => OpenSSL::HMAC.hexdigest(
+              'sha256', Rails.application.config.fission.intercom_io[:secure_mode], current_user.email
+            )
+          )
+        end
+        session[:intercom_args] = @intercom_args
+      end
+      @intercom_args = session[:intercom_args].try(:dup)
     end
   end
 
