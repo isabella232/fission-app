@@ -36,6 +36,7 @@ module BasicCrud
       @items = model_class.restrict(current_user)
       @title = model_class.table_name.humanize.pluralize
     end
+    model_class.sorter(@items) if model_class.respond_to?(:sorter)
     @items = Kaminari.paginate_array(@items).page(params[:page].to_i).per(50)
     @keys = model_class.respond_to?(:display_attributes) ? model_class.display_attributes : model_class.attribute_names
     respond_to do |format|
