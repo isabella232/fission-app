@@ -4,6 +4,17 @@ class DashboardController < ApplicationController
     @accounts = Account.restrict(current_user)
     @repos = Repository.restrict(current_user)
     @unregistered_repos = unregistered_repos(@repos)
+    @repos = {}.tap do |reps|
+      @repos.each do |repo|
+        unless(reps[repo.owner.name])
+          reps[repo.owner.name] = []
+          unless(repo.owner.tokens && !repo.owner.tokens.empty?)
+            repo.owner.create_token
+          end
+        end
+        reps[repo.owner.name] << repo
+      end
+    end
   end
 
   protected
