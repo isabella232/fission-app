@@ -30,6 +30,7 @@ class FissionApp::Application
   config.fission.stripe = config.fission.config.fetch(:stripe, {}).with_indifferent_access
   config.fission.whitelist = config.fission.config.fetch(:whitelist, {}).with_indifferent_access
   config.fission.analytics = config.fission.config.fetch(:analytics, {}).with_indifferent_access
+  config.fission.intercom_io = config.fission.config.fetch(:intercom_io, {}).with_indifferent_access
 
   config.fission.whitelist[:users] ||= []
   config.fission.whitelist[:redirect_to] ||= '/s/beta'

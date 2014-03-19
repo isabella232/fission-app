@@ -1,0 +1,4 @@
+- if @intercom_args
+  %script#IntercomSettingsScriptTag
+    window.intercomSettings = #{@intercom_args.to_json.html_safe};
+  = javascript_include_tag 'intercom-io'

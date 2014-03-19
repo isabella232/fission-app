@@ -1,6 +1,11 @@
 {
     "site_brand": "Packager",
     "json_style": "jsend",
+    "intercom_io": {
+      "enabled": "true",
+      "app_id": "0de410ec3b1a18da33752c08b069b51e9257608a",
+      "secure_mode": "je2ycdxbn-er_kQ1EZHQhq50Npi9afG4EO0WDAaY"
+    },
     "analytics": {
         "account": "UA-39138312",
         "properties": {

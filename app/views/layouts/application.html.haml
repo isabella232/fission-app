@@ -35,3 +35,6 @@
 
         ga('create', '#{@analytics[:ref]}', '#{@analytics[:name]}');
         ga('send', 'pageview');
+
+    - if current_user && Rails.application.config.fission.intercom_io[:enabled]
+      = render :partial => 'layouts/intercom_io'
