@@ -44,7 +44,7 @@ FissionApp::Application.routes.draw do
   get 'register', :to => 'users#new', :as => :registration
   get 'dashboard', :to => 'dashboard#index', :as => :dashboard
 
-  get '(:path)', to: 'static#display', :constraints => {:path => /.+/}
+  get '(:path)', to: 'static#display', :constraints => {:path => /(?!assets).+/}
 
   root 'static#display'
 
