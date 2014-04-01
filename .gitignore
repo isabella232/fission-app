@@ -21,8 +21,6 @@ vendor/*
 .*
 !.gitignore
 
-Gemfile.lock
-
 # Ignore jars
 /lib/java*
 
