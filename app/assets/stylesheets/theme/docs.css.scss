@@ -32,7 +32,7 @@ $nav_height: 51px;
   font-weight: 600;
 }
 
-table {
+.documentation table {
   @extend .table;
   @extend .table-striped;
   @extend .table-bordered;
