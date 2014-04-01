@@ -1,0 +1,50 @@
+@import "colors";
+
+$nav_height: 51px;
+
+.documentation h1 {
+  padding-top: $nav_height;
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.documentation h2 {
+  padding-top: $nav_height;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.documentation h3 {
+  padding-top: $nav_height;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.documentation h4 {
+  padding-top: $nav_height;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.documentation h5 {
+  padding-top: $nav_height;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+table {
+  @extend .table;
+  @extend .table-striped;
+  @extend .table-bordered;
+  @extend .table-hover;
+  @extend .table-condensed;
+  th {
+    display: none;
+  };
+  td:first-child {
+    font-weight: bold;
+    width: 25%;
+  };
+  td:nth-child(2) {
+  }
+}
