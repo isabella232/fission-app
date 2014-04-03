@@ -22,7 +22,7 @@ class DashboardController < ApplicationController
   def unregistered_repos(repos)
     registered_names = repos.map(&:name)
     unless(current_user.session.get(:repositories, :github))
-      current_user.session.set(
+      current_user.session.put(
         :repositories, :github,
         fetch_github_repos(*current_user.managed_accounts.map(&:name)).map(&:full_name)
       )
