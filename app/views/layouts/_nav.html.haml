@@ -9,7 +9,10 @@
         %span{class: 'icon-bar'}
         %span{class: 'icon-bar'}
         %span{class: 'icon-bar'}
-      %a.navbar-brand{ href: root_url }= @app_name || Rails.application.config.fission.site_brand
+      %a.navbar-brand{ href: root_url }
+        = @app_name || Rails.application.config.fission.site_brand
+        - if Rails.application.config.fission[:config][:site_beta]
+          = "{beta}"
     %div.collapse.navbar-collapse
       %ul.nav.navbar-nav
         - if current_user
