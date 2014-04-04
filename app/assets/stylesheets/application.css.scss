@@ -21,9 +21,6 @@
 /* Theme CSS */
 @import "theme/fission";
 
-/* Views CSS (overrides for specific views) */
-@import "views/auth";
-
 .ui-autocomplete {
   z-index: 1050 !important;
   max-height: 200px;
