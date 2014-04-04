@@ -1,5 +1,6 @@
 /* CSS modifications for the dashboard page */
 
+$grid-gutter-width: 20px; // NOTE: this may require using the bootstrap-sass gem
 @import "theme/colors";
 
 .add-repo {
@@ -10,7 +11,7 @@
   }
 };
 
-.dashboard .widget {
+.widget {
   margin-top: 20px;
   .panel-heading {
     background-color: $color-primary;
@@ -18,21 +19,49 @@
     border-bottom: none;
   };
   .panel-body {
-    min-height: 80px;
+    min-height: 100px;
   }
   th:first-child, td:first-child {
     padding-left: 10px;
   };
   tr {
     td:first-child {
+      width: 70%;
       font-size: 125%;
       font-weight: bold;
     }
-    .fission-button {
-      margin-right: 10px;
-    }; 
-    .fission-button:active {
-      border-right: white solid 5px;
-    };
-  }
+  };
+  a:hover, i:hover, {
+    color: $color-darkest;
+    text-decoration: none;
+  };
+  i {
+    color: black;
+    font-size: 125%;
+  };
 }
+
+.dashboard-action-tray {
+  vertical-align: middle;
+}
+
+.dashboard-action {
+  float: right;
+  margin-left: 5px;
+}
+
+.Platinum {
+  color: $color-platinum !important;
+}
+
+.Gold {
+  color: $color-gold !important;
+};
+
+.Silver {
+  color: $color-silver !important;
+};
+
+.Bronze {
+  color: $color-bronze !important;
+};
