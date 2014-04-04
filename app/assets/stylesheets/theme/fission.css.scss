@@ -1,9 +1,15 @@
+// Import component CSS styles
 @import "colors";
 @import "buttons";
 @import "forms";
 @import "highlighting";
 @import "docs";
 
+// Import overrides for specific views
+@import "../views/auth";
+@import "../views/dashboard";
+
+// Common theme styling
 $nav_height: 51px;
 
 html, body {
@@ -175,7 +181,7 @@ html, body {
   .under {
     text-decoration: underline;
     font-weight: bold;
-  }
+  };
 }
 
 .pricing {
