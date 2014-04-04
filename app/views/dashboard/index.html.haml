@@ -1,55 +1,73 @@
-%div.container.container-padding.add-repo
-  %div.row
-    %div.col-md-12
-      %div.repo-enable.fission-button{ href: "#", 'data-toggle' => 'modal', 'data-target' => '#repo_options_add' }= "Add a repository"
-      %p= "Add a new repository!"
+%div.add-repo
+  %div.container.container-padding
+    %div.row
+      %div.col-sm-3
+        %div.repo-enable.fission-button{ href: "#", 'data-toggle' => 'modal', 'data-target' => '#repo_options_add' }= "Add a repository"
+      %div.col-sm-9
+        %p= "Add a new repository!"
 
-%div.container.dashboard
-  %row
-    %div.col-md-6
-      %div.panel.panel-default.widget
-        %div.panel-heading
-          %h2= "Accounts"
-        %div.panel-body
-          %p= "Manage multiple GitHub Organizations (here called 'Accounts') from your Packager dashboard!"
-        %table.table.table-hover
-          %tr
-            %th= "Name"
-            %th= "Plan"
-            %th= ""
-          - @accounts.each do |account|
-            %tr
-              %td= account.name
-              %td
-                - if account.subscription_id
-                  %b= Rails.application.config.fission.pricing[:packager].try(:[], account.subscription_plan_id).try(:[], :title) || 'unknown'
-                - else
-                  = 'None'
-              %td
-                %a.fission-button.pull-right.repo_enable{ href: "/accounts/#{account.key}/order/new" }= "Subscription"
-
-    %div.col-md-6
-      %div.panel.panel-default.widget
-        %div.panel-heading
-          %h2= "Repositories"
-        %div.panel-body
-          %p= "Manage configuration settings for your source code repositories here."
-          - @repos.each do |account_name, repos|
-            - account = Account.find_by_name(account_name)
-            %div.page-header
-              %h3= account.name
-            %table.table.table-hover
-              %thead
-                %th
-                  Name
-                %th
-              - repos.each do |repo|
+%div.dashboard
+  %div.container
+    %div.row
+      // Accounts
+      %div.col-sm-6.widget
+        %div.panel.panel-default
+          %div.panel-heading
+            %h2= "Accounts"
+          %div.panel-body
+            %p= "Manage multiple GitHub Organizations (here called 'Accounts') from your Packager dashboard!"
+          %table.table.table-hover
+            %thead
+              %tr
+                %th= "Name"
+                %th= "Subscription"
+            %tbody
+              - @accounts.each do |account|
                 %tr
                   %td
-                    %a.h4{ href: "/accounts/#{account.id}/repositories" }= repo.name
-                  %td
-                    %div.fission-button.repo-enable{ href: '#', 'data-toggle' => 'modal', 'repo-name' => repo.name, 'data-target' => '#repo_options_update'}= 'Settings'
-            %div.well.well-sm{:style => 'display:block; overflow: auto; white-space: nowrap'}= "[deb https://#{account.name}:#{account.tokens.first.token}@#{account.name}.pkgd.io:9876/repository/apt/ubuntu 12.04 stable]"
+                    %a.h4{ href: "/accounts/#{account.id}" }= account.name
+                  %td.dasbhoard-action-tray
+                    - if account.subscription_id
+                      - plan = Rails.application.config.fission.pricing[:packager].try(:[], account.subscription_plan_id).try(:[], :title) || 'unknown'
+                      %span{ class: plan }= plan
+                      %a.dashboard-action{ href: "/accounts/#{account.key}/order/new" }
+                        %i.fa{ class: "fa-credit-card #{plan}" }
+                    - else
+                      = "(none)"
+                      %a.dashboard-action{ href: "/accounts/#{account.key}/order/new" }
+                        %i.fa{ class: "fa-credit-card" }
+
+      // Repositories
+      %div.col-sm-6.widget
+        %div.panel.panel-default
+          %div.panel-heading
+            %h2= "Repositories"
+          %div.panel-body
+            %p= "Manage configuration settings for your source code repositories here."
+          - @repos.each do |account_name, repos|
+            - account = Account.find_by_name(account_name)
+            %div.table-responsive
+              %table.table.table-hover
+                %thead
+                  %th= "Name"
+                  %th= "Settings"
+                %tbody
+                  - repos.each do |repo|
+                    %tr
+                      %td
+                        %a.h4{ href: "/accounts/#{account.id}/repositories" }= repo.name
+                      %td.dashboard-action-tray
+                        %a.dashboard-action{ href: repository_disable_url(repo, :account_id => account.id) }
+                          %i.fa{ class: "fa-trash-o", title: "Delete Repository" }
+                        %a.dashboard-action{ href: "/accounts/#{account.id}/repositories" }
+                          %i.fa{ class: "fa-cogs", title: "Repository Settings" }
+                        %a.dashboard-action{ href: "#", "data-toggle" => "modal", "repo-name" => repo.name, "data-target" => "#repo_options_update"}
+                          %i.fa{ class: "fa-filter", title: "Integration Filter Setting" }
+        - if @repos.empty?
+          %div.alert.alert-info
+            %strong= "You haven't added any repositories!"
+            != "Click <a href='#', data-toggle= 'modal', data-target= '#repo_options_add'>here</a> to add your first repository and get started."
+
 
 %div.container.navfix
 
