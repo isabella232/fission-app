@@ -34,11 +34,13 @@ database.
     {
       "nodes": [
         {
-          "host": "192.168.1.101"
+          "host": "IPADDRESS"
         }
       ]
     }
     ~~~
+
+    _NOTE: replace `IPADDRESS` with the address of your local riak server_
 
 5. Set some environment variables:
 
