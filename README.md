@@ -53,7 +53,7 @@ _NOTE: these are the instructions for getting the Fission rails app running; cur
     sudo echo "127.0.0.1  dev.packager.co" >> /etc/hosts
     ~~~
 
-6. Add your GitHub user to the `/config/fission.json` config file, here:
+6. Edit the `/config/fission.json` config file, adding your GitHub user account here:
 
     ~~~ json
     ...
