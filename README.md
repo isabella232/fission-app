@@ -13,6 +13,7 @@ database.
 
 1. Setup a `fission` project directory, and clone the develop branch of the following fission repos:
 
+    ~~~ shell
     mkdir fission && cd fission
     git clone -b develop git@github.com:heavywater/fission.git
     git clone -b develop git@github.com:heavywater/fission-data.git
@@ -21,6 +22,7 @@ database.
     git clone -b develop git@github.com:heavywater/fission-app-static.git
     git clone -b develop git@github.com:heavywater/fission-app-stripe.git
     git clone -b develop git@github.com:heavywater/fission-app-docs.git
+    ~~~
 
 2. `cd fission-app && bundle install`
 
@@ -28,6 +30,7 @@ database.
 
 4. Create a `/config/riak.json` file with the following contents:
 
+    ~~~ json
     {
       "nodes": [
         {
@@ -35,18 +38,22 @@ database.
         }
       ]
     }
+    ~~~
 
 5. Set some environment variables:
 
+    ~~~ shell
     export FISSION_LOCALS=true
     export FISSION_DATA=true
     export FISSION_RIAK_CONFIG='config/riak.json'
     sudo echo "127.0.0.1  dev.packager.co" >> /etc/hosts
+    ~~~
 
 6. Run the Fission Rails app!
 
+    ~~~ shell
     bundle exec rails s
-
+    ~~~
 
 ```json
 {"nodes": [{"host": "IP_ADDRESS"}]}
