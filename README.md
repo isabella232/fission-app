@@ -11,6 +11,8 @@ database.
 
 ## Getting Started
 
+_NOTE: these are the instructions for getting the Fission rails app running; currently these instructions are limited to packager.co development, but other fission apps will use similar instructions._
+
 1. Setup a `fission` project directory, and clone the develop branch of the following fission repos:
 
     ~~~ shell
@@ -51,11 +53,27 @@ database.
     sudo echo "127.0.0.1  dev.packager.co" >> /etc/hosts
     ~~~
 
-6. Run the Fission Rails app!
+6. Add your GitHub user to the `/config/fission.json` config file, here:
+
+    ~~~ json
+    ...
+      "whitelist": {
+          "users": [
+              "chrisroberts",
+              "calebhailey"
+          ]
+      },
+    ...
+    ~~~
+
+7. Run the Fission Rails app!
 
     ~~~ shell
     bundle exec rails s
     ~~~
+
+8. Visit your locally running instance at `http://dev.packager.co:3000`
+
 
 ### Helpful testing things:
 
