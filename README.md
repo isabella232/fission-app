@@ -11,16 +11,42 @@ database.
 
 ## Getting Started
 
-1. Install ruby and rails
-  * add-apt-repository ppa:brightbox/ruby-ng
-2. clone repository
-  * git clone https://github.com/heavywater/fission-app
-3. Change to repository directory
-  * `bundle install --path vendor`
-  * `bundle --binstubs`
-4. Install riak
-  * Riak cookbook is easy way to get instance stood up
-5. Create JSON file for database with contents (riak.json):
+1. Setup a `fission` project directory, and clone the develop branch of the following fission repos:
+
+    mkdir fission && cd fission
+    git clone -b develop git@github.com:heavywater/fission.git
+    git clone -b develop git@github.com:heavywater/fission-data.git
+    git clone -b develop git@github.com:heavywater/fission-app.git
+    git clone -b develop git@github.com:heavywater/fission-app-jobs.git
+    git clone -b develop git@github.com:heavywater/fission-app-static.git
+    git clone -b develop git@github.com:heavywater/fission-app-stripe.git
+    git clone -b develop git@github.com:heavywater/fission-app-docs.git
+
+2. `cd fission-app && bundle install`
+
+3. Install & start Riak
+
+4. Create a `/config/riak.json` file with the following contents:
+
+    {
+      "nodes": [
+        {
+          "host": "192.168.1.101"
+        }
+      ]
+    }
+
+5. Set some environment variables:
+
+    export FISSION_LOCALS=true
+    export FISSION_DATA=true
+    export FISSION_RIAK_CONFIG='config/riak.json'
+    sudo echo "127.0.0.1  dev.packager.co" >> /etc/hosts
+
+6. Run the Fission Rails app!
+
+    bundle exec rails s
+
 
 ```json
 {"nodes": [{"host": "IP_ADDRESS"}]}
