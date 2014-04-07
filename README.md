@@ -55,11 +55,6 @@ database.
     bundle exec rails s
     ~~~
 
-```json
-{"nodes": [{"host": "IP_ADDRESS"}]}
-```
-6. FISSION_RIAK_CONFIG=riak.json ./bin/rails s
-
 ### Helpful testing things:
 
 * ALLOW_NO_AUTH=true - defaults to first user on request
