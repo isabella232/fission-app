@@ -33,7 +33,7 @@ class FissionApp::Application
   config.fission.intercom_io = config.fission.config.fetch(:intercom_io, {}).with_indifferent_access
 
   config.fission.whitelist[:users] ||= []
-  config.fission.whitelist[:redirect_to] ||= '/s/beta'
+  config.fission.whitelist[:redirect_to] ||= '/beta'
 
   if(config.fission.config[:static_pages] && config.fission.config[:static_pages][:path])
     config.fission.static_pages = config.fission.config[:static_pages][:path]
@@ -44,6 +44,8 @@ class FissionApp::Application
   end
 
   config.fission.fission_router = config.fission.config.fetch(:router_source, {}).with_indifferent_access
+
+  config.fission.repository_api = config.fission.config.fetch(:repository_api, 'repository.pkgd.io')
 
 end
 
