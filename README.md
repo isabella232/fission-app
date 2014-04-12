@@ -11,21 +11,69 @@ database.
 
 ## Getting Started
 
-1. Install ruby and rails
-  * add-apt-repository ppa:brightbox/ruby-ng
-2. clone repository
-  * git clone https://github.com/heavywater/fission-app
-3. Change to repository directory
-  * `bundle install --path vendor`
-  * `bundle --binstubs`
-4. Install riak
-  * Riak cookbook is easy way to get instance stood up
-5. Create JSON file for database with contents (riak.json):
+_NOTE: these are the instructions for getting the Fission rails app running; currently these instructions are limited to packager.co development, but other fission apps will use similar instructions._
 
-```json
-{"nodes": [{"host": "IP_ADDRESS"}]}
-```
-6. FISSION_RIAK_CONFIG=riak.json ./bin/rails s
+1. Setup a `fission` project directory, and clone the develop branch of the following fission repos:
+
+    ~~~ shell
+    mkdir fission && cd fission
+    git clone -b develop git@github.com:heavywater/fission.git
+    git clone -b develop git@github.com:heavywater/fission-data.git
+    git clone -b develop git@github.com:heavywater/fission-app.git
+    git clone -b develop git@github.com:heavywater/fission-app-jobs.git
+    git clone -b develop git@github.com:heavywater/fission-app-static.git
+    git clone -b develop git@github.com:heavywater/fission-app-stripe.git
+    git clone -b develop git@github.com:heavywater/fission-app-docs.git
+    ~~~
+
+2. `cd fission-app && bundle install`
+
+3. Install & start Riak
+
+4. Create a `/config/riak.json` file with the following contents:
+
+    ~~~ json
+    {
+      "nodes": [
+        {
+          "host": "IPADDRESS"
+        }
+      ]
+    }
+    ~~~
+
+    _NOTE: replace `IPADDRESS` with the address of your local riak server_
+
+5. Set some environment variables:
+
+    ~~~ shell
+    export FISSION_LOCALS=true
+    export FISSION_DATA=true
+    export FISSION_RIAK_CONFIG='config/riak.json'
+    sudo echo "127.0.0.1  dev.packager.co" >> /etc/hosts
+    ~~~
+
+6. Add your GitHub user to the `/config/fission.json` config file, here:
+
+    ~~~ json
+    ...
+      "whitelist": {
+          "users": [
+              "chrisroberts",
+              "calebhailey"
+          ]
+      },
+    ...
+    ~~~
+
+7. Run the Fission Rails app!
+
+    ~~~ shell
+    bundle exec rails s
+    ~~~
+
+8. Visit your locally running instance at `http://dev.packager.co:3000`
+
 
 ### Helpful testing things:
 
