@@ -44,8 +44,13 @@ class FissionApp::Application
   end
 
   config.fission.fission_router = config.fission.config.fetch(:router_source, {}).with_indifferent_access
-
   config.fission.repository_api = config.fission.config.fetch(:repository_api, 'repository.pkgd.io')
+
+  config.fission.mail = config.fission.config.fetch(:mail,
+    :to => 'fission@hw-ops.com',
+    :name => 'Fission UI',
+    :subject => 'Generated Email'
+  ).with_indifferent_access
 
 end
 
