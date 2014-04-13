@@ -44,6 +44,10 @@ FissionApp::Application.routes.draw do
   get 'register', :to => 'users#new', :as => :registration
   get 'dashboard', :to => 'dashboard#index', :as => :dashboard
 
+  scope :utilities do
+    post 'form_mailer', :to => 'utilities#form_mailer', :as => :form_mailer_utility
+  end
+
   get '(:path)', to: 'static#display', :constraints => {:path => /(?!assets).+/}
 
   root 'static#display'
