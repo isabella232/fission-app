@@ -1,5 +1,6 @@
 {
     "site_brand": "Packager",
+    "site_beta": true,
     "json_style": "jsend",
     "intercom_io": {
       "enabled": "true",
