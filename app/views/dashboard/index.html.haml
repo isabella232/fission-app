@@ -63,6 +63,9 @@
                           %i.fa{ class: "fa-cogs", title: "Repository Settings" }
                         %a.dashboard-action{ href: "#", "data-toggle" => "modal", "repo-name" => repo.name, "data-target" => "#repo_options_update"}
                           %i.fa{ class: "fa-filter", title: "Integration Filter Setting" }
+                        %a.dashboard-action{ href: "https://github.com/#{repo.name}" }
+                          %i.fa{ class: "fa-github-alt", title: "GitHub Repository" }
+
         - if @repos.empty?
           %div.alert.alert-info
             %strong= "You haven't added any repositories!"
