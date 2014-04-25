@@ -28,6 +28,10 @@ html, body {
   padding-bottom: 100px;
 }
 
+.nofloat {
+  float: none !important;
+}
+
 .full-width {
   display: block;
 }
