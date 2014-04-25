@@ -48,7 +48,7 @@
                     %a.h4{ href: repo.clone_url }= repo.name
                   %td
                     %div.fission-button.repo-enable{ href: '#', 'data-toggle' => 'modal', 'repo-name' => repo.name, 'data-target' => '#repo_options_update'}= 'Settings'
-            %div.well.well-sm{:style => 'display:block; overflow: auto; white-space: nowrap'}= "[deb https://#{acct}:#{Account.find_by_name(acct).tokens.first.token}@#{acct}.pkgd.io:9876/repository/apt/ubuntu 12.04 stable]"
+            %div.well.well-sm{:style => 'display:block; overflow: auto; white-space: nowrap'}= "[deb https://#{acct}:#{Account.find_by_name(acct).tokens.first.token}@#{Rails.application.config.fission.repository_api}/repository/apt/ubuntu 12.04 stable]"
 
 %div.container.navfix
 

@@ -13,7 +13,8 @@ module Fission
       def trigger!(args={})
         task = args.delete(:task) || :app_jobs
         if(endpoint == :fission)
-          payload = Fission::Utils.new_payload(task, args)
+          payload = Fission::Utils.new_payload('router', args)
+          payload[:data][:router][:route] = [task]
           Fission::Utils.transmit(task, payload)
         else
           endpoint.transmit({:task => task}.merge(args))
