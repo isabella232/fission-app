@@ -1,9 +1,12 @@
 %div.navbar.navbar-default.navbar-static-bottom{ role: 'footer' }
   %div.container
-    %p.navbar-text.navbar-left
-      %abbr{ title: FissionApp::VERSION.codename }= "v#{FissionApp::VERSION.version};"
-      != "made with love by <a href='http://heavywaterops.com'>Heavy Water Operations, LLC</a>, &copy; #{Time.now.year}"
-    %p.navbar-text.navbar-right
-      %a{ href: '/terms' }= "Terms of Service"
-      = " | "
-      %a{ href: '/privacy' }= "Privacy Policy"
+    %div.row
+      %div.col-sm-8
+        %p.navbar-text.navbar-left
+          != "Made with <i class='fa fa-heart'></i> by <a href='http://heavywaterops.com'>Heavy Water Operations, LLC</a>, &copy; #{Time.now.year}"
+          %abbr{ title: FissionApp::VERSION.codename }= "(v#{FissionApp::VERSION.version})"
+      %div.col-sm-4
+        %p.navbar-text.navbar-right
+          %a{ href: '/termsofservice' }= "Terms"
+          = " | "
+          %a{ href: '/privacy' }= "Privacy"
