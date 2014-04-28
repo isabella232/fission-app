@@ -18,6 +18,8 @@
         - if current_user
           %li.active
             %a{ href: dashboard_url }= 'Dashboard'
+          %li
+            %a{ href: "/docs" }= "Docs"
         - else
           - if @nav
             - @nav.each do |section|
