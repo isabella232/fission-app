@@ -48,7 +48,7 @@ FissionApp::Application.routes.draw do
     post 'form_mailer', :to => 'utilities#form_mailer', :as => :form_mailer_utility
   end
 
-  get '(:path)', to: 'static#display', :constraints => {:path => /(?!assets).+/}
+  get '(:path)', to: 'static#display', :constraints => {:path => /(?!assets).+/} , :as => :static_page
 
   root 'static#display'
 
