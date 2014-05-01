@@ -24,5 +24,6 @@ module FissionApp
     # config.i18n.default_locale = :de
 
     config.json_format = :jsend
+    config.railties_order = [:main_app, :all, FissionApp::Static::Engine]
   end
 end
