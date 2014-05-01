@@ -14,3 +14,11 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require_tree .
+
+// enable popovers helper
+function enable_popovers(){
+  $('.popper').popover();
+}
+
+$(document).ready(enable_popovers);
+$(document).on('page:load', enable_popovers);
