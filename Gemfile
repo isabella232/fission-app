@@ -9,7 +9,6 @@ gem 'jbuilder', '~> 1.2'
 
 gem 'sprockets', '2.10.1'
 
-
 gem 'rouge', git: 'git://github.com/chrisroberts/rouge.git', branch: 'fix/lazyload'
 
 group :doc do
@@ -47,19 +46,24 @@ end
 
 gem 'octokit'
 gem 'risky', git: 'git://github.com/chrisroberts/risky.git', branch: 'updates'
+gem 'pg'
+
+gem 'momentjs-rails', '~> 2.5.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 3.0.0'
 
 if(ENV['FISSION_LOCALS'] == 'true')
   gem 'fission-app-jobs', path: '../fission-app-jobs', require: 'fission-app-jobs/version'
   gem 'fission-data', path: '../fission-data'
   gem 'fission-app-stripe', path: '../fission-app-stripe'
   gem 'fission-app-static', path: '../fission-app-static'
+  gem 'fission-app-woodchuck', path: '../fission-app-woodchuck'
   gem 'fission-app-docs', path: '../fission-app-docs'
 else
   gem 'fission-app-jobs', git: 'git@github.com:heavywater/fission-app-jobs.git', branch: 'develop', require: 'fission-app-jobs/version'
   gem 'fission-data', git: 'git@github.com:heavywater/fission-data.git', branch: 'develop'
   gem 'fission-app-stripe', git: 'git@github.com:heavywater/fission-app-stripe.git', branch: 'develop'
+  gem 'fission-app-woodchuck', git: 'git@github.com:heavywater/fission-app-woodchuck', branch: 'develop'
   gem 'fission-app-static', git: 'git@github.com:heavywater/fission-app-static', branch: 'develop'
-  gem 'fission-app-docs', git: 'git@github.com:heavywater/fission-app-docs', branch: 'develop'
 end
 
 gemspec
