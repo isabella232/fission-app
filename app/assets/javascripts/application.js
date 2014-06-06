@@ -19,8 +19,17 @@
 
 // enable popovers helper
 function enable_popovers(){
-  $('.popper').popover();
+  $('.popper').popover({html: true});
 }
 
-$(document).ready(enable_popovers);
-$(document).on('page:load', enable_popovers);
+function enable_timepickers(){
+  $('.timepicker').datetimepicker();
+}
+
+function run_enablers(){
+  enable_popovers();
+  enable_timepickers();
+}
+
+$(document).ready(run_enablers);
+$(document).on('page:load', run_enablers);
