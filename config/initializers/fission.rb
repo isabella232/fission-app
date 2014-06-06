@@ -1,3 +1,5 @@
+require 'carnivore'
+
 class FissionApp::Application
 
   config.fission = ActiveSupport::Configurable::Configuration.new
@@ -14,7 +16,9 @@ class FissionApp::Application
 
   raise "No fission configuration file detected!" unless fission_file
 
-  config.fission.config = JSON.load(File.read(fission_file)).with_indifferent_access
+  base_hash = JSON.load(File.read(fission_file))
+  config.fission.config = base_hash.with_indifferent_access
+  config.settings = Smash.new(base_hash)
 
   unless(valid_config_paths.last == fission_file)
     base_file = JSON.load(File.read(valid_config_paths.last)).with_indifferent_access
