@@ -162,8 +162,13 @@ class ApplicationController < ActionController::Base
     end.flatten.sort{|x,y| x.full_name <=> y.full_name}
   end
 
-  def github
-    Octokit::Client.new(:access_token => current_user.token_for(:github))
+  def github(bot_user=true)
+    if(bot_user)
+      token = Rails.application.config.settings.get(:github, :token)
+    else
+      token = current_user.token_for(:github)
+    end
+    Octokit::Client.new(:access_token => token)
   end
 
   def analytics
