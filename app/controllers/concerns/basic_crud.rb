@@ -31,13 +31,12 @@ module BasicCrud
       klass = container.sub('_id', '').classify.constantize
       base = klass[params[container]]
       @items = base.send(params[:style])
-      @title = "#{klass.table_name.humanize} #{base}: #{params[:style].humanize.downcase}"
+      @title = "#{klass.table_name.to_s.humanize} #{base}: #{params[:style].humanize.downcase}"
     else
       @items = model_class.restrict(current_user)
-      @title = model_class.table_name.humanize.pluralize
+      @title = model_class.table_name.to_s.humanize.pluralize
     end
-    model_class.sorter(@items) if model_class.respond_to?(:sorter)
-    @items = Kaminari.paginate_array(@items).page(params[:page].to_i).per(50)
+    @items = @items.order(:created_at).paginate(params.fetch(:page, 1).to_i, 50)
     @keys = model_class.respond_to?(:display_attributes) ? model_class.display_attributes : model_class.attribute_names
     respond_to do |format|
       format.html{ render apply_render }
