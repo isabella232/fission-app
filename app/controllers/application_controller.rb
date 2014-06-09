@@ -158,15 +158,18 @@ class ApplicationController < ActionController::Base
 
   def fetch_github_repos(*accounts)
     [accounts].flatten.compact.map do |account|
-      Fission::App::Jobs.fetch_all(github.org(account), :repos)
+      Fission::App::Jobs.fetch_all(github(:user).org(account), :repos)
     end.flatten.sort{|x,y| x.full_name <=> y.full_name}
   end
 
-  def github(bot_user=true)
-    if(bot_user)
+  def github(gh_ident)
+    case gh_ident
+    when :bot
       token = Rails.application.config.settings.get(:github, :token)
-    else
+    when :user
       token = current_user.token_for(:github)
+    else
+      raise "Unknown GitHub identity requested for use: #{gh_ident.inspect}"
     end
     Octokit::Client.new(:access_token => token)
   end
