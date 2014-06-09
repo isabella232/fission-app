@@ -29,7 +29,7 @@ gem 'jruby-rack', '1.1.13.3', :platforms => :jruby
 gem 'omniauth', '~> 1.1'
 gem 'omniauth-github'
 gem 'oauth_simple'
-gem 'kaminari'
+gem 'will_paginate'
 gem 'haml', '>= 0.3.4'
 gem 'simple_form'
 gem 'bootstrap-sass'
@@ -52,15 +52,17 @@ gem 'momentjs-rails', '~> 2.5.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 3.0.0'
 
 if(ENV['FISSION_LOCALS'] == 'true')
+  gem 'fission', path: '../fission'
   gem 'fission-app-jobs', path: '../fission-app-jobs', require: 'fission-app-jobs/version'
-  gem 'fission-data', path: '../fission-data'
+  gem 'fission-data', path: '../fission-data', :require => false
   gem 'fission-app-stripe', path: '../fission-app-stripe'
   gem 'fission-app-static', path: '../fission-app-static'
   gem 'fission-app-woodchuck', path: '../fission-app-woodchuck'
   gem 'fission-app-docs', path: '../fission-app-docs'
 else
+  gem 'fission', git: 'git@github.com:heavywater/fission.git', branch: 'develop'
   gem 'fission-app-jobs', git: 'git@github.com:heavywater/fission-app-jobs.git', branch: 'develop', require: 'fission-app-jobs/version'
-  gem 'fission-data', git: 'git@github.com:heavywater/fission-data.git', branch: 'develop'
+  gem 'fission-data', git: 'git@github.com:heavywater/fission-data.git', branch: 'develop', :require => false
   gem 'fission-app-stripe', git: 'git@github.com:heavywater/fission-app-stripe.git', branch: 'develop'
   gem 'fission-app-woodchuck', git: 'git@github.com:heavywater/fission-app-woodchuck', branch: 'develop'
   gem 'fission-app-static', git: 'git@github.com:heavywater/fission-app-static', branch: 'develop'
