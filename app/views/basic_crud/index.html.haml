@@ -12,7 +12,7 @@
           - if @links && @items.first && show_links = @items.first.class.display_links
             %th= 'More'
       %tbody
-        - @items.sort{|x,y| x[@keys.first] <=> y[@keys.first]}.each do |obj|
+        - @items.each do |obj|
           %tr
             - if @labels
               %td
