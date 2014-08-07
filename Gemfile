@@ -68,4 +68,11 @@ else
   gem 'fission-app-static', git: 'git@github.com:heavywater/fission-app-static', branch: 'develop'
 end
 
+gem 'sparkle_formation', :path => '/home/spox/Projects/chrisroberts/sparkle_formation'
+gem 'sparkle_ui', :path => '/home/spox/Projects/chrisroberts/sparkle_ui'
+gem 'sparkle_builder', :path => '/home/spox/Projects/chrisroberts/sparkle_builder'
+gem 'fog', :path => '/home/spox/Projects/chrisroberts/fog'
+gem 'fog-core', :path => '/home/spox/Projects/chrisroberts/fog-core'
+gem 'knife-cloudformation', :path => '/home/spox/Projects/chrisroberts/knife-cloudformation'
+gem 'window_rails', :path => '/home/spox/Projects/chrisroberts/window_rails'
 gemspec

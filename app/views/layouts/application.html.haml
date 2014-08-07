@@ -11,6 +11,8 @@
     %meta{name: 'viewport', content: 'width=device-width'}
     = stylesheet_link_tag 'application', media: 'all'
     = javascript_include_tag 'application'
+    - if @intercom_args
+      = javascript_include_tag 'intercom_io'
     = csrf_meta_tags
 
   %body{ "data-spy" => "scroll", "data-target" => "#sitenav" }
@@ -36,5 +38,5 @@
         ga('create', '#{@analytics[:ref]}', '#{@analytics[:name]}');
         ga('send', 'pageview');
 
-    - if current_user && Rails.application.config.fission.intercom_io[:enabled]
+    - if @intercom_args
       = render :partial => 'layouts/intercom_io'

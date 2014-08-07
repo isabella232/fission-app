@@ -15,7 +15,10 @@
 //= require bootstrap
 //= require moment
 //= require bootstrap-datetimepicker
-//= require_tree .
+//= require window_rails
+//= require sparkle_ui
+//= require sparkle_builder
+//= require_tree ./application
 
 // enable popovers helper
 function enable_popovers(){

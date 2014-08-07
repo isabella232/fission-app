@@ -1,5 +1,5 @@
 - if flash.any?
-  %div.container.container-padding
+  %div.container-fluid.container-padding
     - map = {:info => [:info, :information, :notice], :success => [:success], :warning => [:warn, :warning], :danger => [:error, :alert]}
     - map.each do |k, v|
       - v.each do |key|

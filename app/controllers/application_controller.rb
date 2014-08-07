@@ -1,26 +1,21 @@
-require 'fission-app/errors'
+require 'fission-app'
 
 class ApplicationController < ActionController::Base
 
   # Load in any modules we care about
   include JsonApi
   include FissionApp::Errors
+  include Fission::Data::Models
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery :with => :exception
 
-  # Prevent regular errors from propogating up unless in dev mode
-  unless(Rails.env == 'development')
-    rescue_from StandardError, :with => :exception_handler
-  end
+  rescue_from StandardError, :with => :exception_handler
 
   # User access helpers
   helper_method :current_user
   helper_method :valid_user?
-
-  # Permission helpers
-  helper_method :permit
 
   # Set analytics variables
   before_action :analytics
@@ -28,54 +23,87 @@ class ApplicationController < ActionController::Base
   # Always validate
   before_action :validate_user!
 
+  # Cache permission
+  before_action :cache_user_permissions, :if => lambda{ valid_user? }
+
+  # Check user is permitted on path
+  before_action :validate_permission!, :if => lambda{ valid_user? }
+
   # Set helpdesk variables
   before_action :helpdesk
 
   # Just say no to infinity
   after_action :reset_redirect_counter
 
+  # Store custom data session changes
+  after_action :save_user_session, :if => lambda{ valid_user? }
+
   protected
 
-  ## Helpers
-
+  # @return [String] default root url
+  # @note will return dashboard url for logged in users
   def default_url
     valid_user? ? dashboard_url : root_url
   end
 
-  # returns if user is logged in
+  # @return [TrueClass, FalseClass] user is logged in
   def valid_user?
     !!current_user
   end
 
-  # return instance of current user
+  # @return [Fission::Data::User] current user instance
   def current_user
-    if(ENV['ALLOW_NO_AUTH'])
+    if(Rails.env != 'production' && ENV['FISSION_AUTHENTICATION_DISABLE'] == 'true')
       session[:user_id] = User.first.id
     end
     unless(@current_user)
-      @current_user = User[session[:user_id]] if defined?(User)
+      if(session[:user_id])
+        @current_user = User.find_by_id(session[:user_id])
+        unless(@current_user)
+          session.clear
+        end
+      end
     end
     if(@current_user)
       if(session[:account_id])
-        act = @current_user.accounts.detect{|a| a.key == session[:account_id]}
+        account = @current_user.accounts_dataset.where(:id => session[:account_id]).first
       end
-      @current_user.run_state.current_account = act || @current_user.base_account
+      @current_user.run_state.current_account = account || @current_user.owned_accounts.first
     end
     @current_user
   end
 
-  # args:: permission(s)
-  # raise exception if current user is not allowed
-  def permit(*args)
-    res = args.detect do |arg|
-      current_user.permitted?(arg)
+  # Cache valid user permissions into user run_state
+  def cache_user_permissions
+    current_paths = current_user.run_state.allowed_paths
+    if(current_paths.nil? || current_paths.empty?)
+      unless(current_user.session[:allowed_paths])
+        patterns = current_user.permissions.map(&:pattern)
+        current_user.session[:allowed_paths] = patterns.map(&:to_s)
+      else
+        patterns = current_user.session[:allowed_paths].map do |pattern|
+          Regexp.new(pattern)
+        end
+      end
+      current_user.run_state.allowed_paths = patterns
     end
-    res || raise(Error.new('Access denied', :unauthorized))
   end
 
-  ## Callbacks
+  # Check that user has permission to defined paths
+  #
+  # @return [TrueClass]
+  # @raises [Error::PermissionDeniedError]
+  def validate_permission!
+    match = current_user.run_state.allowed_paths.detect do |regex|
+      regex.match(request.path)
+    end
+    unless(match)
+      Rails.logger.error "Failed to match request path (#{request.path}) to valid permission!"
+      raise Error::PermissionDeniedError.new 'Access denied'
+    end
+  end
 
-  # forces login if user is not valid
+  # Validate user is logged in and set
   def validate_user!
     unless(valid_user?)
       flash.each do |k,v|
@@ -100,80 +128,90 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # redirect:: do redirect
-  # Validate user is in whitelist. Redirect user if applicable.
+  # Validate user is found within whitelist. Redirect user
+  # if not found
+  #
+  # @param redirect [TrueClass, FalseClass] redirect user if not found
+  # @return [TrueClass, FalseClass]
   def whitelist_validate!(redirect=true)
-    unless(Rails.application.config.fission.whitelist[:users].include?(current_user.username))
-      if(redirect)
+    if(Rails.application.config.fission.whitelist)
+      if(Whitelist.where(:username => current_user.username).count == 0)
+        Rails.logger.error "User is not listed within whitelist (#{current_user.username})"
         redirect_to Rails.application.config.fission.whitelist[:redirect_to]
+        false
+      else
+        true
       end
-      false
     else
       true
     end
   end
 
-  def api_validate
-    # valid authentication paths:
-    # Basic Auth
-    user = authenticate_with_http_basic do |username, password|
-
-    end
-    # OAuth token
-    false
-  end
-
-  # error:: Exception
-  # Handles uncaught exceptions
+  # Handle uncaught exceptions. Set error and redirect back
+  # to root URL. If root url is causing exception leading to
+  # recursive redirect, forcibly render error page out.
+  #
+  # @param error [Exception]
+  # @note exceptions will propogate out in development mode
   def exception_handler(error)
-    Rails.logger.error "#{error.class}: #{error} - (user: #{current_user.try(:username)})"
-    Rails.logger.debug "#{error.class}: #{error}\n#{error.backtrace.join("\n")}"
-    msg = error.is_a?(Error) ? error.message : 'Unknown error encountered'
-    session[:redirect_count] ||= 0
-    session[:redirect_count] += 1
-    @error_state = true
-    respond_to do |format|
-      format.html do
-        flash[:error] = msg
-        if(session[:redirect_count] > 5)
-          Rails.logger.error 'Caught in redirect loop. Bailing out!'
-          render
-        else
-          redirect_to root_url
+    unless(Rails.env == 'development')
+      Rails.logger.error "#{error.class}: #{error} - (user: #{current_user.try(:username)})"
+      Rails.logger.debug "#{error.class}: #{error}\n#{error.backtrace.join("\n")}"
+      msg = error.is_a?(Error) ? error.message : 'Unknown error encountered'
+      session[:redirect_count] ||= 0
+      session[:redirect_count] += 1
+      @error_state = true
+      respond_to do |format|
+        format.html do
+          flash[:error] = msg
+          if(session[:redirect_count] > 5)
+            Rails.logger.error 'Caught in redirect loop. Bailing out!'
+            render
+          else
+            redirect_to root_url
+          end
+        end
+        format.json do
+          render(
+            :json => json_response(nil, :error, :message => msg),
+            :status => error.respond_to?(:status_code) ? error.status_code : :internal_server_error
+          )
         end
       end
-      format.json do
-        render(
-          :json => json_response(nil, :error, :message => msg),
-          :status => error.respond_to?(:status_code) ? error.status_code : :internal_server_error
-        )
-      end
+    else
+      raise error
     end
   end
 
-  after_action :reset_redirect_counter
+  # Reset the redirect counter back to zero on successful completion
   def reset_redirect_counter
     session[:redirect_count] = 0 unless @error_state
   end
 
-  def fetch_github_repos(*accounts)
-    [accounts].flatten.compact.map do |account|
-      Fission::App::Jobs.fetch_all(github(:user).org(account), :repos)
-    end.flatten.sort{|x,y| x.full_name <=> y.full_name}
+  # Save the user session on the way out
+  def save_user_session
+    current_user.active_session.save
   end
 
-  def github(gh_ident)
-    case gh_ident
+  # Build github API client
+  #
+  # @param ident [Symbol] :bot or :user
+  # @return [Octokit::Client]
+  def github(ident)
+    case ident
     when :bot
       token = Rails.application.config.settings.get(:github, :token)
     when :user
       token = current_user.token_for(:github)
     else
-      raise "Unknown GitHub identity requested for use: #{gh_ident.inspect}"
+      raise "Unknown GitHub identity requested for use: #{ident.inspect}"
     end
     Octokit::Client.new(:access_token => token)
   end
 
+  # Load google analytics if running in production
+  #
+  # @return [TrueClass, FalseClass]
   def analytics
     if(Rails.env == 'production')
       dns = request.env.fetch('SERVER_NAME', '')
@@ -188,11 +226,19 @@ class ApplicationController < ActionController::Base
       else
         Rails.logger.warn "Failed to locate analytics property using connected DNS (#{dns})"
       end
+      true
+    else
+      false
     end
   end
 
+  # Load helpdesk if running in production
+  #
+  # @return [TrueClass, FalseClass]
+  # @note only loads if in production, enabled in config, and user
+  #   logged in
   def helpdesk
-    if(current_user && Rails.application.config.fission.intercom_io[:enabled])
+    if(Rails.env == 'production' && current_user && Rails.application.config.fission.intercom_io[:enabled])
       unless(session[:intercom_args])
         @intercom_args = {
           :name => current_user.username,
@@ -212,7 +258,44 @@ class ApplicationController < ActionController::Base
         session[:intercom_args] = @intercom_args
       end
       @intercom_args = session[:intercom_args].try(:dup)
+      true
+    else
+      false
     end
+  end
+
+  # Redirect browser via javascript response
+  #
+  # @param url [String] destination
+  # @return [String]
+  def javascript_redirect_to(url)
+    render :js => "window.document.location = '#{url}';"
+  end
+
+  # @return [Integer] page number for pagination
+  def page(param_name=nil)
+    (params[param_name || :page] || 1).to_i
+  end
+
+  # @return [Integer] default items per page for pagination
+  def per_page
+    Rails.application.config.fission[:pagination].try(:[], :per_page) || 25
+  end
+
+  # Sets pagination content block for given collection
+  #
+  # @param collection [Enumerable]
+  # @param args [Hash]
+  # @option args [Symbol] :id content_for identifier (defaults :pagination)
+  # @option args [Symbol] :param_name link parameter name (defaults :page)
+  def enable_pagination_on(collection, args={})
+    content_for(args.fetch(:id, :pagination),
+      view_context.will_paginate(collection,
+        :renderer => BootstrapPagination::Rails,
+        :class => 'pagination-sm',
+        :param_name => args.fetch(:param_name, :page)
+      )
+    )
   end
 
 end

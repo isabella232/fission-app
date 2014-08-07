@@ -1,32 +1,22 @@
 FissionApp::Application.routes.draw do
 
-  resources :accounts do
-    resource :order, :controller => :stripe
-    resources :users
-    resource :owner, :controller => :users
-    resources :jobs
-    resources :repositories
-  end
-
-  resources :repositories, :only => [:index] do
-    get 'disable', :to => :disable
-    post 'enable', :to => :enable
-  end
-
-  resources :users do
-    resources :accounts
-    resource :base_account, :controller => :accounts
-    resources :jobs
-  end
-
-  resources :jobs do
-    resource :account
-    resource :user
-  end
-
   namespace :admin do
+    resources :accounts do
+      resources :users
+      resources :permissions
+      resources :tokens
+    end
+    resources :users do
+      resources :tokens
+    end
+    resources :sources do
+      resources :accounts
+    end
     resources :permissions
   end
+
+  resources :accounts
+  resources :users
 
   scope :session do
     get 'login', :to => 'sessions#new', :as => :new_session

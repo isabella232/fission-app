@@ -8,6 +8,16 @@ module FissionApp
         super(message)
         @status_code = status
       end
+
+      class Forbidden < Error
+        def initialize(message)
+          super(message, 403)
+        end
+      end
+
+      class PermissionDeniedError < Forbidden
+      end
+
     end
 
   end

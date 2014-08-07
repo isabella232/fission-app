@@ -74,3 +74,13 @@ unless(Rails.application.config.fission.fission_router.empty?)
 else
   Rails.application.config.backgroundable = Fission::App::Backgroundable.new
 end
+
+# Rails.application.config.sparkle[:orchestration][:credentials] = {
+#   :provider => 'aws',
+#   :aws_access_key_id => 'AKIAJQAUGQG53VH5VUDQ',
+#   :aws_secret_access_key => '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',
+#   :region => 'us-east-1'
+# }
+# Rails.application.config.sparkle[:storage][:credentials] = Rails.application.config.sparkle[:orchestration][:credentials]
+# Rails.application.config.sparkle[:storage][:bucket] = 'cr-test-store-bucket'
+# SparkleFormation.sparkle_path = '/home/spox/Projects/target/chef-repo/cloudformation'

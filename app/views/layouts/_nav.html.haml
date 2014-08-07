@@ -29,15 +29,12 @@
         - if current_user
           %li.dropdown
             %a{href: '#', 'data-toggle' => 'dropdown'}
-              %img.avatar.pull-left{ src: current_user.identities.first[:infos].try(:[], :image) }
+              - if current_user.default_identity
+                %img.avatar.pull-left{ src: current_user.default_identity[:infos].try(:[], :image) }
               %b.caret
             %ul{class: 'dropdown-menu'}
-              // %li
-              //   %a{ href: edit_user_url(current_user.id) }= 'Profile'
-              %li
-                %a{ href: destroy_session_url }= 'Logout'
-
+              %li= link_to 'Profile', edit_user_url(current_user)
+              %li= link_to 'Logout', destroy_session_url
         - else
           - if !request.original_url.include? 'login'
-            %li
-              %a{ href: new_session_url }= "Dashboard"
+            %li= link_to 'Dashboard', new_session_url
