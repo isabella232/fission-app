@@ -1,5 +1,5 @@
-require 'fission-app-jobs/utils'
-
+#require 'fission-app-jobs/utils'
+=begin
 module Fission
   module App
     class Backgroundable
@@ -37,3 +37,4 @@ module Fission
     end
   end
 end
+=end

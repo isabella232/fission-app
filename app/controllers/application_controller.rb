@@ -5,7 +5,9 @@ class ApplicationController < ActionController::Base
   # Load in any modules we care about
   include JsonApi
   include FissionApp::Errors
-  include Fission::Data::Models
+  if(defined?(Fission::Data::Models))
+    include Fission::Data::Models
+  end
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -21,22 +23,25 @@ class ApplicationController < ActionController::Base
   before_action :analytics
 
   # Always validate
-  before_action :validate_user!
+  before_action :validate_user!, :if => lambda{ user_mode? }
 
   # Cache permission
-  before_action :cache_user_permissions, :if => lambda{ valid_user? }
+  before_action :cache_user_permissions, :if => lambda{ user_mode? && valid_user? }
 
   # Check user is permitted on path
-  before_action :validate_permission!, :if => lambda{ valid_user? }
+  before_action :validate_permission!, :if => lambda{ user_mode? && valid_user? }
 
   # Set helpdesk variables
   before_action :helpdesk
+
+  # Define navigation
+  before_action :set_navigation, :if => lambda{ user_mode? && valid_user? }
 
   # Just say no to infinity
   after_action :reset_redirect_counter
 
   # Store custom data session changes
-  after_action :save_user_session, :if => lambda{ valid_user? }
+  after_action :save_user_session, :if => lambda{ user_mode? && valid_user? }
 
   protected
 
@@ -53,7 +58,7 @@ class ApplicationController < ActionController::Base
 
   # @return [Fission::Data::User] current user instance
   def current_user
-    if(Rails.env != 'production' && ENV['FISSION_AUTHENTICATION_DISABLE'] == 'true')
+    if((Rails.env != 'production' && ENV['FISSION_AUTHENTICATION_DISABLE'] == 'true'))
       session[:user_id] = User.first.id
     end
     unless(@current_user)
@@ -289,13 +294,36 @@ class ApplicationController < ActionController::Base
   # @option args [Symbol] :id content_for identifier (defaults :pagination)
   # @option args [Symbol] :param_name link parameter name (defaults :page)
   def enable_pagination_on(collection, args={})
-    content_for(args.fetch(:id, :pagination),
-      view_context.will_paginate(collection,
-        :renderer => BootstrapPagination::Rails,
-        :class => 'pagination-sm',
-        :param_name => args.fetch(:param_name, :page)
+    unless(collection.nil? || collection.empty?)
+      content_for(args.fetch(:id, :pagination),
+        view_context.will_paginate(collection,
+          :renderer => BootstrapPagination::Rails,
+          :class => 'pagination-sm',
+          :param_name => args.fetch(:param_name, :page)
+        )
       )
-    )
+    end
+  end
+
+  # @return [TrueClass, FalseClass] users are enabled
+  def user_mode?
+    Rails.application.railties.engines.detect do |engine|
+      engine.engine_name == 'fission_app_multiuser_engine'
+    end
+  end
+
+  # @return [Hash] user enabled navigation
+  def set_navigation
+    @navigation = {}.with_indifferent_access.tap do |nav|
+      current_user.active_products.each do |product|
+        engine = Rails.application.railties.engines.detect do |eng|
+          eng.fission_product = product
+        end
+        if(engine && engine.respond_to?(:fission_navigation))
+          nav.merge!(fission_navigation.with_indifferent_access)
+        end
+      end
+    end
   end
 
 end

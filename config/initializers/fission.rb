@@ -59,7 +59,7 @@ class FissionApp::Application
 end
 
 require 'fission-app/backgroundable'
-
+=begin
 unless(Rails.application.config.fission.fission_router.empty?)
 
   require 'carnivore'
@@ -74,7 +74,7 @@ unless(Rails.application.config.fission.fission_router.empty?)
 else
   Rails.application.config.backgroundable = Fission::App::Backgroundable.new
 end
-
+=end
 # Rails.application.config.sparkle[:orchestration][:credentials] = {
 #   :provider => 'aws',
 #   :aws_access_key_id => 'AKIAJQAUGQG53VH5VUDQ',

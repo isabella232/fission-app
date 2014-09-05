@@ -26,8 +26,6 @@ gem 'therubyrhino', :platforms => :jruby
 gem 'therubyracer', :platforms => :ruby
 gem 'jruby-rack', '1.1.13.3', :platforms => :jruby
 
-gem 'omniauth', '~> 1.1'
-gem 'omniauth-github'
 gem 'oauth_simple'
 gem 'will_paginate'
 gem 'haml', '>= 0.3.4'
@@ -53,12 +51,14 @@ gem 'bootstrap3-datetimepicker-rails', '~> 3.0.0'
 
 if(ENV['FISSION_LOCALS'] == 'true')
   gem 'fission', path: '../fission'
-  gem 'fission-app-jobs', path: '../fission-app-jobs', require: 'fission-app-jobs/version'
+  gem 'fission-app-multiuser', path: '../fission-app-multiuser'
+  gem 'fission-app-jobs', path: '../fission-app-jobs'
   gem 'fission-data', path: '../fission-data', :require => false
   gem 'fission-app-stripe', path: '../fission-app-stripe'
   gem 'fission-app-static', path: '../fission-app-static'
   gem 'fission-app-woodchuck', path: '../fission-app-woodchuck'
   gem 'fission-app-docs', path: '../fission-app-docs'
+  gem 'fission-app-sparkles', path: '../fission-app-sparkles'
 else
   gem 'fission', git: 'git@github.com:heavywater/fission.git', branch: 'develop'
   gem 'fission-app-jobs', git: 'git@github.com:heavywater/fission-app-jobs.git', branch: 'develop', require: 'fission-app-jobs/version'
@@ -75,4 +75,8 @@ gem 'fog', :path => '/home/spox/Projects/chrisroberts/fog'
 gem 'fog-core', :path => '/home/spox/Projects/chrisroberts/fog-core'
 gem 'knife-cloudformation', :path => '/home/spox/Projects/chrisroberts/knife-cloudformation'
 gem 'window_rails', :path => '/home/spox/Projects/chrisroberts/window_rails'
+
+gem 'kramdown-rails', :path => '/home/spox/Projects/chrisroberts/kramdown-rails'
+
+gem 'carnivore', :path => '/home/spox/Projects/chrisroberts/carnivore/carnivore'
 gemspec

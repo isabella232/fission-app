@@ -7,3 +7,5 @@ require 'will_paginate/array'
 require 'will_paginate/sequel'
 require 'will_paginate-bootstrap'
 require 'content_for_in_controllers'
+
+module FissionApp; end

@@ -18,6 +18,7 @@
 //= require window_rails
 //= require sparkle_ui
 //= require sparkle_builder
+//= require d3c3_rails
 //= require_tree ./application
 
 // enable popovers helper
