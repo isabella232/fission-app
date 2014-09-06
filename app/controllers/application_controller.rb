@@ -3,7 +3,6 @@ require 'fission-app'
 class ApplicationController < ActionController::Base
 
   # Load in any modules we care about
-  include JsonApi
   include FissionApp::Errors
   if(defined?(Fission::Data::Models))
     include Fission::Data::Models
