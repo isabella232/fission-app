@@ -316,11 +316,14 @@ class ApplicationController < ActionController::Base
   def set_navigation
     @navigation = {}.with_indifferent_access.tap do |nav|
       current_user.active_products.each do |product|
-        engine = Rails.application.railties.engines.detect do |eng|
-          eng.fission_product = product
-        end
-        if(engine && engine.respond_to?(:fission_navigation))
-          nav.merge!(fission_navigation.with_indifferent_access)
+        Rails.application.railties.engines.each do |eng|
+          if(eng.respond_to?(:fission_product))
+            if(eng.fission_product.include?(product))
+              if(eng.respond_to?(:fission_navigation))
+                nav.merge!(eng.fission_navigation.with_indifferent_access)
+              end
+            end
+          end
         end
       end
     end

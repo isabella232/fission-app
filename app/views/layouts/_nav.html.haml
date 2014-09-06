@@ -15,15 +15,17 @@
           %sup
             {beta}
     %div.collapse.navbar-collapse
-    %div.dropdown
-      - if current_user
-      - else
       %ul.nav.navbar-nav
         - if current_user
-          %li.active
-            %a{ href: dashboard_url }= 'Dashboard'
-          %li
-            %a{ href: "/docs" }= "Docs"
+          - @navigation.each do |drop_name, links|
+            %li.dropdown
+              %a{'data-toggle' => 'dropdown', :href => '#'}
+                = drop_name
+                %span.caret
+              %ul.dropdown-menu{:role => 'menu'}
+                - links.each do |text, link|
+                  %li
+                    %a{:href => link}= text
         - else
           - if @nav
             - @nav.each do |section|
