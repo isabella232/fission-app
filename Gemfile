@@ -29,7 +29,6 @@ gem 'jruby-rack', '1.1.13.3', :platforms => :jruby
 gem 'oauth_simple'
 gem 'will_paginate'
 gem 'haml', '>= 0.3.4'
-gem 'simple_form'
 gem 'bootstrap-sass'
 
 group :development do
