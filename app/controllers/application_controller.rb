@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   before_action :analytics
 
   # Always validate
-  before_action :validate_user!, :if => lambda{ user_mode? }
+  before_action :validate_user!, :if => lambda{ user_mode? }, :except => [:error]
 
   # Cache permission
   before_action :cache_user_permissions, :if => lambda{ user_mode? && valid_user? }
@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
   # @return [String] default root url
   # @note will return dashboard url for logged in users
   def default_url
-    valid_user? ? dashboard_url : root_url
+    valid_user? ? dashboard_path : '/index'
   end
 
   # @return [TrueClass, FalseClass] user is logged in
@@ -115,11 +115,7 @@ class ApplicationController < ActionController::Base
       end
       respond_to do |format|
         format.html do
-          if(page = Rails.application.config.fission.config[:static_pages].try(:[], :landing))
-            redirect_to File.join('/s', page)
-          else
-            redirect_to new_session_url
-          end
+          redirect_to default_url
         end
         format.json do
           unless(api_validate)
@@ -172,7 +168,7 @@ class ApplicationController < ActionController::Base
             Rails.logger.error 'Caught in redirect loop. Bailing out!'
             render
           else
-            redirect_to root_url
+            redirect_to default_url
           end
         end
         format.json do
