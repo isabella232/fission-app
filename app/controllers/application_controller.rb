@@ -223,10 +223,11 @@ class ApplicationController < ActionController::Base
           :ref => [Rails.application.config.fission.analytics[:account], property.last].join('-'),
           :name => property.first
         }
+        true
       else
         Rails.logger.warn "Failed to locate analytics property using connected DNS (#{dns})"
+        false
       end
-      true
     else
       false
     end
