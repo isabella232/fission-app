@@ -42,8 +42,9 @@ group :test do
 end
 
 gem 'octokit'
-gem 'risky', git: 'git://github.com/chrisroberts/risky.git', branch: 'updates'
-gem 'pg'
+
+gem 'jdbc-postgres', :platforms => :jruby
+gem 'pg', :platforms => :ruby
 
 gem 'momentjs-rails', '~> 2.5.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 3.0.0'
@@ -60,22 +61,27 @@ if(ENV['FISSION_LOCALS'] == 'true')
   gem 'fission-app-sparkles', path: '../fission-app-sparkles'
 else
   gem 'fission', git: 'git@github.com:heavywater/fission.git', branch: 'develop'
-  gem 'fission-app-jobs', git: 'git@github.com:heavywater/fission-app-jobs.git', branch: 'develop', require: 'fission-app-jobs/version'
-  gem 'fission-data', git: 'git@github.com:heavywater/fission-data.git', branch: 'develop', :require => false
+  gem 'fission-app-multiuser', git: 'git@github.com:heavywater/fission-app-multiuser.git', branch: 'develop'
+  gem 'fission-app-jobs', git: 'git@github.com:heavywater/fission-app-jobs.git', branch: 'develop'
+  gem 'fission-data', git: 'git@github.com:heavywater/fission-data.git', branch: 'develop'
   gem 'fission-app-stripe', git: 'git@github.com:heavywater/fission-app-stripe.git', branch: 'develop'
   gem 'fission-app-woodchuck', git: 'git@github.com:heavywater/fission-app-woodchuck', branch: 'develop'
   gem 'fission-app-static', git: 'git@github.com:heavywater/fission-app-static', branch: 'develop'
+  gem 'fission-app-sparkles', git: 'git@github.com:heavywater/fission-app-sparkles.git', branch: 'develop'
+  gem 'fission-app-docs', git: 'git@github.com:heavywater/fission-app-docs.git', branch: 'develop'
 end
 
-gem 'sparkle_formation', :path => '/home/spox/Projects/chrisroberts/sparkle_formation'
-gem 'sparkle_ui', :path => '/home/spox/Projects/chrisroberts/sparkle_ui'
-gem 'sparkle_builder', :path => '/home/spox/Projects/chrisroberts/sparkle_builder'
-gem 'fog', :path => '/home/spox/Projects/chrisroberts/fog'
-gem 'fog-core', :path => '/home/spox/Projects/chrisroberts/fog-core'
-gem 'knife-cloudformation', :path => '/home/spox/Projects/chrisroberts/knife-cloudformation'
-gem 'window_rails', :path => '/home/spox/Projects/chrisroberts/window_rails'
+gem 'knife-cloudformation', :git => 'git://github.com/heavywater/knife-cloudformation', :branch => 'feature/fog-model'
+gem 'sparkle_formation', :git => 'git://github.com/heavywater/sparkle_formation', :branch => 'develop'
 
-gem 'kramdown-rails', :path => '/home/spox/Projects/chrisroberts/kramdown-rails'
+gem 'fog', :git => 'git://github.com/chrisroberts/fog', :branch => 'feature/orchestration'
+gem 'fog-core', :git => 'git://github.com/chrisroberts/fog-core', :branch => 'feature/orchestration'
+gem 'kramdown-rails'
+gem 'carnivore'
 
-gem 'carnivore', :path => '/home/spox/Projects/chrisroberts/carnivore/carnivore'
+gem 'window_rails', :git => 'git://github.com/chrisroberts/window_rails', :branch => 'develop'
+
+gem 'sparkle_ui', :git => 'git@github.com:heavywater/sparkle_ui.git', :branch => 'develop'
+gem 'sparkle_builder', :git => 'git@github.com:heavywater/sparkle_builder.git', :branch => 'develop'
+
 gemspec
