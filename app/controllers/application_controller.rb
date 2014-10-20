@@ -28,7 +28,10 @@ class ApplicationController < ActionController::Base
   before_action :cache_user_permissions, :if => lambda{ user_mode? && valid_user? }
 
   # Check user is permitted on path
-  before_action :validate_permission!, :if => lambda{ user_mode? && valid_user? }
+  before_action :validate_user_permission!, :if => lambda{ user_mode? && valid_user? }
+
+  # Check account is permitted on path
+  before_action :validate_account_permission!, :if => lambda{ user_mode? && valid_user? }
 
   # Set helpdesk variables
   before_action :helpdesk
@@ -95,15 +98,30 @@ class ApplicationController < ActionController::Base
 
   # Check that user has permission to defined paths
   #
-  # @return [TrueClass]
   # @raises [Error::PermissionDeniedError]
-  def validate_permission!
+  def validate_user_permission!
     match = current_user.run_state.allowed_paths.detect do |regex|
       regex.match(request.path)
     end
     unless(match)
-      Rails.logger.error "Failed to match request path (#{request.path}) to valid permission!"
+      Rails.logger.error "Failed to match request path (#{request.path}) to valid permission (user)!"
       raise Error::PermissionDeniedError.new 'Access denied'
+    end
+  end
+
+  # Check that account has permission to defined paths
+  #
+  # @raises [Error::PermissionDeniedError]
+  def validate_account_permission!
+    if(params[:account_id])
+      account = Account.find_by_id(params[:account_id])
+      match = account.active_permissions.map(&:pattern).detect do |regex|
+        regex.match(request.path)
+      end
+      unless(match)
+        Rails.logger.error "Failed to match request path (#{request.path}) to valid permission (account)!"
+        raise Error::PermissionDeniedError.new 'Access denied'
+      end
     end
   end
 
