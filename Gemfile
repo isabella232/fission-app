@@ -59,6 +59,8 @@ if(ENV['FISSION_LOCALS'] == 'true')
   gem 'fission-app-woodchuck', path: '../fission-app-woodchuck'
   gem 'fission-app-docs', path: '../fission-app-docs'
   gem 'fission-app-sparkles', path: '../fission-app-sparkles'
+  gem 'fission-app-packager', path: '../fission-app-packager'
+  gem 'fission-app-repositories', path: '../fission-app-repositories'
 else
   gem 'fission', git: 'git@github.com:heavywater/fission.git', branch: 'develop'
   gem 'fission-app-multiuser', git: 'git@github.com:heavywater/fission-app-multiuser.git', branch: 'develop'
@@ -69,6 +71,8 @@ else
   gem 'fission-app-static', git: 'git@github.com:heavywater/fission-app-static', branch: 'develop'
   gem 'fission-app-sparkles', git: 'git@github.com:heavywater/fission-app-sparkles.git', branch: 'develop'
   gem 'fission-app-docs', git: 'git@github.com:heavywater/fission-app-docs.git', branch: 'develop'
+  gem 'fission-app-packager', git: 'git@github.com:heavywater/fission-app-packager.git', branch: 'develop'
+  gem 'fission-app-repositories', git: 'git@github.com:heavywater/fission-app-repositories.git', branch: 'develop'
 end
 
 gem 'knife-cloudformation', :git => 'git://github.com/heavywater/knife-cloudformation', :branch => 'feature/fog-model'
