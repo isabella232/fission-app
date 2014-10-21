@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap
+//= require bootstrap-sprockets
 //= require moment
 //= require bootstrap-datetimepicker
 //= require window_rails
