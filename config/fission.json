@@ -19,10 +19,8 @@
     "rest_endpoint_ssl": "https://snowflake.hw-ops.com"
   },
   "github": {
-    "key": "065cdd509e767dbc97cc",
-    "secret": "d7513658cba6b2c467622cf1b90e7dccd446cad5",
     "username": "d2obot",
-    "token": ""
+    "token": "01da24df42e5e212be565b4ee5f223231af7b3fe"
   },
   "whitelist": {
     "users": [
