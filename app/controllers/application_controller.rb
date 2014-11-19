@@ -24,6 +24,9 @@ class ApplicationController < ActionController::Base
   # Always validate
   before_action :validate_user!, :if => lambda{ user_mode? }, :except => [:error]
 
+  # Load the product and applicable accounts
+  before_action :load_product_accounts!, :if => lambda{ user_mode? && valid_user? }
+
   # Cache permission
   before_action :cache_user_permissions, :if => lambda{ user_mode? && valid_user? }
 
@@ -71,13 +74,29 @@ class ApplicationController < ActionController::Base
         end
       end
     end
-    if(@current_user)
-      if(session[:account_id])
-        account = @current_user.accounts_dataset.where(:id => session[:account_id]).first
-      end
-      @current_user.run_state.current_account = account || @current_user.owned_accounts.first
-    end
     @current_user
+  end
+
+  # Init `@product` and `@accounts`
+  def load_product_accounts!
+    if(params[:namespace])
+      account_ids = current_user.accounts.map do |act|
+        if(params[:account_id])
+          if(act.id.to_s == params[:account_id])
+            act.id
+          end
+        else
+          act.id
+        end
+      end.compact
+      @product = Product.find_by_internal_name(params[:namespace])
+      @accounts = Account.eager_graph(:product_features => :product).
+        where(:account_id => account_ids).
+        where(:product_id => @product.id).all
+    else
+      @product = nil
+      @accounts = []
+    end
   end
 
   # Cache valid user permissions into user run_state
@@ -114,7 +133,7 @@ class ApplicationController < ActionController::Base
   # @raises [Error::PermissionDeniedError]
   def validate_account_permission!
     if(params[:account_id])
-      account = Account.find_by_id(params[:account_id])
+      account = @accounts.first
       match = account.active_permissions.map(&:pattern).detect do |regex|
         regex.match(request.path)
       end
