@@ -235,6 +235,7 @@ class ApplicationController < ActionController::Base
   # @param ident [Symbol] :bot or :user
   # @return [Octokit::Client]
   def github(ident)
+    Octokit.auto_paginate = true
     case ident
     when :bot
       token = Rails.application.config.settings.get(:github, :token)
