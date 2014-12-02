@@ -46,7 +46,7 @@
                 %img.avatar.pull-left{ src: current_user.default_identity.infos.try(:[], :image) }
               %b.caret
             %ul{class: 'dropdown-menu'}
-              %li= link_to 'Profile', edit_user_path(current_user)
+              =# %li= link_to 'Profile', edit_user_path(current_user)
               %li= link_to 'Logout', destroy_session_path
         - else
           - if !request.original_url.include? 'login'
