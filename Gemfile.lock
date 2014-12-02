@@ -89,103 +89,20 @@ GIT
       will_paginate-bootstrap
       window_rails (~> 1.0)
 
-GIT
-  remote: git@github.com:hw-product/fission-app-docs.git
-  revision: a375186e2b12cf3f9b4b8f657af8f728b969f63d
-  branch: develop
+PATH
+  remote: .
   specs:
-    fission-app-docs (0.1.0)
-      kramdown
-
-GIT
-  remote: git@github.com:hw-product/fission-app-jobs.git
-  revision: 5e09641b32cad8058e6b0694bf8d0fc5538fc4b3
-  branch: develop
-  specs:
-    fission-app-jobs (0.1.2)
-      d3c3-rails
-      fission-app
-      fission-app-multiuser
-
-GIT
-  remote: git@github.com:hw-product/fission-app-multiuser.git
-  revision: 9c644b981964680885f086c093fc846d43d45476
-  branch: develop
-  specs:
-    fission-app-multiuser (0.1.0)
-      fission-app
+    fission-app (0.1.1)
+      cells
+      content_for_in_controllers
       fission-data
-      omniauth (~> 1.1)
-      omniauth-github
+      will_paginate
+      will_paginate-bootstrap
 
-GIT
-  remote: git@github.com:hw-product/fission-app-packager.git
-  revision: a936a8810650860e0b86c76b63bb3fe6f7643dd6
-  branch: develop
+PATH
+  remote: ../fission
   specs:
-    fission-app-packager (0.1.0)
-      fission-app
-      fission-app-jobs
-
-GIT
-  remote: git@github.com:hw-product/fission-app-repositories.git
-  revision: adb62df42060266b690f44ea307c6147d4a13fe7
-  branch: develop
-  specs:
-    fission-app-repositories (0.1.0)
-      fission-app
-      fission-app-jobs
-
-GIT
-  remote: git@github.com:hw-product/fission-app-sparkles.git
-  revision: c96223ec2e2c62da182cb5989e074e22610bb336
-  branch: develop
-  specs:
-    fission-app-sparkles (0.1.0)
-      sparkle_builder
-      sparkle_ui
-
-GIT
-  remote: git@github.com:hw-product/fission-app-static
-  revision: d78e709434f73b0889a0e250a5928c7fbd90ab8a
-  branch: develop
-  specs:
-    fission-app-static (0.1.1)
-      fission-app
-      kramdown-rails
-
-GIT
-  remote: git@github.com:hw-product/fission-app-stripe.git
-  revision: a4f6ef473232323e35f0666b91be050081e138ee
-  branch: develop
-  specs:
-    fission-app-stripe (0.2.0)
-      kramdown
-      rails (~> 4.0.0)
-      stripe
-
-GIT
-  remote: git@github.com:hw-product/fission-app-woodchuck
-  revision: 99cd7f719f5e55d4d90b58ef6075f1a7df3ce5f7
-  branch: develop
-  specs:
-    fission-app-woodchuck (0.1.0)
-
-GIT
-  remote: git@github.com:hw-product/fission-data.git
-  revision: f1216041ee022eb4196ca23dadd8e63e8ebe5360
-  branch: develop
-  specs:
-    fission-data (0.1.1)
-      hashie
-      sequel
-
-GIT
-  remote: git@github.com:hw-product/fission.git
-  revision: 1417838e9fd12ee07745307c19883771f8c6b65b
-  branch: develop
-  specs:
-    fission (0.1.1)
+    fission (0.1.3)
       celluloid (= 0.16.0.pre)
       childprocess
       hashie
@@ -193,13 +110,75 @@ GIT
       mixlib-cli
 
 PATH
-  remote: .
+  remote: ../fission-app-docs
   specs:
-    fission-app (0.1.1)
-      content_for_in_controllers
+    fission-app-docs (0.1.0)
+      kramdown
+
+PATH
+  remote: ../fission-app-jobs
+  specs:
+    fission-app-jobs (0.1.2)
+      d3c3-rails
+      fission-app
+      fission-app-multiuser
+
+PATH
+  remote: ../fission-app-multiuser
+  specs:
+    fission-app-multiuser (0.1.0)
+      fission-app
       fission-data
-      will_paginate
-      will_paginate-bootstrap
+      omniauth (~> 1.1)
+      omniauth-github
+
+PATH
+  remote: ../fission-app-packager
+  specs:
+    fission-app-packager (0.1.0)
+      fission-app
+      fission-app-jobs
+
+PATH
+  remote: ../fission-app-repositories
+  specs:
+    fission-app-repositories (0.1.0)
+      fission-app
+      fission-app-jobs
+
+PATH
+  remote: ../fission-app-sparkles
+  specs:
+    fission-app-sparkles (0.1.0)
+      sparkle_builder
+      sparkle_ui
+
+PATH
+  remote: ../fission-app-static
+  specs:
+    fission-app-static (0.1.1)
+      fission-app
+      kramdown-rails
+
+PATH
+  remote: ../fission-app-stripe
+  specs:
+    fission-app-stripe (0.2.0)
+      kramdown
+      rails (~> 4.0.0)
+      stripe
+
+PATH
+  remote: ../fission-app-woodchuck
+  specs:
+    fission-app-woodchuck (0.1.0)
+
+PATH
+  remote: ../fission-data
+  specs:
+    fission-data (0.1.1)
+      hashie
+      sequel
 
 GEM
   remote: https://rubygems.org/
@@ -252,6 +231,10 @@ GEM
       hashie
       mixlib-config
       multi_json
+    cells (3.11.2)
+      actionpack (>= 3.0)
+      railties (>= 3.0)
+      uber (~> 0.0.8)
     celluloid (0.16.0.pre)
       timers (~> 2.0.0)
     chef (0.8.10)
@@ -313,7 +296,7 @@ GEM
     i18n (0.6.11)
     inflecto (0.0.2)
     ipaddress (0.8.0)
-    jackal (0.1.14)
+    jackal (0.1.16)
       carnivore (>= 0.2.6)
       mixlib-cli
     jbuilder (1.5.3)
@@ -498,6 +481,7 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.41)
+    uber (0.0.11)
     uglifier (2.5.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
