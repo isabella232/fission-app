@@ -2,6 +2,7 @@ require 'fission-data'
 require 'fission-app/version'
 require 'fission-app/errors'
 
+require 'cells'
 require 'will_paginate'
 require 'will_paginate/array'
 require 'will_paginate/sequel'
