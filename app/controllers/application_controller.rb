@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
   # User access helpers
   helper_method :current_user
   helper_method :valid_user?
+  helper_method :default_url
 
   # Set analytics variables
   before_action :analytics
@@ -47,7 +48,7 @@ class ApplicationController < ActionController::Base
 
   # Proxy for account switching
   def switch
-    flash[:notice] = 'Account updated!'
+    flash[:notice] = "Account updated! (#{current_user.run_state.current_account.name})"
     respond_to do |format|
       format.js do
         javascript_redirect_to dashboard_url
