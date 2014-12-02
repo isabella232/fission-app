@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
   before_action :cache_user_permissions, :if => lambda{ user_mode? && valid_user? }
 
   # Check user is permitted on path
-  before_action :validate_user_permission!, :if => lambda{ user_mode? && valid_user? }
+  before_action :validate_user_permission!, :if => lambda{ user_mode? && valid_user? }, :except => [:error]
 
   # Check account is permitted on path
   before_action :validate_account_permission!, :if => lambda{ user_mode? && valid_user? }
