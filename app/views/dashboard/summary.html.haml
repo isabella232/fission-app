@@ -1,0 +1,9 @@
+.dashboard.container.container-padding
+  - @cells.each_slice(2) do |cells|
+    .row
+      - cells.each do |c|
+        .col-md-6
+          .panel.panel-default
+            .panel-heading
+              %h3= c.last
+            .panel-body= render_cell(c.first, :show, nil)
