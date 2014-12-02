@@ -35,12 +35,19 @@
         - if current_user
           %li.dropdown
             %a{href: '#', 'data-toggle' => 'dropdown'}
+              = current_user.run_state.current_account.name
+              %b.caret
+            %ul{class: 'dropdown-menu'}
+              - current_user.accounts.sort_by(&:name).each do |acct|
+                %li= link_to acct.name, switch_path(acct.id)
+          %li.dropdown
+            %a{href: '#', 'data-toggle' => 'dropdown'}
               - if current_user.default_identity
                 %img.avatar.pull-left{ src: current_user.default_identity.infos.try(:[], :image) }
               %b.caret
             %ul{class: 'dropdown-menu'}
-              %li= link_to 'Profile', edit_user_url(current_user)
-              %li= link_to 'Logout', destroy_session_url
+              %li= link_to 'Profile', edit_user_path(current_user)
+              %li= link_to 'Logout', destroy_session_path
         - else
           - if !request.original_url.include? 'login'
-            %li= link_to 'Dashboard', new_session_url
+            %li= link_to 'Dashboard', new_session_path
