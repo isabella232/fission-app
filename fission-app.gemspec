@@ -13,6 +13,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'will_paginate'
   s.add_dependency 'will_paginate-bootstrap'
   s.add_dependency 'content_for_in_controllers'
+  s.add_dependency 'cells'
   s.executables << 'fission-app'
   s.files = Dir['**/*']
 end
