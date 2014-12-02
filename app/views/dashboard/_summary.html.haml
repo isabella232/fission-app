@@ -1,0 +1,9 @@
+- cells.each_slice(2) do |cells|
+  .row
+    - cells.each do |c|
+      .col-md-6
+        .panel.panel-default
+          .panel-heading
+            %h6
+              %b= c.last
+          .panel-body= render_cell(c.first, :show, nil)
