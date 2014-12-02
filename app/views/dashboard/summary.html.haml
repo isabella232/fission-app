@@ -1,10 +1,6 @@
-.dashboard.container.container-padding
-  - @cells.each_slice(2) do |cells|
-    .row
-      - cells.each do |c|
-        .col-md-6
-          .panel.panel-default
-            .panel-heading
-              %h6
-                %b= c.last
-            .panel-body= render_cell(c.first, :show, nil)
+:ruby
+  content_for(:container) do
+    render(:partial => 'dashboard/summary', :locals => {:cells => @cells})
+  end
+
+= render 'layouts/container', :locals => {:class => 'dashboard'}
