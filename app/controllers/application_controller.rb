@@ -24,17 +24,14 @@ class ApplicationController < ActionController::Base
   # Always validate
   before_action :validate_user!, :if => lambda{ user_mode? }, :except => [:error]
 
-  # Load the product and applicable accounts
-  before_action :load_product_accounts!, :if => lambda{ user_mode? && valid_user? }
+  # Load the current account
+  before_action :load_current_account!, :if => lambda{ user_mode? && valid_user? }
 
-  # Cache permission
-  before_action :cache_user_permissions, :if => lambda{ user_mode? && valid_user? }
+  # Load the product
+  before_action :load_product!, :if => lambda{ user_mode? && valid_user? }
 
   # Check user is permitted on path
-  before_action :validate_user_permission!, :if => lambda{ user_mode? && valid_user? }, :except => [:error]
-
-  # Check account is permitted on path
-  before_action :validate_account_permission!, :if => lambda{ user_mode? && valid_user? }
+  before_action :validate_access!, :if => lambda{ user_mode? && valid_user? }, :except => [:error]
 
   # Set helpdesk variables
   before_action :helpdesk
@@ -77,79 +74,34 @@ class ApplicationController < ActionController::Base
     @current_user
   end
 
-  # Init `@product` and `@accounts`
-  def load_product_accounts!
+  # Init `@product`
+  def load_product!
     if(params[:namespace])
-      account_ids = current_user.accounts.map do |act|
-        if(params[:account_id])
-          if(act.id.to_s == params[:account_id])
-            act.id
-          end
-        else
-          act.id
-        end
-      end.compact
       @product = Product.find_by_internal_name(params[:namespace])
-      @accounts = Account.eager_graph(:product_features => :product).
-        where(:account_id => account_ids).
-        where(:product_id => @product.id).all
     else
-      @product = nil
-      @accounts = [params[:account_id] ? Account.find(params[:account_id]) : nil].flatten.compact
-    end
-  end
-
-  # Cache valid user permissions into user run_state
-  def cache_user_permissions
-    current_paths = current_user.run_state.allowed_paths
-    if(current_paths.nil? || current_paths.empty?)
-      unless(current_user.session[:allowed_paths])
-        patterns = current_user.permissions.map(&:pattern)
-        current_user.session[:allowed_paths] = patterns.map(&:to_s)
-      else
-        patterns = current_user.session[:allowed_paths].map do |pattern|
-          Regexp.new(pattern)
-        end
+      @product = Product.find_by_vanity_dns(request.host)
+      if(@product.nil? && (path_parts = request.path.split('/')).size > 1)
+        @product = Product.find_by_internal_name(path_parts[1])
       end
-      current_user.run_state.allowed_paths = patterns
     end
   end
 
   # Check that user has permission to defined paths
   #
   # @raises [Error::PermissionDeniedError]
-  def validate_user_permission!
-    match = current_user.run_state.allowed_paths.detect do |regex|
+  def validate_access!
+    match = current_user.run_state.current_account.active_permissions.map(&:pattern).detect do |regex|
       regex.match(request.path)
     end
     unless(match)
-      Rails.logger.error "Failed to match request path (#{request.path}) to valid permission (user)!"
+      Rails.logger.error "Failed to match request path (#{request.path}) to valid permission! (account: #{current_user.run_state.current_account.inspect})"
       raise Error::PermissionDeniedError.new 'Access denied'
-    end
-  end
-
-  # Check that account has permission to defined paths
-  #
-  # @raises [Error::PermissionDeniedError]
-  def validate_account_permission!
-    if(params[:account_id])
-      account = @accounts.first
-      match = account.active_permissions.map(&:pattern).detect do |regex|
-        regex.match(request.path)
-      end
-      unless(match)
-        Rails.logger.error "Failed to match request path (#{request.path}) to valid permission (account)!"
-        raise Error::PermissionDeniedError.new 'Access denied'
-      end
     end
   end
 
   # Validate user is logged in and set
   def validate_user!
     unless(valid_user?)
-      flash.each do |k,v|
-        flash[k] = v
-      end
       respond_to do |format|
         format.html do
           redirect_to default_url
@@ -162,6 +114,36 @@ class ApplicationController < ActionController::Base
       end
     else
       whitelist_validate!
+    end
+  end
+
+  # Load current account and fail if unable to detect valid account
+  def load_current_account!
+    acct_id = params.fetch(:account_id,
+      current_user.session[:current_account_id]
+    )
+    if(acct_id)
+      @account = current_user.accounts.detect do |account|
+        account.id.to_s == acct_id.to_s
+      end
+    else
+      @account = current_user.accounts.first
+      current_user.session[:current_account_id] = @account.id
+    end
+    unless(@account)
+      flash[:error] = 'Failed to set account for user!'
+      respond_to do |format|
+        format.html do
+          redirect_to default_url
+        end
+        format.json do
+          unless(api_validate)
+            render :json => json_response('Access denied', :fail)
+          end
+        end
+      end
+    else
+      current_user.run_state.current_account = @account
     end
   end
 
