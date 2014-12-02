@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
   before_action :load_product!, :if => lambda{ user_mode? && valid_user? }
 
   # Check user is permitted on path
-  before_action :validate_access!, :if => lambda{ user_mode? && valid_user? }, :except => [:error]
+  before_action :validate_access!, :if => lambda{ user_mode? && valid_user? }, :except => [:error, :switch]
 
   # Set helpdesk variables
   before_action :helpdesk
@@ -44,6 +44,19 @@ class ApplicationController < ActionController::Base
 
   # Store custom data session changes
   after_action :save_user_session, :if => lambda{ user_mode? && valid_user? }
+
+  # Proxy for account switching
+  def switch
+    flash[:notice] = 'Account updated!'
+    respond_to do |format|
+      format.js do
+        javascript_redirect_to dashboard_url
+      end
+      format.html do
+        redirect_to dashboard_url
+      end
+    end
+  end
 
   protected
 
@@ -128,7 +141,6 @@ class ApplicationController < ActionController::Base
       end
     else
       @account = current_user.accounts.first
-      current_user.session[:current_account_id] = @account.id
     end
     unless(@account)
       flash[:error] = 'Failed to set account for user!'
@@ -143,6 +155,7 @@ class ApplicationController < ActionController::Base
         end
       end
     else
+      current_user.session[:current_account_id] = @account.id
       current_user.run_state.current_account = @account
     end
   end
@@ -331,7 +344,7 @@ class ApplicationController < ActionController::Base
   # @return [Hash] user enabled navigation
   def set_navigation
     @navigation = {}.with_indifferent_access.tap do |nav|
-      current_user.active_products.each do |product|
+      current_user.run_state.current_account.products.each do |product|
         Rails.application.railties.engines.each do |eng|
           if(eng.respond_to?(:fission_product))
             if(eng.fission_product.include?(product))
