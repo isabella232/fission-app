@@ -95,7 +95,7 @@ class ApplicationController < ActionController::Base
         where(:product_id => @product.id).all
     else
       @product = nil
-      @accounts = []
+      @accounts = [params[:account_id] ? Account.find(params[:account_id]) : nil].flatten.compact
     end
   end
 
