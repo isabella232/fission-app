@@ -1,6 +1,6 @@
 class DashboardController < ApplicationController
 
-  before_action :validate_user_permission!, :except => [:summary]
+  before_action :validate_access!, :except => [:summary]
 
   def summary
     respond_to do |format|
@@ -10,7 +10,7 @@ class DashboardController < ApplicationController
       end
       format.html do
         @cells = {}.with_indifferent_access.tap do |cells|
-          current_user.active_products.each do |product|
+          current_user.run_state.current_account.products.each do |product|
             Rails.application.railties.engines.each do |eng|
               if(eng.respond_to?(:fission_product))
                 if(eng.fission_product.include?(product))
