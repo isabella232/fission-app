@@ -42,9 +42,27 @@ class FissionApp::Application
   if(config.fission.config[:static_pages] && config.fission.config[:static_pages][:path])
     config.fission.static_pages = config.fission.config[:static_pages][:path]
   else
-    config.fission.static_pages = File.join(
-      Gem::Specification.find_by_name('fission-app-static').full_gem_path, 'data'
-    )
+    static_gem_spec = Gem::Specification.find_by_name('fission-app-static')
+    if(static_gem_spec)
+      config.fission.static_pages = File.join(
+        static_gem_spec.full_gem_path, 'data'
+      )
+    end
+  end
+
+  if(config.fission.static_pages)
+     config.fission.static_pages_content = Smash.new
+    Dir.glob(File.join(config.fission.static_pages, '**', '**', '*')).each do |path|
+      extension = File.extname(path)
+      key = path.sub(config.fission.static_pages, '').sub(extension, '').sub(/^\//, '')
+      if(extension == '.json')
+        config.fission.static_pages_content[key] = JSON.load(File.read(path)).to_smash
+      elsif(extension == '.yml')
+        config.fission.static_pages_content[key] = YAML.load(File.read(path)).to_smash
+      else
+        Rails.logger.warn "Unsupported file type for static page: #{path}"
+      end
+    end
   end
 
   config.fission.fission_router = config.fission.config.fetch(:router_source, {}).with_indifferent_access
