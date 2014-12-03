@@ -1,9 +1,13 @@
 - cells.each_slice(2) do |cells|
   .row
-    - cells.each do |c|
+    - cells.each do |cell_name, opts|
       .col-md-6
         .panel.panel-default
           .panel-heading
             %h6
-              %b= c.last
-          .panel-body= render_cell(c.first, :show, nil)
+              %b
+                -if opts[:url]
+                  =link_to(opts[:title], opts[:url])
+                -else
+                  =opts[:title]
+          .panel-body= render_cell(cell_name, :show, nil)
