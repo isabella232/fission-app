@@ -9,13 +9,13 @@ class DashboardController < ApplicationController
         javascript_redirect_to repository_listing_endpoint
       end
       format.html do
-        @cells = {}.with_indifferent_access.tap do |cells|
+        @cells = Smash.new.tap do |cells|
           current_user.run_state.current_account.products.each do |product|
             Rails.application.railties.engines.each do |eng|
               if(eng.respond_to?(:fission_product))
                 if(eng.fission_product.include?(product))
                   if(eng.respond_to?(:fission_dashboard))
-                    cells.merge!(eng.fission_dashboard.with_indifferent_access)
+                    cells.merge!(eng.fission_dashboard(product).to_smash)
                   end
                 end
               end

@@ -344,13 +344,13 @@ class ApplicationController < ActionController::Base
 
   # @return [Hash] user enabled navigation
   def set_navigation
-    @navigation = {}.with_indifferent_access.tap do |nav|
+    @navigation = Smash.new.tap do |nav|
       current_user.run_state.current_account.products.each do |product|
         Rails.application.railties.engines.each do |eng|
           if(eng.respond_to?(:fission_product))
             if(eng.fission_product.include?(product))
               if(eng.respond_to?(:fission_navigation))
-                nav.merge!(eng.fission_navigation.with_indifferent_access)
+                nav.deep_merge!(eng.fission_navigation(product).to_smash)
               end
             end
           end
