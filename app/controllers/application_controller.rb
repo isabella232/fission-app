@@ -126,8 +126,6 @@ class ApplicationController < ActionController::Base
           end
         end
       end
-    else
-      whitelist_validate!
     end
   end
 
@@ -158,25 +156,6 @@ class ApplicationController < ActionController::Base
     else
       current_user.session[:current_account_id] = @account.id
       current_user.run_state.current_account = @account
-    end
-  end
-
-  # Validate user is found within whitelist. Redirect user
-  # if not found
-  #
-  # @param redirect [TrueClass, FalseClass] redirect user if not found
-  # @return [TrueClass, FalseClass]
-  def whitelist_validate!(redirect=true)
-    if(Rails.application.config.fission.whitelist)
-      if(Whitelist.where(:username => current_user.username).count == 0)
-        Rails.logger.error "User is not listed within whitelist (#{current_user.username})"
-        redirect_to Rails.application.config.fission.whitelist[:redirect_to]
-        false
-      else
-        true
-      end
-    else
-      true
     end
   end
 
