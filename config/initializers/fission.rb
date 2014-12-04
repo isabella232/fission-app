@@ -76,7 +76,8 @@ class FissionApp::Application
 
 end
 
-require 'fission-app/backgroundable'
+Cell::Rails.send(:include, Fission::Data::Models)
+
 =begin
 unless(Rails.application.config.fission.fission_router.empty?)
 
