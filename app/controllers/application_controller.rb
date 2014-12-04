@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   if(defined?(Fission::Data::Models))
     include Fission::Data::Models
   end
+  include FissionApp::Commons
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -203,23 +204,6 @@ class ApplicationController < ActionController::Base
   # Save the user session on the way out
   def save_user_session
     current_user.active_session.save
-  end
-
-  # Build github API client
-  #
-  # @param ident [Symbol] :bot or :user
-  # @return [Octokit::Client]
-  def github(ident)
-    Octokit.auto_paginate = true
-    case ident
-    when :bot
-      token = Rails.application.config.settings.get(:github, :token)
-    when :user
-      token = current_user.token_for(:github)
-    else
-      raise "Unknown GitHub identity requested for use: #{ident.inspect}"
-    end
-    Octokit::Client.new(:access_token => token)
   end
 
   # Load google analytics if running in production
