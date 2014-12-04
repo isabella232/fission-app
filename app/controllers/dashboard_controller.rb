@@ -28,6 +28,9 @@ class DashboardController < ApplicationController
             end
           end
         end
+        if(@cells.empty?)
+          render 'dashboard/no_content'
+        end
       end
     end
   end
