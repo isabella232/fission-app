@@ -18,6 +18,7 @@ class ApplicationController < ActionController::Base
   # User access helpers
   helper_method :current_user
   helper_method :valid_user?
+  helper_method :isolated_product?
   helper_method :default_url
 
   # Set analytics variables
