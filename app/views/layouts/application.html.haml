@@ -2,7 +2,7 @@
 %html
   %head
     %title
-      = Rails.application.config.fission.site_brand
+      = @app_name || Rails.application.config.fission.site_brand
       - if content_for?(:title)
         = " - #{content_for(:title)}"
     %meta{charset: 'utf-8'}
