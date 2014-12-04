@@ -318,7 +318,12 @@ class ApplicationController < ActionController::Base
   # @todo if we are isolated by product, we should un-nest navigation
   #   and define single list within bar iff nav is single key-pair
   def set_navigation
-    products = isolated_product? ? [@product] : current_user.run_state.current_account.products
+    products = current_user.run_state.current_account.products
+    if(isolated_product?)
+      products = products.find_all do |product|
+        product == @product
+      end
+    end
     @navigation = Smash.new.tap do |nav|
       products.each do |product|
         Rails.application.railties.engines.each do |eng|

@@ -9,7 +9,12 @@ class DashboardController < ApplicationController
         javascript_redirect_to repository_listing_endpoint
       end
       format.html do
-        products = isolated_product? ? [@product] : current_user.run_state.current_account.products
+        products = current_user.run_state.current_account.products
+        if(isolated_product?)
+          products = products.find_all do |product|
+            product == @product
+          end
+        end
         @cells = Smash.new.tap do |cells|
           products.each do |product|
             Rails.application.railties.engines.each do |eng|
