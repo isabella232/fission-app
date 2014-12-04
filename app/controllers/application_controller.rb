@@ -23,14 +23,14 @@ class ApplicationController < ActionController::Base
   # Set analytics variables
   before_action :analytics
 
+  # Load the product
+  before_action :load_product!
+
   # Always validate
   before_action :validate_user!, :if => lambda{ user_mode? }, :except => [:error]
 
   # Load the current account
   before_action :load_current_account!, :if => lambda{ user_mode? && valid_user? }
-
-  # Load the product
-  before_action :load_product!, :if => lambda{ user_mode? && valid_user? }
 
   # Check user is permitted on path
   before_action :validate_access!, :if => lambda{ user_mode? && valid_user? }, :except => [:error, :switch]
@@ -61,6 +61,11 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+  # @return [TrueClass, FalseClass] isolated to single product
+  def isolated_product?
+    !!@isolated_product
+  end
 
   # @return [String] default root url
   # @note will return dashboard url for logged in users
@@ -311,7 +316,7 @@ class ApplicationController < ActionController::Base
   # @todo if we are isolated by product, we should un-nest navigation
   #   and define single list within bar iff nav is single key-pair
   def set_navigation
-    products = @isolated_product ? [@product] : current_user.run_state.current_account.products
+    products = isolated_product? ? [@product] : current_user.run_state.current_account.products
     @navigation = Smash.new.tap do |nav|
       products.each do |product|
         Rails.application.railties.engines.each do |eng|
