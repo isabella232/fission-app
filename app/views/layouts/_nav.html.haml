@@ -17,15 +17,20 @@
     %div.collapse.navbar-collapse
       %ul.nav.navbar-nav
         - if current_user
-          - @navigation.each do |drop_name, links|
-            %li.dropdown
-              %a{'data-toggle' => 'dropdown', :href => '#'}
-                = drop_name
-                %span.caret
-              %ul.dropdown-menu{:role => 'menu'}
-                - links.each do |text, link|
-                  %li
-                    %a{:href => link}= text
+          - if isolated_product? && @navigation.size == 1
+            - @navigation.values.first.each do |text, link|
+              %li
+                %a{:href => link}= text
+          - else
+            - @navigation.each do |drop_name, links|
+              %li.dropdown
+                %a{'data-toggle' => 'dropdown', :href => '#'}
+                  = drop_name
+                  %span.caret
+                %ul.dropdown-menu{:role => 'menu'}
+                  - links.each do |text, link|
+                    %li
+                      %a{:href => link}= text
         - else
           - if @nav
             - @nav.each do |section|
