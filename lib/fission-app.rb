@@ -1,6 +1,7 @@
 require 'fission-data'
 require 'fission-app/version'
 require 'fission-app/errors'
+require 'fission-app/commons'
 
 require 'cells'
 require 'will_paginate'
