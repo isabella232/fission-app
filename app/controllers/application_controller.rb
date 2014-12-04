@@ -96,14 +96,15 @@ class ApplicationController < ActionController::Base
 
   # Init `@product`
   def load_product!
-    if(params[:namespace])
-      @product = Product.find_by_internal_name(params[:namespace])
+    @product = Product.find_by_vanity_dns(request.host)
+    if(@product)
+      @app_name = @product.name
+      @isolated_product = true
     else
-      @product = Product.find_by_vanity_dns(request.host)
-      if(@product.nil? && (path_parts = request.path.split('/')).size > 1)
+      if(params[:namespace])
+        @product = Product.find_by_internal_name(params[:namespace])
+      elsif(@product.nil? && (path_parts = request.path.split('/')).size > 1)
         @product = Product.find_by_internal_name(path_parts[1])
-        @app_name = @product.name
-        @isolated_product = true
       end
     end
   end
