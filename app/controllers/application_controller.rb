@@ -97,6 +97,8 @@ class ApplicationController < ActionController::Base
       @product = Product.find_by_vanity_dns(request.host)
       if(@product.nil? && (path_parts = request.path.split('/')).size > 1)
         @product = Product.find_by_internal_name(path_parts[1])
+        @app_name = @product.name
+        @isolated_product = true
       end
     end
   end
@@ -306,9 +308,12 @@ class ApplicationController < ActionController::Base
   end
 
   # @return [Hash] user enabled navigation
+  # @todo if we are isolated by product, we should un-nest navigation
+  #   and define single list within bar iff nav is single key-pair
   def set_navigation
+    products = @isolated_product ? [@product] : current_user.run_state.current_account.products
     @navigation = Smash.new.tap do |nav|
-      current_user.run_state.current_account.products.each do |product|
+      products.each do |product|
         Rails.application.railties.engines.each do |eng|
           if(eng.respond_to?(:fission_product))
             if(eng.fission_product.include?(product))

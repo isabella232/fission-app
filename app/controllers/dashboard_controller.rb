@@ -9,8 +9,9 @@ class DashboardController < ApplicationController
         javascript_redirect_to repository_listing_endpoint
       end
       format.html do
+        products = @isolated_product ? [@product] : current_user.run_state.current_account.products
         @cells = Smash.new.tap do |cells|
-          current_user.run_state.current_account.products.each do |product|
+          products.each do |product|
             Rails.application.railties.engines.each do |eng|
               if(eng.respond_to?(:fission_product))
                 if(eng.fission_product.include?(product))
