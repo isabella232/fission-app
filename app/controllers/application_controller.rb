@@ -315,8 +315,6 @@ class ApplicationController < ActionController::Base
   end
 
   # @return [Hash] user enabled navigation
-  # @todo if we are isolated by product, we should un-nest navigation
-  #   and define single list within bar iff nav is single key-pair
   def set_navigation
     products = current_user.run_state.current_account.products
     if(isolated_product?)
