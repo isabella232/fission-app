@@ -15,5 +15,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'content_for_in_controllers'
   s.add_dependency 'cells'
   s.executables << 'fission-app'
-  s.files = Dir['**/*']
+  s.files = Dir['{lib,app,config,public}/**/**/*'] + %w(fission-app.gemspec Rakefile Gemfile Gemfile.lock config.ru)
 end
