@@ -89,6 +89,8 @@ class ApplicationController < ActionController::Base
         @current_user = User.find_by_id(session[:user_id])
         unless(@current_user)
           session.clear
+        else
+          @current_user.run_state.random_sec = session[:random]
         end
       end
     end
