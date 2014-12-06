@@ -222,7 +222,7 @@ class ApplicationController < ActionController::Base
   # @return [TrueClass, FalseClass]
   def analytics
     if(Rails.env == 'production')
-      dns = request.env.fetch('SERVER_NAME', '')
+      dns = request.host.to_s
       property = Rails.application.config.fission.analytics[:properties].detect do |key, value|
         dns.include?(key.to_s)
       end
@@ -254,8 +254,7 @@ class ApplicationController < ActionController::Base
           :email => current_user.email,
           :created_at => current_user.created_at.to_time.to_i,
           :app_id => Rails.application.config.fission.intercom_io[:app_id],
-          :accounts => Account.restrict(current_user).size,
-          :repos => Repository.restrict(current_user).size
+          :accounts => current_user.accounts.size
         }
         if(Rails.application.config.fission.intercom_io[:secure_mode])
           @intercom_args.merge!(
