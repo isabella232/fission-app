@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+# @todo lets look at relaxing these for easier upgrades
 gem 'rails', '4.0.0'
 gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
@@ -9,6 +10,7 @@ gem 'jbuilder', '~> 1.2'
 
 gem 'sprockets', '2.10.1'
 
+# @todo are we still using this?
 gem 'rouge', git: 'git://github.com/chrisroberts/rouge.git', branch: 'fix/lazyload'
 
 group :doc do
@@ -43,10 +45,9 @@ end
 
 gem 'octokit'
 
-gem 'jdbc-postgres', :platforms => :jruby
-gem 'pg', :platforms => :ruby
-
+# @todo where is this being used?
 gem 'momentjs-rails', '~> 2.5.0'
+
 gem 'bootstrap3-datetimepicker-rails', '~> 3.0.0'
 
 if(ENV['FISSION_LOCALS'] == 'true')
@@ -62,28 +63,23 @@ if(ENV['FISSION_LOCALS'] == 'true')
   gem 'fission-app-packager', path: '../fission-app-packager'
   gem 'fission-app-repositories', path: '../fission-app-repositories'
 else
-  gem 'fission', git: 'git@github.com:hw-product/fission.git', branch: 'develop'
-  gem 'fission-app-multiuser', git: 'git@github.com:hw-product/fission-app-multiuser.git', branch: 'develop'
-  gem 'fission-app-jobs', git: 'git@github.com:hw-product/fission-app-jobs.git', branch: 'develop'
-  gem 'fission-data', git: 'git@github.com:hw-product/fission-data.git', branch: 'develop'
-  gem 'fission-app-stripe', git: 'git@github.com:hw-product/fission-app-stripe.git', branch: 'develop'
-  gem 'fission-app-woodchuck', git: 'git@github.com:hw-product/fission-app-woodchuck', branch: 'develop'
-  gem 'fission-app-static', git: 'git@github.com:hw-product/fission-app-static', branch: 'develop'
-  gem 'fission-app-sparkles', git: 'git@github.com:hw-product/fission-app-sparkles.git', branch: 'develop'
-  gem 'fission-app-docs', git: 'git@github.com:hw-product/fission-app-docs.git', branch: 'develop'
-  gem 'fission-app-packager', git: 'git@github.com:hw-product/fission-app-packager.git', branch: 'develop'
-  gem 'fission-app-repositories', git: 'git@github.com:hw-product/fission-app-repositories.git', branch: 'develop'
+  source 'https://fission:8sYl7Bo0ql2OA9OPThUngg@gems.pkgd.io' do
+    gem 'fission'
+    gem 'fission-app-multiuser'
+    gem 'fission-app-jobs'
+    gem 'fission-data'
+    gem 'fission-app-stripe'
+    gem 'fission-app-woodchuck'
+    gem 'fission-app-static'
+    gem 'fission-app-sparkles'
+    gem 'fission-app-docs'
+    gem 'fission-app-packager'
+    gem 'fission-app-repositories'
+  end
 end
 
-gem 'knife-cloudformation', :git => 'git://github.com/heavywater/knife-cloudformation', :branch => 'feature/fog-model'
-gem 'sparkle_formation', :git => 'git://github.com/heavywater/sparkle_formation', :branch => 'develop'
-
-gem 'fog', :git => 'git://github.com/chrisroberts/fog', :branch => 'feature/orchestration'
-gem 'fog-core', :git => 'git://github.com/chrisroberts/fog-core', :branch => 'feature/orchestration'
 gem 'kramdown-rails'
-gem 'carnivore'
-
-gem 'window_rails', :git => 'git://github.com/chrisroberts/window_rails', :branch => 'develop'
+gem 'window_rails'
 
 gem 'sparkle_ui', :git => 'git@github.com:heavywater/sparkle_ui.git', :branch => 'develop'
 gem 'sparkle_builder', :git => 'git@github.com:heavywater/sparkle_builder.git', :branch => 'develop'
