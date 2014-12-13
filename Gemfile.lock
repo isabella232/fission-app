@@ -1,67 +1,9 @@
 GIT
-  remote: git://github.com/chrisroberts/fog
-  revision: d06ff20a503594f5e7ca6794c293d85a7fe44474
-  branch: feature/orchestration
-  specs:
-    fog (1.23.0)
-      fog-brightbox
-      fog-core (~> 1.23)
-      fog-json
-      fog-softlayer
-      ipaddress (~> 0.5)
-      nokogiri (~> 1.5, >= 1.5.11)
-
-GIT
-  remote: git://github.com/chrisroberts/fog-core
-  revision: bf00b969b7f5fabd5283515665c25774db19a1c8
-  branch: feature/orchestration
-  specs:
-    fog-core (1.23.0)
-      builder
-      excon (~> 0.38)
-      formatador (~> 0.2)
-      mime-types
-      net-scp (~> 1.1)
-      net-ssh (>= 2.1.3)
-
-GIT
   remote: git://github.com/chrisroberts/rouge.git
   revision: ae046ecb09e960822ea93d17fa49d28ff0aab7d4
   branch: fix/lazyload
   specs:
     rouge (1.3.1)
-
-GIT
-  remote: git://github.com/chrisroberts/window_rails
-  revision: f98fd57d906238bde8cf17279e3ec9b5d3bd8c11
-  branch: develop
-  specs:
-    window_rails (1.0.0)
-      rails (>= 3.0)
-      rails_javascript_helpers (~> 1.0)
-
-GIT
-  remote: git://github.com/heavywater/knife-cloudformation
-  revision: 7d8f38bc0b238cd1473cb475b86e6d90d7c19fc3
-  branch: feature/fog-model
-  specs:
-    knife-cloudformation (0.1.23)
-      attribute_struct (~> 0.2.0)
-      chef
-      fog (~> 1.17)
-      net-sftp
-      redis-objects
-      sparkle_formation (~> 0.2.0)
-      unf
-
-GIT
-  remote: git://github.com/heavywater/sparkle_formation
-  revision: ed3f2979bab8e86d1f914754ef10aa254f30ff4d
-  branch: develop
-  specs:
-    sparkle_formation (0.2.1)
-      attribute_struct (~> 0.2.2)
-      multi_json
 
 GIT
   remote: git@github.com:heavywater/sparkle_builder.git
@@ -92,97 +34,19 @@ GIT
 PATH
   remote: .
   specs:
-    fission-app (0.1.1)
+    fission-app (0.1.2)
       cells
       content_for_in_controllers
       fission-data
+      lograge
       will_paginate
       will_paginate-bootstrap
 
-PATH
-  remote: ../fission
-  specs:
-    fission (0.1.3)
-      celluloid (= 0.16.0.pre)
-      childprocess
-      hashie
-      jackal
-      mixlib-cli
-
-PATH
-  remote: ../fission-app-docs
-  specs:
-    fission-app-docs (0.1.0)
-      kramdown
-
-PATH
-  remote: ../fission-app-jobs
-  specs:
-    fission-app-jobs (0.1.2)
-      d3c3-rails
-      fission-app
-      fission-app-multiuser
-
-PATH
-  remote: ../fission-app-multiuser
-  specs:
-    fission-app-multiuser (0.1.0)
-      fission-app
-      fission-data
-      omniauth (~> 1.1)
-      omniauth-github
-
-PATH
-  remote: ../fission-app-packager
-  specs:
-    fission-app-packager (0.1.0)
-      fission-app
-      fission-app-jobs
-
-PATH
-  remote: ../fission-app-repositories
-  specs:
-    fission-app-repositories (0.1.0)
-      fission-app
-      fission-app-jobs
-
-PATH
-  remote: ../fission-app-sparkles
-  specs:
-    fission-app-sparkles (0.1.0)
-      sparkle_builder
-      sparkle_ui
-
-PATH
-  remote: ../fission-app-static
-  specs:
-    fission-app-static (0.1.1)
-      fission-app
-      kramdown-rails
-
-PATH
-  remote: ../fission-app-stripe
-  specs:
-    fission-app-stripe (0.2.0)
-      kramdown
-      rails (~> 4.0.0)
-      stripe
-
-PATH
-  remote: ../fission-app-woodchuck
-  specs:
-    fission-app-woodchuck (0.1.0)
-
-PATH
-  remote: ../fission-data
-  specs:
-    fission-data (0.1.1)
-      hashie
-      sequel
-
 GEM
   remote: https://rubygems.org/
+  remote: https://fission:8sYl7Bo0ql2OA9OPThUngg@gems.pkgd.io/
   specs:
+    CFPropertyList (2.2.8)
     actionmailer (4.0.0)
       actionpack (= 4.0.0)
       mail (~> 2.5.3)
@@ -208,48 +72,47 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     addressable (2.3.6)
-    amq-protocol (1.9.2)
     arel (4.0.2)
     attribute_struct (0.2.8)
     bcrypt-ruby (3.0.1)
     bcrypt-ruby (3.0.1-java)
-    bootstrap-sass (3.2.0.2)
+    bootstrap-sass (3.3.1.0)
       sass (~> 3.2)
     bootstrap3-datetimepicker-rails (3.0.0.2)
       momentjs-rails (~> 2.5.0)
     builder (3.1.4)
-    bunny (1.5.0)
-      amq-protocol (>= 1.9.2)
     capybara (2.4.4)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    carnivore (0.2.12)
-      celluloid
-      hashie
-      mixlib-config
-      multi_json
     cells (3.11.2)
       actionpack (>= 3.0)
       railties (>= 3.0)
       uber (~> 0.0.8)
-    celluloid (0.16.0.pre)
-      timers (~> 2.0.0)
-    chef (0.8.10)
-      bunny (>= 0.6.0)
-      erubis
-      extlib
-      json
-      mixlib-authentication (>= 1.1.0)
-      mixlib-cli (>= 1.1.0)
-      mixlib-config (>= 1.1.0)
-      mixlib-log (>= 1.1.0)
-      moneta
-      ohai (>= 0.5.0)
-    childprocess (0.5.5)
-      ffi (~> 1.0, >= 1.0.11)
+    chef (12.0.1)
+      chef-zero (~> 3.2)
+      diff-lcs (~> 1.2, >= 1.2.4)
+      erubis (~> 2.7)
+      ffi-yajl (~> 1.2)
+      highline (~> 1.6, >= 1.6.9)
+      mixlib-authentication (~> 1.3)
+      mixlib-cli (~> 1.4)
+      mixlib-config (~> 2.0)
+      mixlib-log (~> 1.3)
+      mixlib-shellout (>= 2.0.0.rc.0, < 3.0)
+      net-ssh (~> 2.6)
+      net-ssh-multi (~> 1.1)
+      ohai (~> 8.0)
+      plist (~> 3.1.0)
+      pry (~> 0.9)
+    chef-zero (3.2.1)
+      ffi-yajl (~> 1.1)
+      hashie (~> 2.0)
+      mixlib-log (~> 1.3)
+      rack
+      uuidtools (~> 2.1)
     coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -264,41 +127,134 @@ GEM
       rails_javascript_helpers (~> 1.0)
     diff-lcs (1.2.5)
     erubis (2.7.0)
-    excon (0.40.0)
+    excon (0.42.1)
     execjs (2.2.2)
-    extlib (0.9.16)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.6)
     ffi (1.9.6-java)
-    ffi-yajl (1.2.0)
+    ffi-yajl (1.3.1)
       ffi (~> 1.5)
-      libyajl2 (~> 1.0)
-    ffi-yajl (1.2.0-java)
+      libyajl2 (~> 1.2)
+    ffi-yajl (1.3.1-java)
       ffi (~> 1.5)
-      libyajl2 (~> 1.0)
-    fog-brightbox (0.5.1)
+      libyajl2 (~> 1.2)
+    fission (0.5.0)
+      CFPropertyList (~> 2.2)
+    fission-app-docs (0.1.2)
+      kramdown
+    fission-app-jobs (0.1.2)
+      d3c3-rails
+      fission-app
+      fission-app-multiuser
+    fission-app-multiuser (0.1.0)
+      fission-app
+      fission-data
+      omniauth (~> 1.1)
+      omniauth-github
+    fission-app-packager (0.1.0)
+      fission-app
+      fission-app-jobs
+    fission-app-repositories (0.1.0)
+      fission-app
+      fission-app-jobs
+    fission-app-sparkles (0.1.0)
+      sparkle_builder
+      sparkle_ui
+    fission-app-static (0.1.2)
+      fission-app
+      kramdown-rails
+    fission-app-stripe (0.2.0)
+      kramdown
+      rails (~> 4.0.0)
+      stripe
+    fission-app-woodchuck (0.1.0)
+    fission-data (0.1.4)
+      hashie
+      pg
+      sequel
+    fission-data (0.1.4-java)
+      hashie
+      jdbc-postgres
+      sequel
+    fog (1.26.0)
+      fog-atmos
+      fog-brightbox (~> 0.4)
+      fog-core (~> 1.27, >= 1.27.1)
+      fog-ecloud
+      fog-json
+      fog-profitbricks
+      fog-radosgw (>= 0.0.2)
+      fog-sakuracloud (>= 0.0.4)
+      fog-softlayer
+      fog-storm_on_demand
+      fog-terremark
+      fog-vmfusion
+      fog-voxel
+      fog-xml (~> 0.1.1)
+      ipaddress (~> 0.5)
+      nokogiri (~> 1.5, >= 1.5.11)
+    fog-atmos (0.1.0)
+      fog-core
+      fog-xml
+    fog-brightbox (0.7.1)
       fog-core (~> 1.22)
       fog-json
-      inflecto
+      inflecto (~> 0.0.2)
+    fog-core (1.27.1)
+      builder
+      excon (~> 0.38)
+      formatador (~> 0.2)
+      mime-types
+      net-scp (~> 1.1)
+      net-ssh (>= 2.1.3)
+    fog-ecloud (0.0.2)
+      fog-core
+      fog-xml
     fog-json (1.0.0)
       multi_json (~> 1.0)
-    fog-softlayer (0.3.21)
+    fog-profitbricks (0.0.1)
+      fog-core
+      fog-xml
+      nokogiri
+    fog-radosgw (0.0.3)
+      fog-core (>= 1.21.0)
+      fog-json
+      fog-xml (>= 0.0.1)
+    fog-sakuracloud (0.1.1)
       fog-core
       fog-json
+    fog-softlayer (0.3.25)
+      fog-core
+      fog-json
+    fog-storm_on_demand (0.0.1)
+      fog-core
+      fog-json
+    fog-terremark (0.0.3)
+      fog-core
+      fog-xml
+    fog-vmfusion (0.0.1)
+      fission
+      fog-core
+    fog-voxel (0.0.2)
+      fog-core
+      fog-xml
+    fog-xml (0.1.1)
+      fog-core
+      nokogiri (~> 1.5, >= 1.5.11)
     formatador (0.2.5)
-    haml (4.0.5)
+    haml (4.0.6)
       tilt
-    hashie (3.3.1)
+    hashie (2.1.2)
+    highline (1.6.21)
     hike (1.2.3)
-    hitimes (1.2.2)
-    hitimes (1.2.2-java)
+    http (0.6.3)
+      http_parser.rb (~> 0.6.0)
+    http_parser.rb (0.6.0)
+    http_parser.rb (0.6.0-java)
     i18n (0.6.11)
     inflecto (0.0.2)
     ipaddress (0.8.0)
-    jackal (0.1.16)
-      carnivore (>= 0.2.6)
-      mixlib-cli
     jbuilder (1.5.3)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
@@ -306,45 +262,63 @@ GEM
     jquery-rails (3.1.2)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    jruby-jars (1.7.16)
+    jruby-jars (1.7.17)
     jruby-rack (1.1.13.3)
     json (1.8.1)
     json (1.8.1-java)
-    jwt (1.0.0)
+    jwt (1.2.0)
     kgio (2.9.2)
-    kramdown (1.4.2)
+    knife-cloudformation (0.2.8)
+      chef
+      miasma
+      net-ssh
+      sparkle_formation (~> 0.2.0)
+    kramdown (1.5.0)
     kramdown-rails (0.1.4)
       kramdown
     libv8 (3.16.14.7)
-    libyajl2 (1.1.0)
+    libyajl2 (1.2.0)
+    lograge (0.3.0)
+      actionpack (>= 3)
+      activesupport (>= 3)
+      railties (>= 3)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     method_source (0.8.2)
+    miasma (0.2.8)
+      hashie
+      http
+      multi_json
+      multi_xml
+      xml-simple
     mime-types (1.25.1)
-    mini_portile (0.6.0)
+    mini_portile (0.6.1)
     minitest (4.7.5)
     mixlib-authentication (1.3.0)
       mixlib-log
     mixlib-cli (1.5.0)
     mixlib-config (2.1.0)
     mixlib-log (1.6.0)
-    mixlib-shellout (1.6.0)
+    mixlib-shellout (2.0.0)
     momentjs-rails (2.5.1)
       railties (>= 3.1)
-    moneta (0.8.0)
     multi_json (1.10.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
+    net-dhcp (1.3.2)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
-    net-sftp (2.1.2)
-      net-ssh (>= 2.6.5)
     net-ssh (2.9.1)
-    netrc (0.8.0)
-    nokogiri (1.6.3.1)
-      mini_portile (= 0.6.0)
-    nokogiri (1.6.3.1-java)
+    net-ssh-gateway (1.2.0)
+      net-ssh (>= 2.6.5)
+    net-ssh-multi (1.2.0)
+      net-ssh (>= 2.6.5)
+      net-ssh-gateway (>= 1.2.0)
+    netrc (0.10.0)
+    nokogiri (1.6.5)
+      mini_portile (~> 0.6.0)
+    nokogiri (1.6.5-java)
     oauth2 (1.0.0)
       faraday (>= 0.8, < 0.10)
       jwt (~> 1.0)
@@ -352,17 +326,19 @@ GEM
       multi_xml (~> 0.5)
       rack (~> 1.2)
     oauth_simple (0.1.0.pre)
-    octokit (3.4.2)
-      sawyer (~> 0.5.3)
-    ohai (7.4.0)
+    octokit (3.7.0)
+      sawyer (~> 0.6.0, >= 0.5.3)
+    ohai (8.0.1)
       ffi (~> 1.9)
-      ffi-yajl (~> 1.0)
+      ffi-yajl (~> 1.1)
       ipaddress
       mime-types (~> 1.16)
       mixlib-cli
       mixlib-config (~> 2.0)
       mixlib-log
-      mixlib-shellout (~> 1.2)
+      mixlib-shellout (~> 2.0)
+      net-dhcp
+      rake (~> 10.1)
       systemu (~> 2.6.4)
       wmi-lite (~> 1.0)
     omniauth (1.2.2)
@@ -377,6 +353,7 @@ GEM
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
     pg (0.17.1)
+    plist (3.1.0)
     polyglot (0.3.5)
     pry (0.10.1)
       coderay (~> 1.1.0)
@@ -408,12 +385,9 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     raindrops (0.13.0)
-    rake (10.3.2)
-    rdoc (4.1.2)
+    rake (10.4.2)
+    rdoc (4.2.0)
       json (~> 1.4)
-    redis (3.1.0)
-    redis-objects (1.0.1)
-      redis (>= 3.0.2)
     ref (1.0.5)
     rest-client (1.7.2)
       mime-types (>= 1.16, < 3.0)
@@ -436,19 +410,22 @@ GEM
     rspec-support (3.1.2)
     rubyzip (1.0.0)
     sass (3.2.19)
-    sass-rails (4.0.3)
+    sass-rails (4.0.5)
       railties (>= 4.0.0, < 5.0)
-      sass (~> 3.2.0)
-      sprockets (~> 2.8, <= 2.11.0)
+      sass (~> 3.2.2)
+      sprockets (~> 2.8, < 3.0)
       sprockets-rails (~> 2.0)
-    sawyer (0.5.5)
+    sawyer (0.6.0)
       addressable (~> 2.3.5)
       faraday (~> 0.8, < 0.10)
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    sequel (4.15.0)
+    sequel (4.17.0)
     slop (3.6.0)
+    sparkle_formation (0.2.4)
+      attribute_struct (~> 0.2.2)
+      multi_json
     spoon (0.0.4)
       ffi
     sprockets (2.10.1)
@@ -475,24 +452,19 @@ GEM
     thread_safe (0.3.4)
     thread_safe (0.3.4-java)
     tilt (1.4.1)
-    timers (2.0.0)
-      hitimes
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    tzinfo (0.3.41)
+    tzinfo (0.3.42)
     uber (0.0.11)
-    uglifier (2.5.3)
+    uglifier (2.6.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
-    unf (0.1.4)
-      unf_ext
-    unf (0.1.4-java)
-    unf_ext (0.0.6)
     unicorn (4.8.3)
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    uuidtools (2.1.5)
     warbler (1.4.0)
       jruby-jars (>= 1.5.6)
       jruby-rack (>= 1.0.0)
@@ -501,7 +473,11 @@ GEM
     will_paginate (3.0.7)
     will_paginate-bootstrap (1.0.1)
       will_paginate (>= 3.0.3)
+    window_rails (1.0.0)
+      rails (>= 3.0)
+      rails_javascript_helpers (~> 1.0)
     wmi-lite (1.0.0)
+    xml-simple (1.1.4)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
@@ -514,7 +490,6 @@ DEPENDENCIES
   bootstrap-sass
   bootstrap3-datetimepicker-rails (~> 3.0.0)
   capybara
-  carnivore
   coffee-rails (~> 4.0.0)
   fission!
   fission-app!
@@ -528,19 +503,14 @@ DEPENDENCIES
   fission-app-stripe!
   fission-app-woodchuck!
   fission-data!
-  fog!
-  fog-core!
   haml (>= 0.3.4)
   jbuilder (~> 1.2)
-  jdbc-postgres
   jquery-rails
   jruby-rack (= 1.1.13.3)
-  knife-cloudformation!
   kramdown-rails
   momentjs-rails (~> 2.5.0)
   oauth_simple
   octokit
-  pg
   pry-rails
   rails (= 4.0.0)
   rouge!
@@ -548,7 +518,6 @@ DEPENDENCIES
   sass-rails (~> 4.0.0)
   sdoc
   sparkle_builder!
-  sparkle_formation!
   sparkle_ui!
   sprockets (= 2.10.1)
   therubyracer
@@ -557,4 +526,4 @@ DEPENDENCIES
   unicorn
   warbler (= 1.4.0)
   will_paginate
-  window_rails!
+  window_rails
