@@ -29,3 +29,5 @@ vendor/*
 
 public/assets*
 !.keep
+
+!.jrubyrc
