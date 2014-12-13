@@ -78,6 +78,7 @@ else
   end
 end
 
+gem 'carnivore'
 gem 'kramdown-rails'
 gem 'window_rails'
 

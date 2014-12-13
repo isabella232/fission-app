@@ -87,10 +87,17 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    carnivore (0.2.14)
+      celluloid
+      hashie
+      mixlib-config
+      multi_json
     cells (3.11.2)
       actionpack (>= 3.0)
       railties (>= 3.0)
       uber (~> 0.0.8)
+    celluloid (0.16.0)
+      timers (~> 4.0.0)
     chef (12.0.1)
       chef-zero (~> 3.2)
       diff-lcs (~> 1.2, >= 1.2.4)
@@ -248,6 +255,7 @@ GEM
     hashie (2.1.2)
     highline (1.6.21)
     hike (1.2.3)
+    hitimes (1.2.2-java)
     http (0.6.3)
       http_parser.rb (~> 0.6.0)
     http_parser.rb (0.6.0)
@@ -452,6 +460,8 @@ GEM
     thread_safe (0.3.4)
     thread_safe (0.3.4-java)
     tilt (1.4.1)
+    timers (4.0.1)
+      hitimes
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
@@ -490,6 +500,7 @@ DEPENDENCIES
   bootstrap-sass
   bootstrap3-datetimepicker-rails (~> 3.0.0)
   capybara
+  carnivore
   coffee-rails (~> 4.0.0)
   fission!
   fission-app!
