@@ -110,7 +110,7 @@ class ApplicationController < ActionController::Base
         @product = Product.find_by_internal_name(path_parts[1])
       end
     end
-    if(@product)
+    if(@product && current_user)
       current_user.run_state.current_product = @product
     end
     @product
