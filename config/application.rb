@@ -12,6 +12,7 @@ Bundler.require(:default, Rails.env)
 require 'will_paginate'
 require 'will_paginate/sequel'
 require 'fission-data'
+require 'lograge'
 
 module FissionApp
   class Application < Rails::Application

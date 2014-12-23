@@ -1,5 +1,3 @@
-require 'lograge'
-
 FissionApp::Application.configure do
 
   config.lograge.enabled = true
