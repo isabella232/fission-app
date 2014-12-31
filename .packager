@@ -1,0 +1,28 @@
+# -*- mode: ruby -*-
+# -*- encoding: utf-8 -*-
+
+Packager.build do
+  target do
+    platform 'ubuntu'
+    version '12.04'
+    package 'deb'
+    arch 'amd64'
+  end
+  dependencies.build ['openjdk-7-jre-headless', 'wget', 'git']
+  build do
+    name 'fission-app'
+    template :generic
+    commands do
+      build [
+        'wget -O /tmp/jruby.tar.gz https://s3.amazonaws.com/jruby.org/downloads/1.7.18/jruby-bin-1.7.18.tar.gz',
+        'tar -C /tmp -xzf /tmp/jruby.tar.gz',
+        'JRUBY_OPTS="--2.0" PATH=/tmp/jruby-1.7.18/bin:$PATH gem install --no-ri --no-rdoc bundler',
+        'JRUBY_OPTS="--2.0" PATH=/tmp/jruby-1.7.18/bin:$PATH bundle update',
+        'RAILS_ASSETS_PRECOMPILE=true RAILS_ENV="production" JRUBY_OPTS="--2.0" PATH=/tmp/jruby-1.7.18/bin:$PATH rake assets:precompile',
+        'JRUBY_OPTS="--2.0" PATH=/tmp/jruby-1.7.18/bin:$PATH warble',
+        'mkdir -p $PKG_DIR/opt/fission-app',
+        'mv *.war $PKG_DIR/opt/fission-app/fission-app.war'
+      ]
+    end
+  end
+end
