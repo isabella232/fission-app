@@ -2,4 +2,6 @@
 require File.expand_path('../application', __FILE__)
 
 # Initialize the Rails application.
-FissionApp::Application.initialize!
+unless(ENV['RAILS_ASSETS_PRECOMPILE'])
+  FissionApp::Application.initialize!
+end
