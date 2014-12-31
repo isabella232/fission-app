@@ -78,11 +78,16 @@ else
   end
 end
 
+source 'https://fission:8sYl7Bo0ql2OA9OPThUngg@gems.pkgd.io' do
+  gem 'sparkle_ui'
+  gem 'sparkle_builder'
+end
+
 gem 'carnivore'
 gem 'kramdown-rails'
 gem 'window_rails'
 
-gem 'sparkle_ui', :git => 'git@github.com:heavywater/sparkle_ui.git', :branch => 'develop'
-gem 'sparkle_builder', :git => 'git@github.com:heavywater/sparkle_builder.git', :branch => 'develop'
+#gem 'sparkle_ui', :git => 'git@github.com:heavywater/sparkle_ui.git', :branch => 'develop'
+#gem 'sparkle_builder', :git => 'git@github.com:heavywater/sparkle_builder.git', :branch => 'develop'
 
 gemspec
