@@ -1,4 +1,5 @@
 require 'carnivore'
+require 'bogo-config'
 
 class FissionApp::Application
 
@@ -16,9 +17,14 @@ class FissionApp::Application
 
   raise "No fission configuration file detected!" unless fission_file
 
-  base_hash = JSON.load(File.read(fission_file))
+  FissionApp::Config = Bogo::Config.new(fission_file)
+
+  base_hash = FissionApp::Config.data
   config.fission.config = base_hash.with_indifferent_access
   config.settings = Smash.new(base_hash)
+  config.fission_assets = Fission::Assets::Store.new(
+    FissionApp::Config.get(:fission, :assets)
+  )
 
   unless(valid_config_paths.last == fission_file)
     base_file = JSON.load(File.read(valid_config_paths.last)).with_indifferent_access
