@@ -329,11 +329,11 @@ class ApplicationController < ActionController::Base
     end
     @navigation = Smash.new.tap do |nav|
       products.each do |product|
-        Rails.application.railties.engines.each do |eng|
+        Rails.application.railties.engines.sort_by(&:engine_name).each do |eng|
           if(eng.respond_to?(:fission_product))
             if(eng.fission_product.include?(product))
               if(eng.respond_to?(:fission_navigation))
-                nav.deep_merge!(eng.fission_navigation(product).to_smash)
+                nav.deep_merge!(eng.fission_navigation(product, current_user).to_smash)
               end
             end
           end
