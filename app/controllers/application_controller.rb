@@ -9,6 +9,9 @@ class ApplicationController < ActionController::Base
   end
   include FissionApp::Commons
 
+  # Define simple callbacks for easy event based pipeline injections
+  include ActiveSupport::Callbacks
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery :with => :exception
@@ -62,6 +65,15 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+  # Used for event notification on actions. This is the generic
+  # notifier with notifications being enabled/disabled via
+  # configuration
+  #
+  # @return [TrueClass]
+  def notify!
+    true
+  end
 
   # @return [TrueClass, FalseClass] isolated to single product
   def isolated_product?
