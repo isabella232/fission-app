@@ -30,9 +30,16 @@ function enable_timepickers(){
   $('.timepicker').datetimepicker();
 }
 
+function enable_linked_items(){
+  $('.linked').click(function(){
+    window.document.location = $(this).attr('href');
+  });
+}
+
 function run_enablers(){
   enable_popovers();
   enable_timepickers();
+  enable_linked_items();
 }
 
 $(document).ready(run_enablers);
