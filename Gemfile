@@ -62,6 +62,8 @@ if(ENV['FISSION_LOCALS'] == 'true')
   gem 'fission-app-sparkles', path: '../fission-app-sparkles'
   gem 'fission-app-packager', path: '../fission-app-packager'
   gem 'fission-app-repositories', path: '../fission-app-repositories'
+  gem 'fission-app-nellie', path: '../fission-app-nellie'
+  gem 'fission-assets', path: '../fission-assets'
 else
   source 'https://fission:8sYl7Bo0ql2OA9OPThUngg@gems.pkgd.io' do
     gem 'fission'
@@ -75,6 +77,7 @@ else
     gem 'fission-app-docs'
     gem 'fission-app-packager'
     gem 'fission-app-repositories'
+    gem 'fission-assets'
   end
 end
 
@@ -83,7 +86,6 @@ source 'https://fission:8sYl7Bo0ql2OA9OPThUngg@gems.pkgd.io' do
   gem 'sparkle_builder'
 end
 
-gem 'carnivore'
 gem 'kramdown-rails'
 gem 'window_rails'
 
