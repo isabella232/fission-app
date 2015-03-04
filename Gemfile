@@ -77,6 +77,7 @@ else
     gem 'fission-app-docs'
     gem 'fission-app-packager'
     gem 'fission-app-repositories'
+    gem 'fission-app-nellie'
     gem 'fission-assets'
   end
 end
