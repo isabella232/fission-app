@@ -1,16 +1,21 @@
 - table_id       ||= ''
 - table_class    ||= ''
-- header_classes ||= (1..header_data.count).map{ '' }
 
 %table.table.table-hover{ :class => table_class, :id => table_id }
   %thead
-    %tr
-      - header_data.each_with_index do |header, i|
-        %th{ :class => header_classes[i] }
-          = header
+    - if defined?(header_data) && header_data
+      - header_classes ||= (1..header_data.count).map{ '' }
+      %tr
+        - header_data.each_with_index do |header, i|
+          %th{ :class => header_classes[i] }
+            = header
+    - elsif(defined?(header_content_name))
+      = content_for(header_content_name)
   %tbody
     - if defined?(table_content_name)
       = content_for(table_content_name)
+    - elsif(content_for?(:table_body))
+      = content_for(:table_body)
     - else
       - data.each do |values|
         %tr
