@@ -1,3 +1,7 @@
+# v0.1.6
+* View refactor
+* Add library for formatting forms for bootstrap
+
 # v0.1.4
 * Single line logging in production mode
 * Sort engines to provide sanity in navigation
