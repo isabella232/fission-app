@@ -8,5 +8,7 @@
     = yield container_content_name
   - elsif content_for?(:container)
     = yield :container
+  - elsif defined?(panel)
+    = render :partial => 'layouts/panel', :locals => panel
   - else
     = yield
