@@ -32,6 +32,7 @@ gem 'oauth_simple'
 gem 'will_paginate'
 gem 'haml', '>= 0.3.4'
 gem 'bootstrap-sass'
+gem 'bootstrap_form'
 
 group :development do
   gem 'warbler', '1.4.0'
@@ -63,6 +64,7 @@ if(ENV['FISSION_LOCALS'] == 'true')
   gem 'fission-app-packager', path: '../fission-app-packager'
   gem 'fission-app-repositories', path: '../fission-app-repositories'
   gem 'fission-app-nellie', path: '../fission-app-nellie'
+  gem 'fission-app-configs', path: '../fission-app-configs'
   gem 'fission-assets', path: '../fission-assets'
 else
   source 'https://fission:8sYl7Bo0ql2OA9OPThUngg@gems.pkgd.io' do
@@ -78,6 +80,7 @@ else
     gem 'fission-app-packager'
     gem 'fission-app-repositories'
     gem 'fission-app-nellie'
+    gem 'fission-app-configs'
     gem 'fission-assets'
   end
 end
