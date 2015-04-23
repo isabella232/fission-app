@@ -12,5 +12,14 @@ if(ENV['RAILS_ASSETS_PRECOMPILE'])
   end
 end
 
+# <sigh/>
+
+class ActionDispatch::Routing::RouteSet::NamedRouteCollection::UrlHelper::OptimizedUrlHelper
+
+  def missing_keys(args)
+    args.select{ |part, arg| arg.nil? || arg.blank? }.keys
+  end
+end
+
 require File.expand_path('../application', __FILE__)
 FissionApp::Application.initialize!
