@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # @todo lets look at relaxing these for easier upgrades
-gem 'rails', '4.0.0'
+gem 'rails', '~> 4.0.0'
 gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
@@ -16,9 +16,6 @@ gem 'rouge', git: 'git://github.com/chrisroberts/rouge.git', branch: 'fix/lazylo
 group :doc do
   gem 'sdoc', require: false
 end
-
-# Use ActiveModel has_secure_password
-gem 'bcrypt-ruby', '~> 3.0.0'
 
 # Web server
 gem 'unicorn', :platforms => :ruby
@@ -40,7 +37,7 @@ group :development do
 end
 
 group :test do
-  gem 'rspec-rails', group: :test
+  gem 'rspec-rails'
   gem 'capybara'
 end
 
@@ -93,7 +90,7 @@ end
 gem 'kramdown-rails'
 gem 'window_rails'
 
-#gem 'sparkle_ui', :git => 'git@github.com:heavywater/sparkle_ui.git', :branch => 'develop'
-#gem 'sparkle_builder', :git => 'git@github.com:heavywater/sparkle_builder.git', :branch => 'develop'
+# gem 'sparkle_ui', :git => 'git@github.com:heavywater/sparkle_ui.git', :branch => 'develop'
+# gem 'sparkle_builder', :git => 'git@github.com:heavywater/sparkle_builder.git', :branch => 'develop'
 
 gemspec
