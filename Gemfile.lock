@@ -8,7 +8,7 @@ GIT
 PATH
   remote: .
   specs:
-    fission-app (0.1.4)
+    fission-app (0.1.6)
       bogo-config
       cells
       content_for_in_controllers
@@ -22,49 +22,47 @@ GEM
   remote: https://rubygems.org/
   remote: https://fission:8sYl7Bo0ql2OA9OPThUngg@gems.pkgd.io/
   specs:
-    actionmailer (4.0.0)
-      actionpack (= 4.0.0)
-      mail (~> 2.5.3)
-    actionpack (4.0.0)
-      activesupport (= 4.0.0)
+    actionmailer (4.0.13)
+      actionpack (= 4.0.13)
+      mail (~> 2.5, >= 2.5.4)
+    actionpack (4.0.13)
+      activesupport (= 4.0.13)
       builder (~> 3.1.0)
       erubis (~> 2.7.0)
       rack (~> 1.5.2)
       rack-test (~> 0.6.2)
-    activemodel (4.0.0)
-      activesupport (= 4.0.0)
+    activemodel (4.0.13)
+      activesupport (= 4.0.13)
       builder (~> 3.1.0)
-    activerecord (4.0.0)
-      activemodel (= 4.0.0)
+    activerecord (4.0.13)
+      activemodel (= 4.0.13)
       activerecord-deprecated_finders (~> 1.0.2)
-      activesupport (= 4.0.0)
+      activesupport (= 4.0.13)
       arel (~> 4.0.0)
-    activerecord-deprecated_finders (1.0.3)
-    activesupport (4.0.0)
-      i18n (~> 0.6, >= 0.6.4)
+    activerecord-deprecated_finders (1.0.4)
+    activesupport (4.0.13)
+      i18n (~> 0.6, >= 0.6.9)
       minitest (~> 4.2)
       multi_json (~> 1.3)
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
-    addressable (2.3.7)
+    addressable (2.3.8)
     arel (4.0.2)
-    attribute_struct (0.2.12)
-    bcrypt-ruby (3.0.1)
-    bcrypt-ruby (3.0.1-java)
-    bogo (0.1.10)
+    attribute_struct (0.2.16)
+    bogo (0.1.18)
       hashie
       multi_json
-    bogo-cli (0.1.6)
+    bogo-cli (0.1.20)
       bogo (>= 0.1.6)
       bogo-config
       bogo-ui
       slop (~> 3)
-    bogo-config (0.1.8)
+    bogo-config (0.1.10)
       attribute_struct
       bogo (>= 0.1.4, < 1.0)
       multi_json
       multi_xml
-    bogo-ui (0.1.6)
+    bogo-ui (0.1.10)
       bogo
       command_line_reporter
       paint
@@ -72,6 +70,7 @@ GEM
       sass (~> 3.2)
     bootstrap3-datetimepicker-rails (3.0.0.2)
       momentjs-rails (~> 2.5.0)
+    bootstrap_form (2.3.0)
     builder (3.1.4)
     capybara (2.4.4)
       mime-types (>= 1.16)
@@ -112,7 +111,7 @@ GEM
       mixlib-log (~> 1.3)
       rack
       uuidtools (~> 2.1)
-    childprocess (0.5.5)
+    childprocess (0.5.6)
       ffi (~> 1.0, >= 1.0.11)
     coderay (1.1.0)
     coffee-rails (4.0.1)
@@ -130,33 +129,41 @@ GEM
       rails (>= 4.0)
       rails_javascript_helpers (~> 1.0)
     diff-lcs (1.2.5)
+    domain_name (0.5.24)
+      unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
-    excon (0.44.4)
+    excon (0.45.3)
     execjs (2.2.2)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
-    ffi (1.9.6)
-    ffi (1.9.6-java)
+    ffi (1.9.8)
+    ffi (1.9.8-java)
+    ffi-yajl (1.4.0)
+      ffi (~> 1.5)
+      libyajl2 (~> 1.2)
     ffi-yajl (1.4.0-java)
       ffi (~> 1.5)
       libyajl2 (~> 1.2)
-    fission (0.2.0)
+    fission (0.2.2)
       jackal (>= 0.2.0, < 1.0.0)
+    fission-app-configs (0.1.0)
+      fission-app
+      fission-data
     fission-app-docs (0.1.2)
       kramdown
-    fission-app-jobs (0.1.4)
+    fission-app-jobs (0.1.6)
       d3c3-rails
       fission-app
       fission-app-multiuser
-    fission-app-multiuser (0.1.6)
+    fission-app-multiuser (0.1.8)
       fission-app
       fission-data
       omniauth (~> 1.1)
       omniauth-github
-    fission-app-nellie (0.1.0)
+    fission-app-nellie (0.1.2)
       fission-app
       fission-app-jobs
-    fission-app-packager (0.1.2)
+    fission-app-packager (0.1.4)
       fission-app
       fission-app-jobs
     fission-app-repositories (0.1.2)
@@ -168,29 +175,33 @@ GEM
     fission-app-static (0.1.3)
       fission-app
       kramdown-rails
-    fission-app-stripe (0.2.1)
+    fission-app-stripe (0.2.2)
       kramdown
       rails (~> 4.0.0)
       stripe
-    fission-app-woodchuck (0.1.1)
+    fission-app-woodchuck (0.1.2)
     fission-assets (0.2.0)
       jackal-assets
       rubyzip
-    fission-data (0.1.6)
+    fission-data (0.1.8)
+      fission (>= 0.1.5)
       hashie
       pg
       sequel
-    fission-data (0.1.6-java)
+    fission-data (0.1.8-java)
+      fission (>= 0.1.5)
       hashie
       jdbc-postgres
       sequel
-    fog (1.28.0)
+    fog (1.29.0)
       fog-atmos
       fog-aws (~> 0.0)
       fog-brightbox (~> 0.4)
-      fog-core (~> 1.27, >= 1.27.3)
+      fog-core (~> 1.27, >= 1.27.4)
       fog-ecloud
       fog-json
+      fog-local
+      fog-powerdns (>= 0.1.1)
       fog-profitbricks
       fog-radosgw (>= 0.0.2)
       fog-riakcs
@@ -207,7 +218,7 @@ GEM
     fog-atmos (0.1.0)
       fog-core
       fog-xml
-    fog-aws (0.1.1)
+    fog-aws (0.1.2)
       fog-core (~> 1.27)
       fog-json (~> 1.0)
       fog-xml (~> 0.1)
@@ -216,23 +227,30 @@ GEM
       fog-core (~> 1.22)
       fog-json
       inflecto (~> 0.0.2)
-    fog-core (1.29.0)
+    fog-core (1.30.0)
       builder
-      excon (~> 0.38)
+      excon (~> 0.45)
       formatador (~> 0.2)
       mime-types
       net-scp (~> 1.1)
       net-ssh (>= 2.1.3)
-    fog-ecloud (0.0.2)
+    fog-ecloud (0.1.1)
       fog-core
       fog-xml
-    fog-json (1.0.0)
+    fog-json (1.0.1)
+      fog-core (~> 1.0)
       multi_json (~> 1.0)
-    fog-profitbricks (0.0.1)
+    fog-local (0.2.1)
+      fog-core (~> 1.27)
+    fog-powerdns (0.1.1)
+      fog-core (~> 1.27)
+      fog-json (~> 1.0)
+      fog-xml (~> 0.1)
+    fog-profitbricks (0.0.2)
       fog-core
       fog-xml
       nokogiri
-    fog-radosgw (0.0.3)
+    fog-radosgw (0.0.4)
       fog-core (>= 1.21.0)
       fog-json
       fog-xml (>= 0.0.1)
@@ -240,42 +258,45 @@ GEM
       fog-core
       fog-json
       fog-xml
-    fog-sakuracloud (1.0.0)
+    fog-sakuracloud (1.0.1)
       fog-core
       fog-json
-    fog-serverlove (0.1.1)
+    fog-serverlove (0.1.2)
       fog-core
       fog-json
-    fog-softlayer (0.4.1)
+    fog-softlayer (0.4.5)
       fog-core
       fog-json
-    fog-storm_on_demand (0.1.0)
+    fog-storm_on_demand (0.1.1)
       fog-core
       fog-json
-    fog-terremark (0.0.4)
+    fog-terremark (0.1.0)
       fog-core
       fog-xml
-    fog-vmfusion (0.0.1)
+    fog-vmfusion (0.1.0)
       fission
       fog-core
-    fog-voxel (0.0.2)
+    fog-voxel (0.1.0)
       fog-core
       fog-xml
-    fog-xml (0.1.1)
+    fog-xml (0.1.2)
       fog-core
       nokogiri (~> 1.5, >= 1.5.11)
     formatador (0.2.5)
     haml (4.0.6)
       tilt
     hashie (2.1.2)
-    highline (1.7.1)
+    highline (1.7.2)
     hike (1.2.3)
     hitimes (1.2.2)
     hitimes (1.2.2-java)
-    http (0.7.2)
-      http-form_data (~> 1.0.0)
+    http (0.8.4)
+      addressable (~> 2.3)
+      http-form_data (~> 1.0.1)
       http_parser.rb (~> 0.6.0)
-    http-form_data (1.0.0)
+    http-cookie (1.0.2)
+      domain_name (~> 0.5)
+    http-form_data (1.0.1)
     http_parser.rb (0.6.0)
     http_parser.rb (0.6.0-java)
     i18n (0.7.0)
@@ -286,7 +307,7 @@ GEM
       bogo-config (>= 0.1.6, < 1.0.0)
       carnivore (>= 0.3.0, < 1.0.0)
       childprocess
-    jackal-assets (0.1.1)
+    jackal-assets (0.1.2)
       jackal
       miasma
       miasma-local
@@ -302,7 +323,7 @@ GEM
     jruby-rack (1.1.13.3)
     json (1.8.2)
     json (1.8.2-java)
-    jwt (1.3.0)
+    jwt (1.4.1)
     kgio (2.9.3)
     knife-cloudformation (0.2.24)
       chef
@@ -318,11 +339,10 @@ GEM
       actionpack (>= 3)
       activesupport (>= 3)
       railties (>= 3)
-    mail (2.5.4)
-      mime-types (~> 1.16)
-      treetop (~> 1.4.8)
+    mail (2.6.3)
+      mime-types (>= 1.16, < 3)
     method_source (0.8.2)
-    miasma (0.2.16)
+    miasma (0.2.22)
       hashie
       http
       miasma-aws
@@ -331,13 +351,13 @@ GEM
       multi_json
       multi_xml
       xml-simple
-    miasma-aws (0.1.4)
+    miasma-aws (0.1.10)
     miasma-local (0.1.6)
       mime-types
     miasma-open-stack (0.1.2)
     miasma-rackspace (0.1.2)
       miasma-open-stack
-    mime-types (1.25.1)
+    mime-types (2.4.3)
     mini_portile (0.6.2)
     minitest (4.7.5)
     mixlib-authentication (1.3.0)
@@ -351,13 +371,12 @@ GEM
     multi_json (1.11.0)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    net-dhcp (1.3.2)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
-    net-ssh-multi (1.2.0)
+    net-ssh-multi (1.2.1)
       net-ssh (>= 2.6.5)
       net-ssh-gateway (>= 1.2.0)
     netrc (0.10.3)
@@ -371,18 +390,17 @@ GEM
       multi_xml (~> 0.5)
       rack (~> 1.2)
     oauth_simple (0.1.0.pre)
-    octokit (3.7.0)
+    octokit (3.8.0)
       sawyer (~> 0.6.0, >= 0.5.3)
-    ohai (8.0.1)
+    ohai (8.2.0)
       ffi (~> 1.9)
-      ffi-yajl (~> 1.1)
+      ffi-yajl (>= 1.1, < 3.0)
       ipaddress
-      mime-types (~> 1.16)
+      mime-types (~> 2.0)
       mixlib-cli
       mixlib-config (~> 2.0)
       mixlib-log
       mixlib-shellout (~> 2.0)
-      net-dhcp
       rake (~> 10.1)
       systemu (~> 2.6.4)
       wmi-lite (~> 1.0)
@@ -392,15 +410,12 @@ GEM
     omniauth-github (1.1.2)
       omniauth (~> 1.0)
       omniauth-oauth2 (~> 1.1)
-    omniauth-oauth2 (1.2.0)
-      faraday (>= 0.8, < 0.10)
-      multi_json (~> 1.3)
+    omniauth-oauth2 (1.3.0)
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
-    paint (0.9.0)
+    paint (1.0.0)
     pg (0.18.1)
     plist (3.1.0)
-    polyglot (0.3.5)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -415,19 +430,19 @@ GEM
     rack (1.5.2)
     rack-test (0.6.3)
       rack (>= 1.0)
-    rails (4.0.0)
-      actionmailer (= 4.0.0)
-      actionpack (= 4.0.0)
-      activerecord (= 4.0.0)
-      activesupport (= 4.0.0)
+    rails (4.0.13)
+      actionmailer (= 4.0.13)
+      actionpack (= 4.0.13)
+      activerecord (= 4.0.13)
+      activesupport (= 4.0.13)
       bundler (>= 1.3.0, < 2.0)
-      railties (= 4.0.0)
-      sprockets-rails (~> 2.0.0)
+      railties (= 4.0.13)
+      sprockets-rails (~> 2.0)
     rails_javascript_helpers (1.5.1)
       rails (>= 2.3)
-    railties (4.0.0)
-      actionpack (= 4.0.0)
-      activesupport (= 4.0.0)
+    railties (4.0.13)
+      actionpack (= 4.0.13)
+      activesupport (= 4.0.13)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     raindrops (0.13.0)
@@ -435,7 +450,8 @@ GEM
     rdoc (4.2.0)
       json (~> 1.4)
     ref (1.0.5)
-    rest-client (1.7.3)
+    rest-client (1.8.0)
+      http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
     rspec-core (3.1.7)
@@ -467,14 +483,14 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    sequel (4.20.0)
+    sequel (4.21.0)
     slop (3.6.0)
     sparkle_builder (0.1.0)
       fog
       rails (~> 4.0.0)
       sparkle_formation
       sparkle_ui
-    sparkle_formation (0.2.10)
+    sparkle_formation (0.2.12)
       attribute_struct (~> 0.2.2)
       multi_json
     sparkle_ui (0.1.0)
@@ -493,35 +509,35 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    sprockets-rails (2.0.1)
+    sprockets-rails (2.2.4)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
-      sprockets (~> 2.8)
-    stripe (1.20.1)
+      sprockets (>= 2.8, < 4.0)
+    stripe (1.21.0)
       json (~> 1.8.1)
-      mime-types (>= 1.25, < 3.0)
       rest-client (~> 1.4)
-    systemu (2.6.4)
-    therubyracer (0.12.1)
+    systemu (2.6.5)
+    therubyracer (0.12.2)
       libv8 (~> 3.16.14.0)
       ref
     therubyrhino (2.0.4)
       therubyrhino_jar (>= 1.7.3)
     therubyrhino_jar (1.7.4)
     thor (0.19.1)
-    thread_safe (0.3.4)
-    thread_safe (0.3.4-java)
+    thread_safe (0.3.5)
+    thread_safe (0.3.5-java)
     tilt (1.4.1)
     timers (4.0.1)
       hitimes
-    treetop (1.4.15)
-      polyglot
-      polyglot (>= 0.3.1)
     tzinfo (0.3.43)
     uber (0.0.13)
     uglifier (2.5.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    unf (0.1.4)
+      unf_ext
+    unf (0.1.4-java)
+    unf_ext (0.0.7.1)
     unicorn (4.8.3)
       kgio (~> 2.6)
       rack
@@ -548,13 +564,14 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bcrypt-ruby (~> 3.0.0)
   bootstrap-sass
   bootstrap3-datetimepicker-rails (~> 3.0.0)
+  bootstrap_form
   capybara
   coffee-rails (~> 4.0.0)
   fission!
   fission-app!
+  fission-app-configs!
   fission-app-docs!
   fission-app-jobs!
   fission-app-multiuser!
@@ -576,7 +593,7 @@ DEPENDENCIES
   oauth_simple
   octokit
   pry-rails
-  rails (= 4.0.0)
+  rails (~> 4.0.0)
   rouge!
   rspec-rails
   sass-rails (~> 4.0.0)
