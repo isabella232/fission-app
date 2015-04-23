@@ -1,13 +1,9 @@
 # Load the Rails application.
 if(ENV['RAILS_ASSETS_PRECOMPILE'])
   require 'rails/railtie/configuration'
-  module Rails
-    class Railtie
-      class Configuration
-        def to_prepare_blocks(*args, &block)
-          []
-        end
-      end
+  class Rails::Railtie::Configuration
+    def to_prepare_blocks(*args, &block)
+      []
     end
   end
 end
