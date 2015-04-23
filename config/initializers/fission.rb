@@ -82,7 +82,9 @@ class FissionApp::Application
 
 end
 
-Cell::Rails.send(:include, Fission::Data::Models)
+if(defined?(Fission::Data::Models))
+  Cell::Rails.send(:include, Fission::Data::Models)
+end
 
 =begin
 unless(Rails.application.config.fission.fission_router.empty?)
