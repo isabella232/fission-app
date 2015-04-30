@@ -9,7 +9,7 @@ if(ENV['RAILS_ASSETS_PRECOMPILE'])
 end
 
 # <sigh/>
-
+require 'action_dispatch'
 class ActionDispatch::Routing::RouteSet::NamedRouteCollection::UrlHelper::OptimizedUrlHelper
 
   def missing_keys(args)
