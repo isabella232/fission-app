@@ -351,7 +351,7 @@ class ApplicationController < ActionController::Base
           end
         end
       end
-    end
+    end.to_smash(:sorted)
   end
 
 end
