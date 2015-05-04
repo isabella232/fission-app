@@ -23,14 +23,18 @@
                 %a{:href => link}= text
           - else
             - @navigation.each do |drop_name, links|
-              %li.dropdown
-                %a{'data-toggle' => 'dropdown', :href => '#'}
-                  = drop_name
-                  %span.caret
-                %ul.dropdown-menu{:role => 'menu'}
-                  - links.each do |text, link|
-                    %li
-                      %a{:href => link}= text
+              - if links.is_a?(String)
+                %li
+                  %a{ href: links}= drop_name
+              - else
+                %li.dropdown
+                  %a{'data-toggle' => 'dropdown', :href => '#'}
+                    = drop_name
+                    %span.caret
+                  %ul.dropdown-menu{:role => 'menu'}
+                    - links.each do |text, link|
+                      %li
+                        %a{:href => link}= text
         - else
           - if @nav
             - @nav.each do |section|
