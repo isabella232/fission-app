@@ -24,8 +24,7 @@
           - else
             - @navigation.each do |drop_name, links|
               - if links.is_a?(String)
-                %li
-                  %a{ href: links}= drop_name
+                %li= link_to(drop_name, links)
               - else
                 %li.dropdown
                   %a{'data-toggle' => 'dropdown', :href => '#'}
@@ -33,13 +32,14 @@
                     %span.caret
                   %ul.dropdown-menu{:role => 'menu'}
                     - links.each do |text, link|
-                      %li
-                        %a{:href => link}= text
+                      - if link.nil?
+                        %li.divider
+                      - else
+                        %li= link_to(*[text, link].flatten)
         - else
           - if @nav
             - @nav.each do |section|
-              %li
-                %a{ href: section[:url] }= section[:name]
+              %li= link_to(section[:name], section[:url])
       %ul.nav.navbar-nav.navbar-right
         - if current_user
           %li.dropdown
@@ -47,8 +47,11 @@
               = current_user.run_state.current_account.name
               %b.caret
             %ul{class: 'dropdown-menu'}
-              - current_user.accounts.sort_by(&:name).each do |acct|
-                %li= link_to acct.name, switch_path(acct.id)
+              - @account_navigation.each do |nav_name, nav_link|
+                - if nav_link.nil?
+                  %li.divider
+                - else
+                  %li= link_to(*[nav_name, nav_link].flatten)
           %li.dropdown
             %a{href: '#', 'data-toggle' => 'dropdown'}
               - if current_user.default_identity
