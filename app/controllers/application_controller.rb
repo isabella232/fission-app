@@ -62,7 +62,7 @@ class ApplicationController < ActionController::Base
     flash[:notice] = "Account updated! (#{current_user.run_state.current_account.name})"
     respond_to do |format|
       format.js do
-        javascript_redirect_to dashboard_url
+        @accounts = current_user.accounts
       end
       format.html do
         redirect_to dashboard_url
@@ -338,6 +338,8 @@ class ApplicationController < ActionController::Base
   end
 
   # @return [Hash] user enabled navigation
+  # @todo Need to add an ordering option for processing through
+  # products and engines to force nav ordering
   def set_navigation
     products = current_user.run_state.current_account.products
     if(isolated_product?)
@@ -345,19 +347,24 @@ class ApplicationController < ActionController::Base
         product == @product
       end
     end
-    @navigation = Smash.new.tap do |nav|
-      products.each do |product|
-        Rails.application.railties.engines.sort_by(&:engine_name).each do |eng|
-          if(eng.respond_to?(:fission_product))
-            if(eng.fission_product.include?(product))
-              if(eng.respond_to?(:fission_navigation))
-                nav.deep_merge!(eng.fission_navigation(product, current_user).to_smash)
-              end
-            end
-          end
+    @navigation = Smash.new
+    @account_navigation = Smash.new
+    products.each do |product|
+      Rails.application.railties.engines.sort_by(&:engine_name).each do |eng|
+        if(eng.respond_to?(:fission_product))
+          next unless eng.fission_product.include?(product)
+        end
+        if(eng.respond_to?(:fission_navigation))
+          @navigation.deep_merge!(eng.fission_navigation(product, current_user).to_smash)
+        end
+        if(eng.respond_to?(:fission_account_navigation))
+          @account_navigation.deep_merge!(eng.fission_account_navigation(product, current_user).to_smash)
         end
       end
-    end.to_smash(:sorted)
+    end
+    @account_navigation[:before_switch_break] = nil
+    @account_navigation['Switch Account'] = [account_switch_path, :remote => true]
+    [@navigation, @account_navigation]
   end
 
   # Run any registered callbacks before running action

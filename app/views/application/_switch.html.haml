@@ -1,0 +1,35 @@
+- accounts.sort_by(&:name).each_slice(4) do |items|
+  .row
+    - items.each do |item|
+      .col-md-3
+        .panel.panel-default.account-switcher{'acct-id' => item.id, :id => "acct-#{item.id}"}
+          .panel-body
+            - if item.name == current_user.username
+              %img.img-responsive.center-block{ src: current_user.default_identity.infos.try(:[], :image) }
+            - else
+              %img.img-responsive.center-block{:src => item.metadata[:avatar_url]}
+            %center
+              %b= "@#{item.name}"
+:javascript
+  $(document).ready(
+    function(){
+      $('.account-switcher').hover(
+        function(){
+          $(this).find('.panel-body').addClass('bg-warning').css('cursor', 'pointer');
+        },
+        function(){
+          $(this).find('.panel-body').removeClass('bg-warning').css('cursor', 'default');
+        }
+      ).click(
+        function(){
+          $(this).find('.panel-body').removeClass('bg-warning').css('cursor', 'default');
+          sparkle_ui.display.highlight($(this).attr('id'), 'success');
+          redirect_url = '/switch/' + $(this).attr('acct-id');
+          setTimeout(
+            function(){window.document.location = redirect_url;},
+            1000
+          );
+        }
+      );
+    }
+  );

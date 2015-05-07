@@ -1,0 +1,14 @@
+<%=
+  create_window(
+    :name => 'account_switcher',
+    :title => 'Switch Account',
+    :content => render(
+      :partial => 'application/switch',
+      :locals => {
+        :accounts => @accounts
+      }
+    ),
+    :size => 'large',
+    :auto_open => true
+  )
+%>
