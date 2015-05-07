@@ -45,6 +45,12 @@ class ApplicationController < ActionController::Base
   # Define navigation
   before_action :set_navigation, :if => lambda{ user_mode? && valid_user? }
 
+  # Run any registered pre action callbacks
+  before_action :pre_registered_callbacks
+
+  # Run any registered post action callbacks
+  after_action :post_registered_callbacks
+
   # Just say no to infinity
   after_action :reset_redirect_counter
 
@@ -352,6 +358,32 @@ class ApplicationController < ActionController::Base
         end
       end
     end.to_smash(:sorted)
+  end
+
+  # Run any registered callbacks before running action
+  def pre_registered_callbacks
+    callback_args = Smash.new(
+      :params => params,
+      :request => request,
+      :current_user => current_user
+    )
+    Rails.application.config.settings.fetch(:callbacks, :before, params[:controller], params[:action], {}).each do |k,v|
+      Rails.logger.info "Running matching registered pre action callback: #{k}"
+      v.call(callback_args)
+    end
+  end
+
+  # Run any registered callbacks after running action
+  def post_registered_callbacks
+    callback_args = Smash.new(
+      :params => params,
+      :request => request,
+      :current_user => current_user
+    )
+    Rails.application.config.settings.fetch(:callbacks, :after, params[:controller], params[:action], {}).each do |k,v|
+      Rails.logger.info "Running matching registered post action callback: #{k}"
+      v.call(callback_args)
+    end
   end
 
 end
