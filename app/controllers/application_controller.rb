@@ -39,14 +39,14 @@ class ApplicationController < ActionController::Base
   # Check user is permitted on path
   before_action :validate_access!, :if => lambda{ user_mode? && valid_user? }, :except => [:error, :switch]
 
+  # Run any registered pre action callbacks
+  before_action :pre_registered_callbacks
+
   # Set helpdesk variables
   before_action :helpdesk
 
   # Define navigation
   before_action :set_navigation, :if => lambda{ user_mode? && valid_user? }
-
-  # Run any registered pre action callbacks
-  before_action :pre_registered_callbacks
 
   # Run any registered post action callbacks
   after_action :post_registered_callbacks
