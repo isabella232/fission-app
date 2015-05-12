@@ -376,7 +376,7 @@ class ApplicationController < ActionController::Base
     )
     Rails.application.config.settings.fetch(:callbacks, :before, params[:controller], params[:action], {}).each do |k,v|
       Rails.logger.info "Running matching registered pre action callback: #{k}"
-      v.call(callback_args)
+      self.instance_exec(callback_args, &v)
     end
   end
 
@@ -389,7 +389,7 @@ class ApplicationController < ActionController::Base
     )
     Rails.application.config.settings.fetch(:callbacks, :after, params[:controller], params[:action], {}).each do |k,v|
       Rails.logger.info "Running matching registered post action callback: #{k}"
-      v.call(callback_args)
+      self.instance_exec(callback_args, &v)
     end
   end
 
