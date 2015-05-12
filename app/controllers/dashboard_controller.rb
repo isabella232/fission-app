@@ -15,7 +15,7 @@ class DashboardController < ApplicationController
             product == @product
           end
         end
-        @cells = dashboard_cells
+        @cells = dashboard_cells(products)
         if(@cells.empty?)
           render 'dashboard/no_content'
         end
@@ -25,7 +25,7 @@ class DashboardController < ApplicationController
 
   protected
 
-  def dashboard_cells
+  def dashboard_cells(products)
     Smash.new.tap do |cells|
       products.each do |product|
         Rails.application.railties.engines.each do |eng|
@@ -35,7 +35,7 @@ class DashboardController < ApplicationController
                 args = [product, current_user]
                 num_args = eng.method(:fission_dashboard).arity
                 if(num_args >= 0)
-                  args.slice!(0, num_args)
+                  args = args.slice(0, num_args)
                 end
                 cells.merge!(eng.fission_dashboard(*args))
               end
