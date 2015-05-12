@@ -10,4 +10,4 @@
                   =link_to(opts[:title], opts[:url])
                 -else
                   =opts[:title]
-          .panel-body= render_cell(cell_name, :show, :current_user => current_user)
+          .panel-body= render_cell(opts.fetch(:cell, cell_name), :show, opts.fetch(:arguments, {}).merge(:current_user => current_user))
