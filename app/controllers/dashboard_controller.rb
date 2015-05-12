@@ -15,21 +15,32 @@ class DashboardController < ApplicationController
             product == @product
           end
         end
-        @cells = Smash.new.tap do |cells|
-          products.each do |product|
-            Rails.application.railties.engines.each do |eng|
-              if(eng.respond_to?(:fission_product))
-                if(eng.fission_product.include?(product))
-                  if(eng.respond_to?(:fission_dashboard))
-                    cells.merge!(eng.fission_dashboard(product).to_smash)
-                  end
+        @cells = dashboard_cells
+        if(@cells.empty?)
+          render 'dashboard/no_content'
+        end
+      end
+    end
+  end
+
+  protected
+
+  def dashboard_cells
+    Smash.new.tap do |cells|
+      products.each do |product|
+        Rails.application.railties.engines.each do |eng|
+          if(eng.respond_to?(:fission_product))
+            if(eng.fission_product.include?(product))
+              if(eng.respond_to?(:fission_dashboard))
+                args = [product, current_user]
+                num_args = eng.method(:fission_dashboard).arity
+                if(num_args >= 0)
+                  args.slice!(0, num_args)
                 end
+                cells.merge!(eng.fission_dashboard(*args))
               end
             end
           end
-        end
-        if(@cells.empty?)
-          render 'dashboard/no_content'
         end
       end
     end
