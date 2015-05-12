@@ -1,9 +1,9 @@
 - if flash.any?
-  %div.container-fluid.container-padding
+  .container.container-padding
     - map = {:info => [:info, :information, :notice], :success => [:success], :warning => [:warn, :warning], :danger => [:error, :alert]}
     - map.each do |k, v|
       - v.each do |key|
         - if flash[key]
-          %div.alert{ class: "alert-#{k}" }
+          .alert{ class: "alert-#{k}" }
             %strong="#{key.capitalize}:"
             = flash[key]
