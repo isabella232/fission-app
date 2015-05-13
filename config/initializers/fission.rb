@@ -26,6 +26,15 @@ class FissionApp::Application
     FissionApp::Config.get(:fission, :assets)
   )
 
+  config.settings.set(:engines,
+    Rails.application.railties.engines.map{ |eng|
+      eng.engine_name.sub('_engine', '')
+    }
+  )
+
+  # All of this junk needs to be deprecated and scrubbed from engines.
+  # They should be using #fetch on the settings directly
+
   unless(valid_config_paths.last == fission_file)
     base_file = JSON.load(File.read(valid_config_paths.last)).with_indifferent_access
     config.fission.config = base_file.deep_merge(config.fission.config)
@@ -85,29 +94,3 @@ end
 if(defined?(Fission::Data::Models))
   Cell::Rails.send(:include, Fission::Data::Models)
 end
-
-=begin
-unless(Rails.application.config.fission.fission_router.empty?)
-
-  require 'carnivore'
-
-  Carnivore.configure do
-    Carnivore::Source.build(
-      :type => Rails.application.config.fission.fission_router[:type],
-      :args => Rails.application.config.fission.fission_router[:args].with_indifferent_access.merge(:name => :router)
-    )
-  end
-  Rails.application.config.backgroundable = Fission::App::Backgroundable.new(:endpoint => :fission)
-else
-  Rails.application.config.backgroundable = Fission::App::Backgroundable.new
-end
-=end
-# Rails.application.config.sparkle[:orchestration][:credentials] = {
-#   :provider => 'aws',
-#   :aws_access_key_id => 'AKIAJQAUGQG53VH5VUDQ',
-#   :aws_secret_access_key => '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',
-#   :region => 'us-east-1'
-# }
-# Rails.application.config.sparkle[:storage][:credentials] = Rails.application.config.sparkle[:orchestration][:credentials]
-# Rails.application.config.sparkle[:storage][:bucket] = 'cr-test-store-bucket'
-# SparkleFormation.sparkle_path = '/home/spox/Projects/target/chef-repo/cloudformation'
