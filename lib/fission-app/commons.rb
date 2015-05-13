@@ -20,6 +20,17 @@ module FissionApp
       end
       Octokit::Client.new(:access_token => token)
     end
-    
+
+    # Check if engine is currently loaded within application
+    #
+    # @param name [String, Symbol] name of engine (or suffix with
+    #   'fission-app' removed)
+    # @return [TrueClass, FalseClass]
+    def engine?(name)
+      loaded = Rails.application.config.settings.fetch(:engines, [])
+      name = name.to_s.tr('-', '_')
+      loaded.include?(name) || loaded.map{|n| n.sub('fission_app_', '')}.include?(name)
+    end
+
   end
 end
