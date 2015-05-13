@@ -23,6 +23,7 @@ class ApplicationController < ActionController::Base
   helper_method :valid_user?
   helper_method :isolated_product?
   helper_method :default_url
+  helper_method :engine?
 
   # Set analytics variables
   before_action :analytics
