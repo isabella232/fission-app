@@ -1,7 +1,15 @@
 :ruby
   container_class ||= nil
   container_id ||= nil
+  pagination ||= nil
+  if(pagination == true)
+    pagination = :pagination
+  end
+
 .container.container-padding{:class => container_class, :id => container_id}
+  - if pagination
+    .fission-pagination.well.well-sm= content_for(pagination)
+    = yield pagination
   - if defined?(container_content)
     = container_content
   - elsif defined?(container_content_name) && content_for?(container_content_name)
@@ -12,3 +20,5 @@
     = render :partial => 'layouts/panel', :locals => panel
   - else
     = yield
+  - if pagination
+    .fission-pagination.well.well-sm= content_for(pagination)

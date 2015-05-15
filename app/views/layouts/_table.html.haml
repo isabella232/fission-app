@@ -1,6 +1,13 @@
-- table_id       ||= ''
-- table_class    ||= ''
+:ruby
+  table_id ||= ''
+  table_class ||= ''
+  pagination ||= nil
+  if(pagination == true)
+    pagination = :pagination
+  end
 
+- if pagination
+  .fission-pagination.well.well-sm= content_for(pagination)
 %table.table.table-hover{ :class => table_class, :id => table_id }
   %thead
     - if defined?(header_data) && header_data
@@ -21,3 +28,5 @@
         %tr
           - values.each do |value|
             %td= value
+- if pagination
+  .fission-pagination.well.well-sm= content_for(pagination)
