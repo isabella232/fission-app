@@ -61,6 +61,9 @@ class ApplicationController < ActionController::Base
   # Proxy for account switching
   def switch
     flash[:notice] = "Account updated! (#{current_user.run_state.current_account.name})"
+    session.keys.each do |key|
+      session.delete(key) unless key.to_s == 'user_id'
+    end
     respond_to do |format|
       format.js do
         @accounts = current_user.accounts
