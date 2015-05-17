@@ -20,11 +20,12 @@
           - if isolated_product? && @navigation.size == 1
             - @navigation.values.first.each do |text, link|
               - next unless link
+              - next unless current_user.valid_path?(link)
               %li
                 %a{:href => link}= text
           - else
             - @navigation.each do |drop_name, links|
-              - if links.is_a?(String)
+              - if links.is_a?(String) && current_user.valid_path?(links)
                 %li= link_to(drop_name, links)
               - else
                 %li.dropdown
@@ -36,6 +37,7 @@
                       - if link.nil?
                         %li.divider
                       - else
+                        - next unless current_user.valid_path?(link)
                         %li= link_to(*[text, link].flatten)
         - else
           - if @nav
@@ -52,6 +54,7 @@
                 - if nav_link.nil?
                   %li.divider
                 - else
+                  - next unless current_user.valid_path?(nav_link)
                   %li= link_to(*[nav_name, nav_link].flatten)
           %li.dropdown
             %a{href: '#', 'data-toggle' => 'dropdown'}
