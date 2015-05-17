@@ -191,6 +191,11 @@ class ApplicationController < ActionController::Base
     else
       current_user.session[:current_account_id] = @account.id
       current_user.run_state.current_account = @account
+      if(@account.customer_payment)
+        current_user.run_state.plans = @account.customer_payment.plans(isolated_product? ? @product : nil)
+      else
+        current_user.run_state.plans = []
+      end
       current_user.run_state.products = @account.products(isolated_product? ? @product : nil)
       current_user.run_state.product_features = @account.product_features(isolated_product? ? @product: nil)
       current_user.run_state.active_permissions = @account.active_permissions(isolated_product? ? @product : nil)
