@@ -139,7 +139,7 @@ class ApplicationController < ActionController::Base
   #
   # @raises [Error::PermissionDeniedError]
   def validate_access!
-    match = current_user.run_state.current_account.active_permissions.map(&:pattern).detect do |regex|
+    match = current_user.run_state.active_permissions.map(&:pattern).detect do |regex|
       regex.match(request.path)
     end
     unless(match)
@@ -191,6 +191,9 @@ class ApplicationController < ActionController::Base
     else
       current_user.session[:current_account_id] = @account.id
       current_user.run_state.current_account = @account
+      current_user.run_state.products = @account.products(isolated_product? ? @product : nil)
+      current_user.run_state.product_features = @account.product_features(isolated_product? ? @product: nil)
+      current_user.run_state.active_permissions = @account.active_permissions(isolated_product? ? @product : nil)
     end
   end
 
@@ -342,7 +345,7 @@ class ApplicationController < ActionController::Base
   # @todo Need to add an ordering option for processing through
   # products and engines to force nav ordering
   def set_navigation
-    products = current_user.run_state.current_account.products
+    products = current_user.run_state.products
     if(isolated_product?)
       products = products.find_all do |product|
         product == @product
