@@ -19,6 +19,7 @@
         - if current_user
           - if isolated_product? && @navigation.size == 1
             - @navigation.values.first.each do |text, link|
+              - next unless link
               %li
                 %a{:href => link}= text
           - else
