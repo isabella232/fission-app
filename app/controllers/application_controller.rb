@@ -376,8 +376,6 @@ class ApplicationController < ActionController::Base
     end
     @navigation = @navigation.to_smash(:sorted)
     @account_navigation = @account_navigation.to_smash(:sorted)
-    @account_navigation[:before_switch_break] = nil
-    @account_navigation['Switch Account'] = [account_switch_path, :remote => true]
     [@navigation, @account_navigation]
   end
 

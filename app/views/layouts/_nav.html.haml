@@ -56,6 +56,8 @@
                 - else
                   - next unless current_user.valid_path?(nav_link)
                   %li= link_to(*[nav_name, nav_link].flatten)
+              %li.divider
+                %li= link_to('Switch Account', account_switch_path, :remote => true)
           %li.dropdown
             %a{href: '#', 'data-toggle' => 'dropdown'}
               - if current_user.default_identity
