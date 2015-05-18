@@ -25,7 +25,8 @@
                 %a{:href => link}= text
           - else
             - @navigation.each do |drop_name, links|
-              - if links.is_a?(String) && current_user.valid_path?(links)
+              - if links.is_a?(String)
+                - next unless current_user.valid_path?(links)
                 %li= link_to(drop_name, links)
               - else
                 %li.dropdown
