@@ -2,6 +2,9 @@ require 'fission-app'
 
 class ApplicationController < ActionController::Base
 
+  # Session keys that must persist on account switching
+  PROTECTED_SESSION_KEYS = ['random', 'user_id']
+
   # Load in any modules we care about
   include FissionApp::Errors
   if(defined?(Fission::Data::Models))
@@ -62,7 +65,9 @@ class ApplicationController < ActionController::Base
   def switch
     flash[:notice] = "Account updated! (#{current_user.run_state.current_account.name})"
     session.keys.each do |key|
-      session.delete(key) unless key.to_s == 'user_id'
+      unless(PROTECTED_SESSION_KEYS.include?(key.to_s))
+        session.delete(key)
+      end
     end
     respond_to do |format|
       format.js do
