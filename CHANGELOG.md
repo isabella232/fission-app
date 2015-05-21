@@ -1,3 +1,9 @@
+# v0.1.8
+* Update account switcher
+* Add new account navigation section
+* Provide callback integration via configuration for engines
+* Properly scrub user session on account switching
+
 # v0.1.6
 * View refactor
 * Add library for formatting forms for bootstrap
