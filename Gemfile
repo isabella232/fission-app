@@ -57,12 +57,15 @@ if(ENV['FISSION_LOCALS'] == 'true')
   gem 'fission-app-static', path: '../fission-app-static'
   gem 'fission-app-woodchuck', path: '../fission-app-woodchuck'
   gem 'fission-app-docs', path: '../fission-app-docs'
-  gem 'fission-app-sparkles', path: '../fission-app-sparkles'
-  gem 'fission-app-packager', path: '../fission-app-packager'
+#  gem 'fission-app-sparkles', path: '../fission-app-sparkles'
   gem 'fission-app-repositories', path: '../fission-app-repositories'
-  gem 'fission-app-nellie', path: '../fission-app-nellie'
   gem 'fission-app-configs', path: '../fission-app-configs'
+  gem 'fission-app-services', path: '../fission-app-services'
+  gem 'fission-app-routes', path: '../fission-app-routes'
   gem 'fission-assets', path: '../fission-assets'
+
+  gem 'fission-nellie', path: '../fission-nellie'
+  gem 'fission-package-builder', path: '../fission-package-builder'
 else
   source 'https://fission:8sYl7Bo0ql2OA9OPThUngg@gems.pkgd.io' do
     gem 'fission'
@@ -72,13 +75,16 @@ else
     gem 'fission-app-stripe'
     gem 'fission-app-woodchuck'
     gem 'fission-app-static'
-    gem 'fission-app-sparkles'
+#    gem 'fission-app-sparkles'
     gem 'fission-app-docs'
-    gem 'fission-app-packager'
     gem 'fission-app-repositories'
-    gem 'fission-app-nellie'
     gem 'fission-app-configs'
+    gem 'fission-app-services'
+    gem 'fission-app-routes'
     gem 'fission-assets'
+
+    gem 'fission-nellie'
+    gem 'fission-package-builder'
   end
 end
 
@@ -92,5 +98,12 @@ gem 'window_rails'
 
 # gem 'sparkle_ui', :git => 'git@github.com:heavywater/sparkle_ui.git', :branch => 'develop'
 # gem 'sparkle_builder', :git => 'git@github.com:heavywater/sparkle_builder.git', :branch => 'develop'
+
+# List all the services available to users to allow auto registration
+gem 'jackal-code-fetcher'
+gem 'jackal-github-kit'
+gem 'jackal-nellie'
+gem 'jackal-slack'
+gem 'jackal-stacks'
 
 gemspec
