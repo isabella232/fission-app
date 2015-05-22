@@ -19,6 +19,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery :with => :exception
 
+  rescue_from FissionApp::Errors::Error::MissingAccessToken, :with => :invalidate_session
   rescue_from StandardError, :with => :exception_handler
 
   # User access helpers
@@ -243,6 +244,23 @@ class ApplicationController < ActionController::Base
       end
     else
       raise error
+    end
+  end
+
+  # Invalidate the session and direct user to login again
+  #
+  # @param error [Exception]
+  def invalidate_session(error)
+    Rails.logger.error "Failed to locate GitHub token for user: #{current_user.username}!"
+    session.clear!
+    flash[:error] = 'Session has timed out! Please login again.'
+    respond_to do |format|
+      format.js do
+        javascript_redirect_to login_path
+      end
+      format.html do
+        redirec_to login_path
+      end
     end
   end
 

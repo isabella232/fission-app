@@ -18,6 +18,9 @@ module FissionApp
       else
         raise "Unknown GitHub identity requested for use: #{ident.inspect}"
       end
+      unless(token)
+        raise Errors::Error::MissingAccessToken.new('Failed to locate token for given ident!')
+      end
       Octokit::Client.new(:access_token => token)
     end
 

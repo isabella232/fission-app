@@ -15,9 +15,8 @@ module FissionApp
         end
       end
 
-      class PermissionDeniedError < Forbidden
-      end
-
+      class PermissionDeniedError < Forbidden; end
+      class MissingAccessToken < Error; end
     end
 
   end
