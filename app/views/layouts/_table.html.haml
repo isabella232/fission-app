@@ -23,7 +23,7 @@
       = content_for(table_content_name)
     - elsif(content_for?(:table_body))
       = content_for(:table_body)
-    - else
+    - elsif defined?(data)
       - data.each do |values|
         %tr
           - values.each do |value|
