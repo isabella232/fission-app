@@ -1,3 +1,6 @@
+# v0.1.10
+* Add check for table content array
+
 # v0.1.8
 * Update account switcher
 * Add new account navigation section
