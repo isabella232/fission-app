@@ -53,6 +53,9 @@ class ApplicationController < ActionController::Base
   # Define navigation
   before_action :set_navigation, :if => lambda{ user_mode? && valid_user? }
 
+  # Add content_for entries
+  before_action :register_default_icons
+
   # Run any registered post action callbacks
   after_action :post_registered_callbacks
 
@@ -363,6 +366,14 @@ class ApplicationController < ActionController::Base
         )
       )
     end
+  end
+
+  # Register default icon buttons for CRUD
+  def register_default_icons
+    content_for(:delete_icon, '<span class="glyphicon glyphicon-trash btn btn-xs btn-danger"/>'.html_safe)
+    content_for(:edit_icon, '<span class="glyphicon glyphicon-pencil btn btn-xs btn-warning"/>'.html_safe)
+    content_for(:create_icon, '<span class="glyphicon glyphicon-plus btn btn-xs btn-success"/>'.html_safe)
+    content_for(:save_icon, '<span class="glyphicon glyphicon-floppy-disk btn btn-xs btn-primary"/>'.html_safe)
   end
 
   # @return [TrueClass, FalseClass] users are enabled
