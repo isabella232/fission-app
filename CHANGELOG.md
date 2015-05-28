@@ -1,3 +1,6 @@
+# v0.1.12
+* Add icon button view helpers
+
 # v0.1.10
 * Add check for table content array
 
