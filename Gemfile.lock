@@ -8,7 +8,7 @@ GIT
 PATH
   remote: .
   specs:
-    fission-app (0.1.10)
+    fission-app (0.1.12)
       bogo-config
       cells
       content_for_in_controllers
@@ -51,7 +51,7 @@ GEM
       highline (>= 1.5.0)
     arel (4.0.2)
     attribute_struct (0.2.16)
-    autoprefixer-rails (5.1.11)
+    autoprefixer-rails (5.2.0)
       execjs
       json
     batali (0.2.10)
@@ -172,7 +172,7 @@ GEM
       libyajl2 (~> 1.2)
     fission (0.2.4)
       jackal (>= 0.3.4, < 1.0.0)
-    fission-app-configs (0.1.2)
+    fission-app-configs (0.1.4)
       fission-app
       fission-app-services
       fission-data
@@ -182,7 +182,7 @@ GEM
       d3c3-rails
       fission-app
       fission-app-multiuser
-    fission-app-multiuser (0.1.10)
+    fission-app-multiuser (0.1.12)
       fission-app
       fission-data
       omniauth (~> 1.1)
@@ -190,16 +190,16 @@ GEM
     fission-app-repositories (0.1.6)
       fission-app
       fission-app-jobs
-    fission-app-routes (0.1.0)
+    fission-app-routes (0.1.2)
       fission-app
       fission-data
-    fission-app-services (0.1.0)
+    fission-app-services (0.1.2)
       fission-app
       fission-data
     fission-app-static (0.1.3)
       fission-app
       kramdown-rails
-    fission-app-stripe (0.2.6)
+    fission-app-stripe (0.2.8)
       kramdown
       rails (~> 4.0.0)
       stripe
@@ -207,13 +207,13 @@ GEM
     fission-assets (0.2.0)
       jackal-assets
       rubyzip
-    fission-data (0.2.0)
+    fission-data (0.2.2)
       bogo
       fission (>= 0.1.5)
       hashie
       pg
       sequel
-    fission-data (0.2.0-java)
+    fission-data (0.2.2-java)
       bogo
       fission (>= 0.1.5)
       hashie
@@ -255,7 +255,7 @@ GEM
     fog-atmos (0.1.0)
       fog-core
       fog-xml
-    fog-aws (0.3.0)
+    fog-aws (0.4.0)
       fog-core (~> 1.27)
       fog-json (~> 1.0)
       fog-xml (~> 0.1)
@@ -335,7 +335,7 @@ GEM
     hike (1.2.3)
     hitimes (1.2.2)
     hitimes (1.2.2-java)
-    http (0.8.10)
+    http (0.8.12)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
       http-form_data (~> 1.0.1)
@@ -420,7 +420,7 @@ GEM
     miasma-open-stack (0.1.2)
     miasma-rackspace (0.1.2)
       miasma-open-stack
-    mime-types (2.5)
+    mime-types (2.6.1)
     mini_portile (0.6.2)
     minitest (4.7.5)
     mixlib-authentication (1.3.0)
@@ -597,7 +597,7 @@ GEM
       will_paginate
       will_paginate-bootstrap
       window_rails (~> 1.0)
-    specinfra (2.34.1)
+    specinfra (2.34.4)
       net-scp
       net-ssh
     spoon (0.0.4)
