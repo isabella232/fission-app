@@ -374,6 +374,8 @@ class ApplicationController < ActionController::Base
     content_for(:edit_icon, '<span class="glyphicon glyphicon-pencil btn btn-xs btn-warning"/>'.html_safe)
     content_for(:create_icon, '<span class="glyphicon glyphicon-plus btn btn-xs btn-success"/>'.html_safe)
     content_for(:save_icon, '<span class="glyphicon glyphicon-floppy-disk btn btn-xs btn-primary"/>'.html_safe)
+    content_for(:ok_icon, '<span class="glyphicon glyphicon-ok btn btn-xs btn-success"/>'.html_safe)
+    content_for(:danger_icon, '<span class="glyphicon glyphicon-warning-sign btn btn-xs btn-danger"/>'.html_safe)
   end
 
   # @return [TrueClass, FalseClass] users are enabled
