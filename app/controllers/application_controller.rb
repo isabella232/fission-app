@@ -118,7 +118,12 @@ class ApplicationController < ActionController::Base
     unless(@current_user)
       if(session[:user_id])
         @current_user = User.find_by_id(session[:user_id])
-        @current_user = nil unless session[:validator] == user_checksum(@current_user)
+        if(@current_user)
+          unless(session[:validator] == user_checksum(@current_user))
+            flash[:error] = 'User validation failed! You have been logged out!'
+            @current_user = nil
+          end
+        end
         unless(@current_user)
           session.clear
         else
@@ -450,7 +455,7 @@ class ApplicationController < ActionController::Base
     Digest::SHA256.hexdigest(
       [user.id, user.username,
         Rails.application.config.secret_key_base]
-        .map(&:to_s)
+        .map(&:to_s).join('-')
     )
   end
 
