@@ -3,7 +3,7 @@ require 'fission-app'
 class ApplicationController < ActionController::Base
 
   # Session keys that must persist on account switching
-  PROTECTED_SESSION_KEYS = ['random', 'user_id']
+  PROTECTED_SESSION_KEYS = ['random', 'user_id', 'validator']
 
   # Load in any modules we care about
   include FissionApp::Errors
@@ -118,6 +118,7 @@ class ApplicationController < ActionController::Base
     unless(@current_user)
       if(session[:user_id])
         @current_user = User.find_by_id(session[:user_id])
+        @current_user = nil unless session[:validator] == user_checksum(@current_user)
         unless(@current_user)
           session.clear
         else
@@ -439,6 +440,18 @@ class ApplicationController < ActionController::Base
       Rails.logger.info "Running matching registered post action callback: #{k}"
       self.instance_exec(callback_args, &v)
     end
+  end
+
+  # Generate identifier digest
+  #
+  # @param user [Fission::Data::Models::User]
+  # @return [String]
+  def user_checksum(user)
+    Digest::SHA256.hexdigest(
+      [user.id, user.username,
+        Rails.application.config.secret_key_base]
+        .map(&:to_s)
+    )
   end
 
 end
