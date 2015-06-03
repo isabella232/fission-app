@@ -1,31 +1,31 @@
 /* Color Scheme */
 
-$color: #FFFFFF;
-$color-platinum: #E5E4E2;
-$color-gold: #D9A441;
-$color-silver: #A8A8A8;
-$color-bronze: #965A38;
+$color: #FFFFFF !default;
+$color-platinum: #E5E4E2 !default;
+$color-gold: #D9A441 !default;
+$color-silver: #A8A8A8 !default;
+$color-bronze: #965A38 !default;
 
-$green-primary: #009999;
-$green-darker: #1D7373;
-$green-darkest: #006363;
-$green-lighter: #33CCCC;
-$green-lightest: #5CCCCC;
+$green-primary: #009999 !default;
+$green-darker: #1D7373 !default;
+$green-darkest: #006363 !default;
+$green-lighter: #33CCCC !default;
+$green-lightest: #5CCCCC !default;
 
-$purple-primary: #7109AA;
-$purple-darker: #602580;
-$purple-darkest: #48036F;
-$purple-lighter: #9F3ED5;
-$purple-lightest: #AD66D5;
+$purple-primary: #7109AA !default;
+$purple-darker: #602580 !default;
+$purple-darkest: #48036F !default;
+$purple-lighter: #9F3ED5 !default;
+$purple-lightest: #AD66D5 !default;
 
-$orange-primary: #FF7400;
-$orange-darker: #BF7130;
-$orange-darkest: #A64B00;
-$orange-lighter: #FF9640;
-$orange-lightest: #FFB273;
+$orange-primary: #FF7400 !default;
+$orange-darker: #BF7130 !default;
+$orange-darkest: #A64B00 !default;
+$orange-lighter: #FF9640 !default;
+$orange-lightest: #FFB273 !default;
 
-$color-primary: $green-primary;
-$color-darker: $green-darker;
-$color-darkest: $green-darkest;
-$color-lighter: $green-lighter;
-$color-lightest: $green-lightest;
+$color-primary: $green-primary !default;
+$color-darker: $green-darker !default;
+$color-darkest: $green-darkest !default;
+$color-lighter: $green-lighter !default;
+$color-lightest: $green-lightest !default;
