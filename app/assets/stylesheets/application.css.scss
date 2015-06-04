@@ -7,14 +7,14 @@
  *
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
- * = require window_rails
- * = require sparkle_ui
- * = require sparkle_builder
- * = require d3c3_rails
- * = require rails_bootstrap_forms
- * = require_self
  *
  */
+
+/* Third-party CSS */
+
+@import "theme/colors";
+@import "bootstrap-sprockets";
+@import "bootstrap";
 
 /* c3 */
 @import "c3";
@@ -22,11 +22,13 @@
 /* JQuery UI */
 @import "jquery-ui";
 
-/* Third-party CSS */
-@import "bootstrap-sprockets";
-@import "bootstrap";
 @import "font-awesome/css/font-awesome";
 @import "bootstrap-datetimepicker";
+
+@import "window_rails";
+@import "sparkle_ui";
+@import "d3c3_rails";
+@import "rails_bootstrap_forms";
 
 /* Theme CSS */
 @import "theme/fission";
