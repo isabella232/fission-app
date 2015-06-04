@@ -150,6 +150,7 @@ class ApplicationController < ActionController::Base
     if(@product && current_user)
       current_user.run_state.current_product = @product
     end
+    @site_style = :application
     @product
   end
 
