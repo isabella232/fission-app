@@ -19,7 +19,7 @@ Packager.build do
         'JRUBY_OPTS="--2.0" PATH=/tmp/jruby-1.7.18/bin:$PATH gem install --no-ri --no-rdoc bundler',
         'JRUBY_OPTS="--2.0" PATH=/tmp/jruby-1.7.18/bin:$PATH bundle install',
         'RAILS_ASSETS_PRECOMPILE=true RAILS_ENV="production" JRUBY_OPTS="--2.0" PATH=/tmp/jruby-1.7.18/bin:$PATH rake assets:precompile',
-        'JRUBY_OPTS="--2.0" PATH=/tmp/jruby-1.7.18/bin:$PATH warble',
+        'PATH=/tmp/jruby-1.7.18/bin:$PATH warble',
         'mkdir -p $PKG_DIR/opt/fission-app',
         'mv *.war $PKG_DIR/opt/fission-app/fission-app.war'
       ]
