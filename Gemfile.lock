@@ -8,7 +8,7 @@ GIT
 PATH
   remote: .
   specs:
-    fission-app (0.1.14)
+    fission-app (0.1.15)
       bogo-config
       cells (~> 3.0)
       content_for_in_controllers
@@ -178,7 +178,7 @@ GEM
       d3c3-rails
       fission-app
       fission-app-multiuser
-    fission-app-multiuser (0.1.14)
+    fission-app-multiuser (0.1.16)
       fission-app
       fission-data
       omniauth (~> 1.1)
