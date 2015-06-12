@@ -14,12 +14,12 @@ Packager.build do
     template :generic
     commands do
       build [
-        'wget -O /tmp/jruby.tar.gz https://s3.amazonaws.com/jruby.org/downloads/1.7.15/jruby-bin-1.7.15.tar.gz',
+        'wget -O /tmp/jruby.tar.gz https://s3.amazonaws.com/jruby.org/downloads/1.7.18/jruby-bin-1.7.18.tar.gz',
         'tar -C /tmp -xzf /tmp/jruby.tar.gz',
-        'JRUBY_OPTS="--2.0" PATH=/tmp/jruby-1.7.15/bin:$PATH gem install --no-ri --no-rdoc bundler',
-        'JRUBY_OPTS="--2.0" PATH=/tmp/jruby-1.7.15/bin:$PATH bundle install',
-        'RAILS_ASSETS_PRECOMPILE=true RAILS_ENV="production" JRUBY_OPTS="--2.0" PATH=/tmp/jruby-1.7.15/bin:$PATH rake assets:precompile',
-        'PATH=/tmp/jruby-1.7.15/bin:$PATH JRUBY_OPTS="--2.0" warble',
+        'JRUBY_OPTS="--2.0" PATH=/tmp/jruby-1.7.18/bin:$PATH gem install --no-ri --no-rdoc bundler -v 1.9.9',
+        'JRUBY_OPTS="--2.0" PATH=/tmp/jruby-1.7.18/bin:$PATH bundle install',
+        'RAILS_ASSETS_PRECOMPILE=true RAILS_ENV="production" JRUBY_OPTS="--2.0" PATH=/tmp/jruby-1.7.18/bin:$PATH rake assets:precompile',
+        'PATH=/tmp/jruby-1.7.18/bin:$PATH JRUBY_OPTS="--2.0" warble',
         'mkdir -p $PKG_DIR/opt/fission-app',
         'mv *.war $PKG_DIR/opt/fission-app/fission-app.war'
       ]
