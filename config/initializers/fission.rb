@@ -26,11 +26,13 @@ class FissionApp::Application
     FissionApp::Config.get(:fission, :assets)
   )
 
-  config.settings.set(:engines,
-    Rails.application.railties.engines.map{ |eng|
-      eng.engine_name.sub('_engine', '')
-    }
-  )
+  unless(ENV['RAILS_ASSETS_PRECOMPILE'])
+    config.settings.set(:engines,
+      Rails.application.railties.engines.map{ |eng|
+        eng.engine_name.sub('_engine', '')
+      }
+    )
+  end
 
   # All of this junk needs to be deprecated and scrubbed from engines.
   # They should be using #fetch on the settings directly
