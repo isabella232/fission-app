@@ -67,7 +67,7 @@ if(ENV['FISSION_LOCALS'] == 'true')
   gem 'fission-package-builder', path: '../fission-package-builder'
 else
   source 'https://fission:8sYl7Bo0ql2OA9OPThUngg@gems.pkgd.io' do
-    gem 'fission'
+    gem 'fission', '0.2.8'
     gem 'fission-app-multiuser'
     gem 'fission-app-jobs'
     gem 'fission-data'
