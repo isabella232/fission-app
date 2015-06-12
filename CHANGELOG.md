@@ -1,3 +1,8 @@
+# v0.1.14
+* Register common icons for views
+* Allow styling colors to be preset (need to expand values)
+* Include support for dynamic styling
+
 # v0.1.12
 * Add icon button view helpers
 
