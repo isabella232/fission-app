@@ -8,7 +8,7 @@ GIT
 PATH
   remote: .
   specs:
-    fission-app (0.1.18)
+    fission-app (0.1.19)
       bogo-config
       cells (~> 3.0)
       content_for_in_controllers
@@ -186,7 +186,7 @@ GEM
     fission-app-repositories (0.1.6)
       fission-app
       fission-app-jobs
-    fission-app-routes (0.1.4)
+    fission-app-routes (0.1.6)
       fission-app
       fission-data
     fission-app-services (0.1.4)
@@ -219,7 +219,7 @@ GEM
       elecksee
       fission (> 0.2.4, < 1.0.0)
       jackal-nellie (>= 0.1.4, < 1.0.0)
-    fission-package-builder (0.1.16)
+    fission-package-builder (0.1.18)
       attribute_struct
       childprocess
       elecksee
