@@ -8,7 +8,7 @@ GIT
 PATH
   remote: .
   specs:
-    fission-app (0.1.19)
+    fission-app (0.1.20)
       bogo-config
       cells (~> 3.0)
       content_for_in_controllers
@@ -172,7 +172,7 @@ GEM
       libyajl2 (~> 1.2)
     fission (0.2.8)
       jackal (>= 0.3.12, < 1.0.0)
-    fission-app-docs (0.1.2)
+    fission-app-docs (0.1.3)
       kramdown
     fission-app-jobs (0.1.10)
       d3c3-rails
@@ -219,7 +219,7 @@ GEM
       elecksee
       fission (> 0.2.4, < 1.0.0)
       jackal-nellie (>= 0.1.4, < 1.0.0)
-    fission-package-builder (0.1.18)
+    fission-package-builder (0.1.20)
       attribute_struct
       childprocess
       elecksee
@@ -251,7 +251,7 @@ GEM
     fog-atmos (0.1.0)
       fog-core
       fog-xml
-    fog-aws (0.4.0)
+    fog-aws (0.4.1)
       fog-core (~> 1.27)
       fog-json (~> 1.0)
       fog-xml (~> 0.1)
@@ -530,7 +530,7 @@ GEM
     rspec-mocks (3.3.0)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.3.0)
-    rspec-rails (3.3.0)
+    rspec-rails (3.3.1)
       actionpack (>= 3.0, < 4.3)
       activesupport (>= 3.0, < 4.3)
       railties (>= 3.0, < 4.3)
