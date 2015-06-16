@@ -231,7 +231,7 @@ class ApplicationController < ActionController::Base
     unless(Rails.env == 'development')
       Rails.logger.error "#{error.class}: #{error} - (user: #{current_user.try(:username)})"
       Rails.logger.debug "#{error.class}: #{error}\n#{error.backtrace.join("\n")}"
-      msg = error.is_a?(Error) ? error.message : 'Unknown error encountered'
+      msg = error.is_a?(Error) ? error.message : "Unexpected error: #{error.message}"
       session[:redirect_count] ||= 0
       session[:redirect_count] += 1
       @error_state = true
