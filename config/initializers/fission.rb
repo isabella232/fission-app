@@ -39,7 +39,7 @@ class FissionApp::Application
 
   unless(valid_config_paths.last == fission_file)
     base_file = JSON.load(File.read(valid_config_paths.last)).with_indifferent_access
-    config.fission.config = base_file.deep_merge(config.fission.config)
+    config.fission.config = config.fission.config.to_smash.deep_merge(base_file)
   end
 
   config.fission.pricing = config.fission.config[:pricing]
