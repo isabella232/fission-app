@@ -20,6 +20,11 @@ class FissionApp::Application
   FissionApp::Config = Bogo::Config.new(fission_file)
 
   base_hash = FissionApp::Config.data
+  unless(valid_config_paths.last == fission_file)
+    base_file = JSON.load(File.read(valid_config_paths.last)).to_smash
+    base_hash = base_file.deep_merge(base_hash)
+  end
+
   config.fission.config = base_hash.with_indifferent_access
   config.settings = Smash.new(base_hash)
   config.fission_assets = Fission::Assets::Store.new(
@@ -36,11 +41,6 @@ class FissionApp::Application
 
   # All of this junk needs to be deprecated and scrubbed from engines.
   # They should be using #fetch on the settings directly
-
-  unless(valid_config_paths.last == fission_file)
-    base_file = JSON.load(File.read(valid_config_paths.last)).with_indifferent_access
-    config.fission.config = config.fission.config.to_smash.deep_merge(base_file)
-  end
 
   config.fission.pricing = config.fission.config[:pricing]
   config.fission.json_support = config.fission.config[:json_style]
