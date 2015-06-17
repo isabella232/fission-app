@@ -8,7 +8,7 @@ GIT
 PATH
   remote: .
   specs:
-    fission-app (0.1.23)
+    fission-app (0.1.24)
       bogo-config
       cells (~> 3.0)
       content_for_in_controllers
