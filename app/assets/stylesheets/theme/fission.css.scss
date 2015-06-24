@@ -1,3 +1,49 @@
+@import "colors";
+
+.temp {
+  color: $theme-red !important;
+};
+
+.transparent{
+    background-color: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(238, 238, 238, 0.27);
+    color: $theme-text;
+};
+
+.transparent:focus{
+    border-color: #ffffff;
+};
+
+.brand-font {
+  font-family: "Neo Sans Bold";
+};
+
+.theme-bg-primary {
+  background-color: $theme-primary;
+  color: white;
+};
+
+.theme-bg-primary a {
+  color: $theme-light;
+}
+
+.theme-bg-alt {
+  background-color: white;
+  color: $theme-dark !important;
+};
+
+.theme-bg-alt a {
+  color: $theme-darker;
+};
+
+.row {
+  margin-bottom: 50px;
+};
+
+.row:last-child {
+  margin-bottom: 0px;
+}
+
 // Import component CSS styles
 @import "buttons";
 @import "forms";
