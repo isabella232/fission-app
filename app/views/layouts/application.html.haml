@@ -17,7 +17,7 @@
 
   %body{ "data-spy" => "scroll", "data-target" => "#sitenav" }
     // Site nav
-    = render partial: 'layouts/nav'
+    = render @nav_partial ? @nav_partial : {:partial => 'layouts/nav'}
 
     // Main page content
     %div.wrap
