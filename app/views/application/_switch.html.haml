@@ -3,9 +3,9 @@
     - items.each do |item|
       :ruby
         if(item.name == current_user.username)
-          image_path = current_user.default_identity.infos.fetch(:image, '/images/no-logo.png')
+          image_path = current_user.default_identity.infos.fetch(:image, image_url('/images/no-logo.png'))
         else
-          image_path = item.metadata.fetch(:avatar_url, '/images/no-logo.png')
+          image_path = item.metadata.fetch(:avatar_url, image_url('/images/no-logo.png'))
         end
       .col-md-3
         .panel.panel-default.account-switcher{'acct-id' => item.id, :id => "acct-#{item.id}"}
