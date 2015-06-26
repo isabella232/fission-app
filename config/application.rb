@@ -28,6 +28,19 @@ module FissionApp
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
+    Rails::Engine.descendants.each do |klass|
+      next unless klass.respond_to?(:root)
+      if(File.exists?(klass.root.join('app/assets')))
+        config.assets.paths << klass.root.join('app/assets').to_path
+        Dir.glob(klass.root.join('app/assets/stylesheets/*.scss').to_path).each do |s_path|
+          config.assets.precompile << File.basename(s_path).sub('.scss', '')
+        end
+        Dir.glob(klass.root.join('app/assets/javascripts/*.js').to_path).each do |j_path|
+          config.assets.precompile << File.basename(j_path)
+        end
+      end
+    end
+
     config.json_format = :jsend
     config.railties_order = [:main_app, :all, FissionApp::Static::Engine]
   end
