@@ -460,4 +460,9 @@ class ApplicationController < ActionController::Base
     )
   end
 
+  # Force a 404 error
+  def not_found!(msg='Page not found')
+    raise ActionController::RoutingError.new(msg)
+  end
+
 end
