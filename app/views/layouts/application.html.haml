@@ -9,8 +9,12 @@
     %meta{'http-equiv' => 'X-UA-Compatible', content: 'IE=edge,chrome=1'}
     %meta{name: 'description', content: ''}
     %meta{name: 'viewport', content: 'width=device-width'}
-    = stylesheet_link_tag @site_style, media: 'all' #'application', media: 'all'
+    = stylesheet_link_tag @site_style, media: 'all'
+    - [@stylesheet_expansions].flatten.compact.each do |style|
+      = stylesheet_link_tag style, media: 'all'
     = javascript_include_tag 'application'
+    - [@javascript_expansions].flatten.compact.each do |script|
+      = javascript_include_tag script
     - if @intercom_args
       = javascript_include_tag 'intercom_io'
     = csrf_meta_tags

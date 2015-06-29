@@ -465,4 +465,34 @@ class ApplicationController < ActionController::Base
     raise ActionController::RoutingError.new(msg)
   end
 
+  # Add stylesheet to append on loading
+  #
+  # @param s_name [String, Symbol] name of stylesheet
+  # @return [TrueClass, FalseClass]
+  def add_stylesheet_expansion(s_name)
+    @stylesheet_expansions ||= []
+    s_name = s_name.to_s
+    unless(@stylesheet_expansions.include?(s_name))
+      @stylesheet_expansions.push(s_name)
+      true
+    else
+      false
+    end
+  end
+
+  # Add javascript to append on loading
+  #
+  # @param j_name [String, Symbol] name of javascript file
+  # @return [TrueClass, FalseClass]
+  def add_javascript_expansion(j_name)
+    @javscript_expansions ||= []
+    j_name = j_name.to_s
+    unless(@javascript_expansions.include?(j_name))
+      @javascript_expansions.push(j_name)
+      true
+    else
+      false
+    end
+  end
+
 end
