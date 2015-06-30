@@ -1,3 +1,9 @@
+# v0.1.36
+* Add `#not_found!` helper for controllers
+* Add support for custom style override (complete)
+* Add support for appending styles
+* Add support for appending scripts
+
 # v0.1.14
 * Register common icons for views
 * Allow styling colors to be preset (need to expand values)
