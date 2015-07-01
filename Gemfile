@@ -2,14 +2,14 @@ source 'https://rubygems.org'
 
 # @todo lets look at relaxing these for easier upgrades
 gem 'rails', '~> 4.0.0'
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jbuilder', '~> 1.2'
 
-gem 'sprockets', '2.10.1'
+gem 'sprockets', '2.11.0'
 
 # @todo are we still using this?
 gem 'rouge', git: 'git://github.com/chrisroberts/rouge.git', branch: 'fix/lazyload'
@@ -29,7 +29,7 @@ gem 'jruby-rack', '1.1.13.3', :platforms => :jruby
 gem 'oauth_simple'
 gem 'will_paginate'
 gem 'haml', '>= 0.3.4'
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '3.3.5.1'
 gem 'font-awesome-sass'
 gem 'bootstrap_form'
 
