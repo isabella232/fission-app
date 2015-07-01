@@ -67,6 +67,8 @@ class FissionApp::Application
 
 end
 
-if(defined?(Fission::Data::Models))
-  Cell::Rails.send(:include, Fission::Data::Models)
+unless(ENV['RAILS_ASSETS_PRECOMPILE'])
+  if(defined?(Fission::Data::Models))
+    Cell::Rails.send(:include, Fission::Data::Models)
+  end
 end
