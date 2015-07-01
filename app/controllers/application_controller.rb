@@ -229,7 +229,7 @@ class ApplicationController < ActionController::Base
   # @note exceptions will propogate out in development mode
   def exception_handler(error)
     unless(Rails.env == 'development')
-      Rails.logger.error "#{error.class}: #{error} - (user: #{current_user.try(:username)})"
+      Rails.logger.error "#{error.class}: #{error} - #{error.backtrace.join(" | ")}- (user: #{current_user.try(:username)})"
       Rails.logger.debug "#{error.class}: #{error}\n#{error.backtrace.join("\n")}"
       msg = error.is_a?(Error) ? error.message : "Unexpected error: #{error.message}"
       session[:redirect_count] ||= 0
@@ -316,21 +316,24 @@ class ApplicationController < ActionController::Base
   def helpdesk
     if(Rails.env == 'production' && current_user && Rails.application.config.fission.intercom_io[:enabled])
       unless(session[:intercom_args])
-        @intercom_args = {
-          :name => current_user.username,
-          :email => current_user.email,
-          :created_at => current_user.created_at.to_time.to_i,
-          :app_id => Rails.application.config.fission.intercom_io[:app_id],
-          :accounts => current_user.accounts.size
-        }
-        if(Rails.application.config.fission.intercom_io[:secure_mode])
-          @intercom_args.merge!(
-            :user_hash => OpenSSL::HMAC.hexdigest(
-              'sha256', Rails.application.config.fission.intercom_io[:secure_mode], current_user.email
+        if(current_user.email)
+          @intercom_args = {
+            :name => current_user.username,
+            :email => current_user.email,
+            :created_at => current_user.created_at.to_time.to_i,
+            :app_id => Rails.application.config.fission.intercom_io[:app_id],
+            :accounts => current_user.accounts.size
+          }
+          if(Rails.application.config.fission.intercom_io[:secure_mode])
+            @intercom_args.merge!(
+              :user_hash => OpenSSL::HMAC.hexdigest(
+                'sha256',
+                current_user.email
+              )
             )
-          )
+          end
+          session[:intercom_args] = @intercom_args
         end
-        session[:intercom_args] = @intercom_args
       end
       @intercom_args = session[:intercom_args].try(:dup)
       true

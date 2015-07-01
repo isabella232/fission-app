@@ -16,7 +16,7 @@
     - [@javascript_expansions].flatten.compact.each do |script|
       = javascript_include_tag script
     - if @intercom_args
-      = javascript_include_tag 'intercom_io'
+      = javascript_include_tag 'intercom-io'
     = csrf_meta_tags
 
   %body{ "data-spy" => "scroll", "data-target" => "#sitenav" }
