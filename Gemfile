@@ -30,6 +30,7 @@ gem 'oauth_simple'
 gem 'will_paginate'
 gem 'haml', '>= 0.3.4'
 gem 'bootstrap-sass'
+gem 'font-awesome-sass'
 gem 'bootstrap_form'
 
 group :development do
