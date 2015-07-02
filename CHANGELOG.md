@@ -1,3 +1,7 @@
+# v0.1.39
+* Ensure js format is properly used on error state
+* Display no content message from configuration if set
+
 # v0.1.38
 * Add status route to make the LBs happy
 
