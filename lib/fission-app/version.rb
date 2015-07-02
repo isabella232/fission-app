@@ -12,5 +12,5 @@ module FissionApp
       version.send(*args)
     end
   end
-  VERSION = Version.new('0.1.39', "My story is a lot like yours, only more interesting 'cause it involves robots")
+  VERSION = Version.new('0.1.40', "My story is a lot like yours, only more interesting 'cause it involves robots")
 end
