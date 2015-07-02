@@ -36,13 +36,13 @@ class ApplicationController < ActionController::Base
   before_action :load_product!
 
   # Always validate
-  before_action :validate_user!, :if => lambda{ user_mode? }, :except => [:error]
+  before_action :validate_user!, :if => lambda{ user_mode? }, :except => [:error, :status]
 
   # Load the current account
   before_action :load_current_account!, :if => lambda{ user_mode? && valid_user? }
 
   # Check user is permitted on path
-  before_action :validate_access!, :if => lambda{ user_mode? && valid_user? }, :except => [:error, :switch]
+  before_action :validate_access!, :if => lambda{ user_mode? && valid_user? }, :except => [:error, :switch, :status]
 
   # Run any registered pre action callbacks
   before_action :pre_registered_callbacks
