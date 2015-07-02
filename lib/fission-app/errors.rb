@@ -15,6 +15,12 @@ module FissionApp
         end
       end
 
+      class NotFound < Error
+        def initialize(message)
+          super(message, 404)
+        end
+      end
+
       class PermissionDeniedError < Forbidden; end
       class MissingAccessToken < Error; end
     end
