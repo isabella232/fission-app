@@ -83,6 +83,18 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Status information and check point
+  def status
+    render(
+      :status => 200,
+      :text => Smash.new(
+        :name => 'FissionApp',
+        :version => FissionApp::VERSION.version,
+        :codename => FissionApp::VERSION.codename
+      ).to_hash.to_json
+    )
+  end
+
   protected
 
   # Used for event notification on actions. This is the generic
@@ -236,20 +248,26 @@ class ApplicationController < ActionController::Base
       session[:redirect_count] += 1
       @error_state = true
       respond_to do |format|
-        format.html do
-          flash[:error] = msg
-          if(session[:redirect_count] > 5)
-            Rails.logger.error 'Caught in redirect loop. Bailing out!'
-            render
-          else
-            redirect_to default_url
-          end
-        end
         format.json do
           render(
             :json => json_response(nil, :error, :message => msg),
             :status => error.respond_to?(:status_code) ? error.status_code : :internal_server_error
           )
+        end
+        format.js do
+          render(
+            :text => msg,
+            :status => error.respond_to?(:status_code) ? error.status_code : :internal_server_error
+          )
+        end
+        format.html do
+          flash[:error] = msg
+          if(session[:redirect_count] > 5)
+            Rails.logger.error 'Caught in redirect loop. Bailing out!'
+            raise default_url
+          else
+            redirect_to default_url
+          end
         end
       end
     else
@@ -465,7 +483,7 @@ class ApplicationController < ActionController::Base
 
   # Force a 404 error
   def not_found!(msg='Page not found')
-    raise ActionController::RoutingError.new(msg)
+    raise Error::NotFound.new(msg)
   end
 
   # Add stylesheet to append on loading
