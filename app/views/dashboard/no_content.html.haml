@@ -7,5 +7,5 @@
           No products enabled
         .panel-body
           .well.well-md.bg-danger
-            No products currently enabled for this account!
+            = Rails.application.config.settings.fetch(:dashboard, :no_content, 'No products currently enabled for this account!').html_safe
     .col-md-3
