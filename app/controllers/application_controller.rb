@@ -248,15 +248,15 @@ class ApplicationController < ActionController::Base
       session[:redirect_count] += 1
       @error_state = true
       respond_to do |format|
-        format.json do
-          render(
-            :json => json_response(nil, :error, :message => msg),
-            :status => error.respond_to?(:status_code) ? error.status_code : :internal_server_error
-          )
-        end
         format.js do
           render(
             :text => msg,
+            :status => error.respond_to?(:status_code) ? error.status_code : :internal_server_error
+          )
+        end
+        format.json do
+          render(
+            :json => {:error => true, :message => msg}.to_json,
             :status => error.respond_to?(:status_code) ? error.status_code : :internal_server_error
           )
         end
