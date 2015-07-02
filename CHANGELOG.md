@@ -1,3 +1,6 @@
+# v0.1.38
+* Add status route to make the LBs happy
+
 # v0.1.37
 * All the assets, into the stupid pipeline!
 * Properly load intercom
