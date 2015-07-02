@@ -89,7 +89,7 @@ class ApplicationController < ActionController::Base
       :status => 200,
       :text => Smash.new(
         :name => 'FissionApp',
-        :version => FissionApp::VERSION.version,
+        :version => FissionApp::VERSION.version.to_s,
         :codename => FissionApp::VERSION.codename
       ).to_hash.to_json
     )
