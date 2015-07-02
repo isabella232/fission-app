@@ -1,3 +1,8 @@
+# v0.1.37
+* All the assets, into the stupid pipeline!
+* Properly load intercom
+* Fix asset inconsistencies
+
 # v0.1.36
 * Add `#not_found!` helper for controllers
 * Add support for custom style override (complete)
