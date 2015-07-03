@@ -12,32 +12,19 @@ $grid-gutter-width: 20px; // NOTE: this may require using the bootstrap-sass gem
 };
 
 .widget {
-  margin-top: 20px;
-  .panel-heading {
-    background-color: $color-primary;
-    color: $color;
-    border-bottom: none;
-  };
   .panel-body {
-    min-height: 100px;
-  }
-  th:first-child, td:first-child {
-    padding-left: 10px;
-  };
-  tr {
-    td:first-child {
-      width: 70%;
-      font-size: 125%;
-      font-weight: bold;
+    padding: 0px;
+    th:first-child, td:first-child {
+      padding-left: 15px;
+    };
+    .table {
+      margin-bottom: 0px;
     }
-  };
-  a:hover, i:hover, {
-    color: $color-darkest;
-    text-decoration: none;
-  };
-  i {
-    color: black;
-    font-size: 125%;
+    .fission-pagination {
+      margin-bottom: 0px;
+      border-top-left-radius: 0px;
+      border-top-right-radius: 0px;
+    }
   };
 }
 
