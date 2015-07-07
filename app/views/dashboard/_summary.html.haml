@@ -1,13 +1,13 @@
 - cells.each_slice(2) do |cells|
   %div.row
     - cells.each do |cell_name, opts|
-      %div.col-md-6
-        %div.panel.panel-default.widget
-          %div.panel-heading
+      .col-md-6
+        .panel.panel-default.widget
+          .panel-heading
             %h6
               %b
                 -if opts[:url]
                   =link_to(opts[:title], opts[:url])
                 -else
                   =opts[:title]
-          %div.panel-content= render_cell(opts.fetch(:cell, cell_name), :show, opts.fetch(:arguments, {}).merge(:current_user => current_user))
+          .panel-content= render_cell(opts.fetch(:cell, cell_name), :show, opts.fetch(:arguments, {}).merge(:current_user => current_user))
