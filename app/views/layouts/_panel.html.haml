@@ -2,17 +2,18 @@
   id ||= ''
   panel_class ||= ''
   body_id ||= ''
+  content_id ||= ''
   pagination ||= nil
   if(pagination == true)
     pagination = :pagination
   end
 
-%div.panel.panel-default.widget{ :id => id, :class =>  panel_class }
+%div.panel.panel-default{ :id => id, :class =>  panel_class }
   - if defined?(heading) && heading
     %div.panel-heading= heading
-  %div.panel-body{ :id => body_id }
-    - if pagination
-      .fission-pagination.well.well-sm= content_for(pagination)
+  - if defined?(panel_body)
+    %div.panel-body{ :id => body_id }= panel_body
+  %div.panel-content{ :id => content_id }
     - if defined?(panel_content)
       = panel_content
     - elsif defined?(panel_content_name) && content_for?(panel_content_name)
