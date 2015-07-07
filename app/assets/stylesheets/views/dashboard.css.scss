@@ -3,43 +3,80 @@
 $grid-gutter-width: 20px; // NOTE: this may require using the bootstrap-sass gem
 @import "theme/colors";
 
-.add-repo {
-  p {
-    display: inline-block;
-    margin-left: 10px;
-    vertical-align: top;
-  }
+.full-width {
+  width: 100%;
 };
 
-.widget {
-  .panel-body {
-    padding: 0px;
-    th:first-child, td:first-child {
-      padding-left: 15px;
-    };
-    .table {
-      margin-bottom: 0px;
-    }
-    .fission-pagination {
-      margin-bottom: 0px;
-      border-top-left-radius: 0px;
-      border-top-right-radius: 0px;
-    }
+.panel-content {
+  padding: 15px;
+};
+
+.widget .panel-content {
+  padding: 0px;
+};
+.widget .panel-content .table {
+  margin-bottom: 0px;
+  th {
+    border-bottom: none;
   };
+  th:first-child, td:first-child {
+    padding-left: 15px;
+  };
+  th:last-child, td:last-child {
+    padding-right: 15px;
+  };
+};
+
+.widget .panel-content .fission-pagination {
+  margin-bottom: 0px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+};
+
+.payload {
+  padding: 0px;
+  pre {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    margin-bottom: 0px;
+  }
+}
+
+#repository-adder {
+  label {
+    line-height: 34px;
+    margin-bottom: 0px;
+    margin-left: 5px;
+  };
+  #repository-box {
+  };
+};
+
+#fission-job .list-group-item span {
+  font-weight: bold;
+};
+
+#fission-job a span {
+  font-size: 14px !important;
+  font-weight: bold;
+};
+
+#fission-job a:hover {
+  text-decoration: none;
 }
 
 .dashboard-action-tray {
   vertical-align: middle;
-}
+};
 
 .dashboard-action {
   float: right;
   margin-left: 5px;
-}
+};
 
 .Platinum {
   color: $color-platinum !important;
-}
+};
 
 .Gold {
   color: $color-gold !important;
