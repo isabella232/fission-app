@@ -14,6 +14,7 @@ $grid-gutter-width: 20px; // NOTE: this may require using the bootstrap-sass gem
 .widget .panel-content {
   padding: 0px;
 };
+
 .widget .panel-content .table {
   margin-bottom: 0px;
   th {
@@ -39,8 +40,8 @@ $grid-gutter-width: 20px; // NOTE: this may require using the bootstrap-sass gem
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
     margin-bottom: 0px;
-  }
-}
+  };
+};
 
 #repository-adder {
   label {
@@ -63,7 +64,7 @@ $grid-gutter-width: 20px; // NOTE: this may require using the bootstrap-sass gem
 
 #fission-job a:hover {
   text-decoration: none;
-}
+};
 
 .dashboard-action-tray {
   vertical-align: middle;
