@@ -67,6 +67,7 @@ if(ENV['FISSION_LOCALS'] == 'true')
 
   gem 'fission-nellie', path: '../fission-nellie'
   gem 'fission-package-builder', path: '../fission-package-builder'
+  gem 'fission-app-chat', path: '../fission-app-chat'
 else
   source 'https://fission:8sYl7Bo0ql2OA9OPThUngg@gems.pkgd.io' do
     gem 'fission', '0.2.8'
@@ -81,8 +82,8 @@ else
     gem 'fission-app-repositories'
     gem 'fission-app-services'
     gem 'fission-app-routes'
+    gem 'fission-app-chat'
     gem 'fission-assets'
-
     gem 'fission-nellie'
     gem 'fission-package-builder'
   end
