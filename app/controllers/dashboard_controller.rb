@@ -17,7 +17,12 @@ class DashboardController < ApplicationController
         end
         @cells = dashboard_cells(products)
         if(@cells.empty?)
-          render 'dashboard/no_content'
+          if(Rails.application.config.settings.get(:dashboard, :no_content, :redirect))
+            flash[:warning] = 'No products currently enabled!'
+            redirect_to send(Rails.application.config.settings.get(:dashboard, :no_content, :redirect))
+          else
+            render 'dashboard/no_content'
+          end
         end
       end
     end
