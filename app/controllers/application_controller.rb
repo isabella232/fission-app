@@ -453,6 +453,10 @@ class ApplicationController < ActionController::Base
     Rails.application.config.settings.fetch(:callbacks, :before, params[:controller], params[:action], {}).each do |k,v|
       Rails.logger.info "Running matching registered pre action callback: #{k}"
       self.instance_exec(callback_args, &v)
+      if(performed?)
+        Rails.logger.warn "Registered pre action callback has completed the request! #{k} Halting custom callback execution."
+        break
+      end
     end
   end
 
