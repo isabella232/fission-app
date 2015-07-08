@@ -1,36 +1,40 @@
 @import "colors";
 
-$nav_height: 51px;
+$nav_padding: 60px;
+
+.toc {
+  padding-top: $nav_padding;
+};
 
 .documentation h1 {
-  padding-top: $nav_height;
+  padding-top: $nav_padding;
   font-size: 24px;
   font-weight: 900;
-}
+};
 
 .documentation h2 {
-  padding-top: $nav_height;
+  padding-top: $nav_padding;
   font-size: 20px;
   font-weight: 800;
-}
+};
 
 .documentation h3 {
-  padding-top: $nav_height;
+  padding-top: $nav_padding;
   font-size: 18px;
   font-weight: 700;
-}
+};
 
 .documentation h4 {
-  padding-top: $nav_height;
+  padding-top: $nav_padding;
   font-size: 16px;
   font-weight: 700;
-}
+};
 
 .documentation h5 {
-  padding-top: $nav_height;
+  padding-top: $nav_padding;
   font-size: 14px;
   font-weight: 600;
-}
+};
 
 .documentation table {
   @extend .table;
@@ -46,5 +50,5 @@ $nav_height: 51px;
     width: 25%;
   };
   td:nth-child(2) {
-  }
-}
+  };
+};
