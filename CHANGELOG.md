@@ -1,3 +1,6 @@
+# v0.1.41
+* Halt callback processing if action has been performed
+
 # v0.1.39
 * Ensure js format is properly used on error state
 * Display no content message from configuration if set
