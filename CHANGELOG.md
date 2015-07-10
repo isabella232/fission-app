@@ -1,3 +1,6 @@
+# v0.1.44
+* Allow fission-admin flagged users to load any account
+
 # v0.1.41
 * Halt callback processing if action has been performed
 
