@@ -201,14 +201,21 @@ class ApplicationController < ActionController::Base
       current_user.session[:current_account_id]
     )
     if(acct_id)
-      @account = current_user.accounts.detect do |account|
-        account.id.to_s == acct_id.to_s
+      if(current_user.session[:fission_admin])
+        @account = Account.find_by_id(acct_id.to_i)
+      else
+        @account = current_user.accounts.detect do |account|
+          account.id.to_s == acct_id.to_s
+        end
       end
     else
       @account = current_user.accounts.first
     end
     unless(@account)
       flash[:error] = 'Failed to set account for user!'
+      current_user.session.delete(:current_account_id)
+      save_user_session
+      Rails.logger.warn "Unsetting account information for user: #{current_user}!"
       respond_to do |format|
         format.html do
           redirect_to default_url
