@@ -149,6 +149,17 @@ class ApplicationController < ActionController::Base
   # Init `@product`
   def load_product!
     @product = Product.find_by_vanity_dns(request.host)
+    unless(@product)
+      product = Product.find_by_glob_dns(request.host)
+      if(product && product.vanity_dns)
+        Rails.logger.info "Forcing direct to proper vanity DNS: #{product.vanity_dns}"
+        uri = URI.parse(request.url)
+        uri.scheme = 'https' if request.ssl?
+        uri.host = product.vanity_dns
+        redirect_to uri.to_s
+        return
+      end
+    end
     if(@product)
       @app_name = @product.name
       @isolated_product = true
