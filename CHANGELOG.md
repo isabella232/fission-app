@@ -1,3 +1,6 @@
+# v0.1.48
+* Support automatic product redirect based on glob_dns match
+
 # v0.1.44
 * Allow fission-admin flagged users to load any account
 
