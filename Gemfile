@@ -110,5 +110,6 @@ gem 'jackal-github-kit'
 gem 'jackal-nellie'
 gem 'jackal-slack'
 gem 'jackal-stacks'
+gem 'jackal-packagecloud'
 
 gemspec
