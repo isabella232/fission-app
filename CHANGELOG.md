@@ -1,3 +1,6 @@
+# v0.1.51
+* Add packagecloud service
+
 # v0.1.48
 * Support automatic product redirect based on glob_dns match
 
