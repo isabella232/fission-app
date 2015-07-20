@@ -1,3 +1,6 @@
+# v0.1.52
+* Update user and account navigation generation
+
 # v0.1.51
 * Add packagecloud service
 
