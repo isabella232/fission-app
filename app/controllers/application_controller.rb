@@ -247,8 +247,17 @@ class ApplicationController < ActionController::Base
       end
       current_user.run_state.products = @account.products(isolated_product? ? @product : nil)
       current_user.run_state.product_features = @account.product_features(isolated_product? ? @product: nil)
-      current_user.run_state.active_permissions = @account.active_permissions(isolated_product? ? @product : nil)
+      current_user.run_state.active_permissions = @account.active_permissions(isolated_product? ? @product : nil) + default_user_permissions
     end
+  end
+
+  # @return [Array<Fission::Models::Permission>] default permissions
+  def default_user_permissions
+    Rails.application.railties.engines.sort_by(&:engine_name).map do |eng|
+      if(eng.respond_to?(:default_user_permissions))
+        eng.default_user_permissions(current_user)
+      end
+    end.flatten.compact
   end
 
   # Handle uncaught exceptions. Set error and redirect back
@@ -443,21 +452,25 @@ class ApplicationController < ActionController::Base
     end
     @navigation = Smash.new
     @account_navigation = Smash.new
+    @user_navigation = Smash.new
     products.each do |product|
       Rails.application.railties.engines.sort_by(&:engine_name).each do |eng|
-        if(eng.respond_to?(:fission_product))
-          next unless eng.fission_product.include?(product)
-        end
-        if(eng.respond_to?(:fission_navigation))
-          @navigation.deep_merge!(eng.fission_navigation(product, current_user).to_smash)
-        end
         if(eng.respond_to?(:fission_account_navigation))
           @account_navigation.deep_merge!(eng.fission_account_navigation(product, current_user).to_smash)
         end
       end
     end
+    Rails.application.railties.engines.sort_by(&:engine_name).each do |eng|
+      if(eng.respond_to?(:fission_user_navigation))
+        @user_navigation.deep_merge!(eng.fission_user_navigation(Product.new(:internal_name => '~stub'), current_user).to_smash)
+      end
+      if(eng.respond_to?(:fission_navigation))
+        @navigation.deep_merge!(eng.fission_navigation(Product.new(:internal_name => '~stub'), current_user).to_smash)
+      end
+    end
     @navigation = @navigation.to_smash(:sorted)
     @account_navigation = @account_navigation.to_smash(:sorted)
+    @user_navigation = @user_navigation.to_smash(:sorted)
     [@navigation, @account_navigation]
   end
 

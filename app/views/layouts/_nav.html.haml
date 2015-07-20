@@ -29,6 +29,7 @@
                 - next unless current_user.valid_path?(links)
                 %li= link_to(drop_name, links)
               - else
+                - next unless links.any?{|x| x.is_a?(Array) && current_user.valid_path?(x.last)}
                 %li.dropdown
                   %a{'data-toggle' => 'dropdown', :href => '#'}
                     = drop_name
@@ -65,6 +66,13 @@
                 %img.avatar.pull-left{ src: current_user.default_identity.infos.try(:[], :image) }
               %b.caret
             %ul{class: 'dropdown-menu'}
+              - @user_navigation.each do |nav_name, nav_link|
+                - if nav_link.nil?
+                  %li.divider
+                - else
+                  - next unless current_user.valid_path?(nav_link)
+                  %li= link_to(*[nav_name, nav_link].flatten)
+              %li.divider
               =# %li= link_to 'Profile', edit_user_path(current_user)
               %li= link_to 'Logout', destroy_session_path
         - else
