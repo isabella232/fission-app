@@ -36,6 +36,24 @@
   color: $theme-darker;
 };
 
+.theme-bg-dark {
+  background-color: $theme-darker;
+  color: white !important;
+};
+
+.theme-bg-dark a {
+  color: $theme-light;
+};
+
+.theme-bg-light {
+  background-color: $theme-light;
+  color: white !important;
+};
+
+.theme-bg-light h3 {
+  color: white !important;
+};
+
 .row {
   margin-bottom: 50px;
 };
