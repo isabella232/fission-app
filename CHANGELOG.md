@@ -1,3 +1,7 @@
+# v0.1.54
+* [fix] use correct product values for navigation generation
+* [enhancement] styling updates
+
 # v0.1.53
 * [fix] load fission nav via products. always load account nav
 
