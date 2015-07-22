@@ -456,7 +456,7 @@ class ApplicationController < ActionController::Base
     products.each do |product|
       Rails.application.railties.engines.sort_by(&:engine_name).each do |eng|
         if(eng.respond_to?(:fission_navigation))
-          @navigation.deep_merge!(eng.fission_navigation(Product.new(:internal_name => '~stub'), current_user).to_smash)
+          @navigation.deep_merge!(eng.fission_navigation(product, current_user).to_smash)
         end
       end
     end
@@ -465,7 +465,7 @@ class ApplicationController < ActionController::Base
         @user_navigation.deep_merge!(eng.fission_user_navigation(Product.new(:internal_name => '~stub'), current_user).to_smash)
       end
       if(eng.respond_to?(:fission_account_navigation))
-        @account_navigation.deep_merge!(eng.fission_account_navigation(product, current_user).to_smash)
+        @account_navigation.deep_merge!(eng.fission_account_navigation(Product.new(:internal_name => '~stub'), current_user).to_smash)
       end
     end
     @navigation = @navigation.to_smash(:sorted)
