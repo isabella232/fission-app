@@ -1,3 +1,6 @@
+# v0.1.53
+* [fix] load fission nav via products. always load account nav
+
 # v0.1.52
 * Update user and account navigation generation
 
