@@ -160,7 +160,7 @@ class ApplicationController < ActionController::Base
         return
       end
     end
-    if(@product)
+    if(@product && @product.internal_name != FissionApp::DEFAULT_PRODUCT_NAME)
       @app_name = @product.name
       @isolated_product = true
     else
