@@ -70,5 +70,6 @@ end
 unless(ENV['RAILS_ASSETS_PRECOMPILE'])
   if(defined?(Fission::Data::Models))
     Cell::Rails.send(:include, Fission::Data::Models)
+    FissionApp.init_product(:fission)
   end
 end
