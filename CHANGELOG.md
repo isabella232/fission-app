@@ -1,3 +1,6 @@
+# v0.1.57
+* [enhancement] Add product initialization helper
+
 # v0.1.54
 * [fix] use correct product values for navigation generation
 * [enhancement] styling updates
