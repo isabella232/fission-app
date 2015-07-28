@@ -446,9 +446,7 @@ class ApplicationController < ActionController::Base
   def set_navigation
     products = current_user.run_state.products
     if(isolated_product?)
-      products = products.find_all do |product|
-        product == @product
-      end
+      products = [@product] + @product.enabled_products
     end
     @navigation = Smash.new
     @account_navigation = Smash.new
@@ -458,14 +456,12 @@ class ApplicationController < ActionController::Base
         if(eng.respond_to?(:fission_navigation))
           @navigation.deep_merge!(eng.fission_navigation(product, current_user).to_smash)
         end
-      end
-    end
-    Rails.application.railties.engines.sort_by(&:engine_name).each do |eng|
-      if(eng.respond_to?(:fission_user_navigation))
-        @user_navigation.deep_merge!(eng.fission_user_navigation(Product.new(:internal_name => '~stub'), current_user).to_smash)
-      end
-      if(eng.respond_to?(:fission_account_navigation))
-        @account_navigation.deep_merge!(eng.fission_account_navigation(Product.new(:internal_name => '~stub'), current_user).to_smash)
+        if(eng.respond_to?(:fission_user_navigation))
+          @user_navigation.deep_merge!(eng.fission_user_navigation(product, current_user).to_smash)
+        end
+        if(eng.respond_to?(:fission_account_navigation))
+          @account_navigation.deep_merge!(eng.fission_account_navigation(product, current_user).to_smash)
+        end
       end
     end
     @navigation = @navigation.to_smash(:sorted)
