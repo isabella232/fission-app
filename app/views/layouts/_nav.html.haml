@@ -87,10 +87,12 @@
       item.popover({
         content: 'Change active accounts using the account switcher',
         title: 'Help',
-        placement: 'left',
-        trigger: 'focus'
+        placement: 'bottom',
+        trigger: 'manual'
       });
-      item.popover('show');
+      setTimeout(function(){
+        item.popover('show');
+      }, 500);
       setTimeout(function(){
         item.popover('hide');
       }, 5000);
