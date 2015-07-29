@@ -245,9 +245,21 @@ class ApplicationController < ActionController::Base
       else
         current_user.run_state.plans = []
       end
-      current_user.run_state.products = @account.products(isolated_product? ? @product : nil)
-      current_user.run_state.product_features = @account.product_features(isolated_product? ? @product: nil)
-      current_user.run_state.active_permissions = @account.active_permissions(isolated_product? ? @product : nil) + default_user_permissions
+      if(isolated_product?)
+        current_user.run_state.products = ([@product] + @product.enabled_products).find_all do |i_product|
+          @account.products.include?(i_product)
+        end
+        current_user.run_state.product_features = current_user.run_state.products.map do |i_product|
+          @account.product_features(i_product)
+        end.flatten.compact
+        current_user.run_state.active_permissions = current_user.run_state.products.map do |i_product|
+          @account.active_permissions(i_product)
+        end.flatten.compact + default_user_permissions
+      else
+        current_user.run_state.products = @account.products
+        current_user.run_state.product_features = @account.product_features
+        current_user.run_state.active_permissions = @account.active_permissions + default_user_permissions
+      end
     end
   end
 
@@ -444,14 +456,10 @@ class ApplicationController < ActionController::Base
   # @todo Need to add an ordering option for processing through
   # products and engines to force nav ordering
   def set_navigation
-    products = current_user.run_state.products
-    if(isolated_product?)
-      products = [@product] + @product.enabled_products
-    end
     @navigation = Smash.new
     @account_navigation = Smash.new
     @user_navigation = Smash.new
-    products.each do |product|
+    current_user.run_state.products.each do |product|
       Rails.application.railties.engines.sort_by(&:engine_name).each do |eng|
         if(eng.respond_to?(:fission_navigation))
           @navigation.deep_merge!(eng.fission_navigation(product, current_user).to_smash)
