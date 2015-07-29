@@ -1,3 +1,8 @@
+# v0.1.58
+* [feature] Add common session killer
+* [enhancement] Support product nesting in isolation mode
+* [enhancement] Auto show account switcher help on login
+
 # v0.1.57
 * [enhancement] Add product initialization helper
 
