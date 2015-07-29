@@ -137,7 +137,7 @@ class ApplicationController < ActionController::Base
           end
         end
         unless(@current_user)
-          session.clear
+          force_logout!
         else
           @current_user.run_state.random_sec = session[:random]
         end
@@ -307,7 +307,7 @@ class ApplicationController < ActionController::Base
   # @param error [Exception]
   def invalidate_session(error)
     Rails.logger.error "Failed to locate GitHub token for user: #{current_user.username}!"
-    session.clear!
+    force_logout!
     flash[:error] = 'Session has timed out! Please login again.'
     respond_to do |format|
       format.js do
@@ -549,6 +549,13 @@ class ApplicationController < ActionController::Base
     else
       false
     end
+  end
+
+  # Scrub all session data for current user
+  def force_logout!
+    current_user.clear_session!
+    reset_session
+    @current_user = nil
   end
 
 end
