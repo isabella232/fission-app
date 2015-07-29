@@ -47,8 +47,8 @@
               %li= link_to(section[:name], section[:url])
       %ul.nav.navbar-nav.navbar-right
         - if current_user
-          %li.dropdown
-            %a{href: '#', 'data-toggle' => 'dropdown'}
+          %li.dropdown#account-menu
+            %a#account-menu-toggle{href: '#', 'data-toggle' => 'dropdown'}
               = current_user.run_state.current_account.name
               %b.caret
             %ul{class: 'dropdown-menu'}
@@ -60,8 +60,8 @@
                   %li= link_to(*[nav_name, nav_link].flatten)
               %li.divider
                 %li= link_to('Switch Account', account_switch_path, :remote => true)
-          %li.dropdown
-            %a{href: '#', 'data-toggle' => 'dropdown'}
+          %li.dropdown#user-menu
+            %a#user-menu-toggle{href: '#', 'data-toggle' => 'dropdown'}
               - if current_user.default_identity
                 %img.avatar.pull-left{ src: current_user.default_identity.infos.try(:[], :image) }
               %b.caret
@@ -78,3 +78,21 @@
         - else
           - if !request.original_url.include? 'login'
             %li= link_to 'Dashboard', new_session_path
+
+- unless(current_user.session[:switcher_help_shown])
+  :javascript
+    $(document).ready(function(){
+      $('#account-menu-toggle').dropdown('toggle');
+      item = $('#account-menu').find('li').last();
+      item.popover({
+        content: 'Change active accounts using the account switcher',
+        title: 'Help',
+        placement: 'left',
+        trigger: 'focus'
+      });
+      item.popover('show');
+      setTimeout(function(){
+        item.popover('hide');
+      }, 5000);
+    });
+  - current_user.session[:switcher_help_shown] = true
