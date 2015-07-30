@@ -245,21 +245,9 @@ class ApplicationController < ActionController::Base
       else
         current_user.run_state.plans = []
       end
-      if(isolated_product?)
-        current_user.run_state.products = ([@product] + @product.enabled_products).find_all do |i_product|
-          @account.products.include?(i_product)
-        end
-        current_user.run_state.product_features = current_user.run_state.products.map do |i_product|
-          @account.product_features(i_product)
-        end.flatten.compact
-        current_user.run_state.active_permissions = current_user.run_state.products.map do |i_product|
-          @account.active_permissions(i_product)
-        end.flatten.compact + default_user_permissions
-      else
-        current_user.run_state.products = @account.products
-        current_user.run_state.product_features = @account.product_features
-        current_user.run_state.active_permissions = @account.active_permissions + default_user_permissions
-      end
+      current_user.run_state.products = @account.products(isolated_product? ? @product : nil)
+      current_user.run_state.product_features = @account.product_features(isolated_product? ? @product : nil)
+      current_user.run_state.active_permissions = @account.active_permissions(isolated_product? ? @product : nil) + default_user_permissions
     end
   end
 
