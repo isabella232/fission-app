@@ -7,6 +7,8 @@
           %abbr{ title: FissionApp::VERSION.codename }= "(v#{FissionApp::VERSION.version})"
       %div.col-sm-4
         %p.navbar-text.navbar-right
-          %a{ href: '/termsofservice' }= "Terms"
-          = " | "
-          %a{ href: '/privacy' }= "Privacy"
+          = link_to('Docs', docs_page_path)
+          = ' | '
+          = link_to('Terms', terms_of_service_path)
+          = ' | '
+          = link_to('Privacy', privacy_policy_path)
