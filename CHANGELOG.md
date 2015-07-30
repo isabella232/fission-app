@@ -1,3 +1,6 @@
+# v0.1.62
+* [enhancement] Add favicon
+
 # v0.1.61
 * [enhancement] Allow data library to provide product isolation filtering
 
