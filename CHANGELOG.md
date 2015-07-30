@@ -1,3 +1,7 @@
+# v0.1.60
+* [fix] Only check for account switcher display if user is set
+* [enhancement] Update footer links and add docs link
+
 # v0.1.58
 * [feature] Add common session killer
 * [enhancement] Support product nesting in isolation mode
