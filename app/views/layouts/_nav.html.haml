@@ -79,7 +79,7 @@
           - if !request.original_url.include? 'login'
             %li= link_to 'Dashboard', new_session_path
 
-- unless(current_user.session[:switcher_help_shown])
+- if(current_user && !current_user.session[:switcher_help_shown])
   :javascript
     $(document).ready(function(){
       $('#account-menu-toggle').dropdown('toggle');
