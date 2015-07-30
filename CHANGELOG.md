@@ -1,3 +1,6 @@
+# v0.1.61
+* [enhancement] Allow data library to provide product isolation filtering
+
 # v0.1.60
 * [fix] Only check for account switcher display if user is set
 * [enhancement] Update footer links and add docs link
