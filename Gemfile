@@ -59,7 +59,7 @@ if(ENV['FISSION_LOCALS'] == 'true')
   gem 'fission-app-static', path: '../fission-app-static'
   gem 'fission-app-woodchuck', path: '../fission-app-woodchuck'
   gem 'fission-app-docs', path: '../fission-app-docs'
-#  gem 'fission-app-sparkles', path: '../fission-app-sparkles'
+  gem 'fission-app-sparkles', path: '../fission-app-sparkles'
   gem 'fission-app-repositories', path: '../fission-app-repositories'
   gem 'fission-app-services', path: '../fission-app-services'
   gem 'fission-app-routes', path: '../fission-app-routes'
@@ -70,16 +70,17 @@ if(ENV['FISSION_LOCALS'] == 'true')
   gem 'fission-app-chat', path: '../fission-app-chat'
   gem 'fission-repository-generator', path: '../fission-repository-generator'
   gem 'fission-repository-publisher', path: '../fission-repository-publisher'
+  gem 'fission-stacks', path: '../fission-stacks'
 else
   source 'https://fission:8sYl7Bo0ql2OA9OPThUngg@gems.pkgd.io' do
-    gem 'fission', '0.2.8'
+    gem 'fission', '0.3.8'
     gem 'fission-app-multiuser'
     gem 'fission-app-jobs'
     gem 'fission-data'
     gem 'fission-app-stripe'
     gem 'fission-app-woodchuck'
     gem 'fission-app-static'
-#    gem 'fission-app-sparkles'
+    gem 'fission-app-sparkles'
     gem 'fission-app-docs'
     gem 'fission-app-repositories'
     gem 'fission-app-services'
@@ -90,26 +91,26 @@ else
     gem 'fission-package-builder'
     gem 'fission-repository-generator'
     gem 'fission-repository-publisher'
+    gem 'fission-stacks'
   end
 end
 
 source 'https://fission:8sYl7Bo0ql2OA9OPThUngg@gems.pkgd.io' do
-  gem 'sparkle_ui'
-  gem 'sparkle_builder'
+#  gem 'sparkle_ui'
+#  gem 'sparkle_builder'
 end
 
 gem 'kramdown-rails'
 gem 'window_rails'
 
-# gem 'sparkle_ui', :git => 'git@github.com:heavywater/sparkle_ui.git', :branch => 'develop'
-# gem 'sparkle_builder', :git => 'git@github.com:heavywater/sparkle_builder.git', :branch => 'develop'
-
+gem 'sparkle_ui', :git => 'git@github.com:sparkleformation/sparkle_ui.git', :branch => 'develop'
+gem 'sparkle_builder', :git => 'git@github.com:sparkleformation/sparkle_builder.git', :branch => 'develop'
+gem 'sfn'
 # List all the services available to users to allow auto registration
 gem 'jackal-code-fetcher'
 gem 'jackal-github-kit'
 gem 'jackal-nellie'
 gem 'jackal-slack'
-gem 'jackal-stacks'
 gem 'jackal-packagecloud'
 
 gemspec
