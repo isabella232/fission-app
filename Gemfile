@@ -71,6 +71,8 @@ if(ENV['FISSION_LOCALS'] == 'true')
   gem 'fission-repository-generator', path: '../fission-repository-generator'
   gem 'fission-repository-publisher', path: '../fission-repository-publisher'
   gem 'fission-stacks', path: '../fission-stacks'
+  gem 'sparkle_ui', :git => 'git@github.com:sparkleformation/sparkle_ui.git', :branch => 'develop'
+  gem 'sparkle_builder', :git => 'git@github.com:sparkleformation/sparkle_builder.git', :branch => 'develop'
 else
   source 'https://fission:8sYl7Bo0ql2OA9OPThUngg@gems.pkgd.io' do
     gem 'fission', '0.3.8'
@@ -92,19 +94,16 @@ else
     gem 'fission-repository-generator'
     gem 'fission-repository-publisher'
     gem 'fission-stacks'
+    gem 'sparkle_ui'
+    gem 'sparkle_builder'
   end
 end
 
 source 'https://fission:8sYl7Bo0ql2OA9OPThUngg@gems.pkgd.io' do
-#  gem 'sparkle_ui'
-#  gem 'sparkle_builder'
 end
 
 gem 'kramdown-rails'
 gem 'window_rails'
-
-gem 'sparkle_ui', :git => 'git@github.com:sparkleformation/sparkle_ui.git', :branch => 'develop'
-gem 'sparkle_builder', :git => 'git@github.com:sparkleformation/sparkle_builder.git', :branch => 'develop'
 gem 'sfn'
 # List all the services available to users to allow auto registration
 gem 'jackal-code-fetcher'
