@@ -65,6 +65,8 @@ class FissionApp::Application
     :subject => 'Generated Email'
   ).with_indifferent_access
 
+  config.sparkle = config.settings[:sparkle]
+
 end
 
 unless(ENV['RAILS_ASSETS_PRECOMPILE'])
