@@ -50,5 +50,15 @@
   "static_pages": {
     "path": null,
     "landing": "/"
+  },
+  "sparkle": {
+    "orchestration": {
+      "provider": "aws",
+      "credentials": {
+        "aws_region": "us-west-2",
+        "aws_access_key_id": "AKIAJOJXWR4D4J7CKBFA",
+        "aws_secret_access_key": "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"
+      }
+    }
   }
 }
