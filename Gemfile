@@ -75,7 +75,7 @@ if(ENV['FISSION_LOCALS'] == 'true')
   gem 'sparkle_builder', :git => 'git@github.com:sparkleformation/sparkle_builder.git', :branch => 'develop'
 else
   source 'https://fission:8sYl7Bo0ql2OA9OPThUngg@gems.pkgd.io' do
-    gem 'fission', '0.3.8'
+    gem 'fission', '0.3.14'
     gem 'fission-app-multiuser'
     gem 'fission-app-jobs'
     gem 'fission-data'
