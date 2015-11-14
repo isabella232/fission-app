@@ -359,12 +359,13 @@ class ApplicationController < ActionController::Base
   # @note only loads if in production, enabled in config, and user
   #   logged in
   def helpdesk
-    if(Rails.env == 'production' && current_user && Rails.application.config.fission.intercom_io[:enabled])
+    if(current_user && Rails.application.config.fission.intercom_io[:enabled])
       unless(session[:intercom_args])
-        if(current_user.email)
+        user_email = current_user.email || current_user.default_identity.infos[:email]
+        if(user_email)
           @intercom_args = {
             :name => current_user.username,
-            :email => current_user.email,
+            :email => user_email,
             :created_at => current_user.created_at.to_time.to_i,
             :app_id => Rails.application.config.fission.intercom_io[:app_id],
             :accounts => current_user.accounts.size
@@ -372,8 +373,9 @@ class ApplicationController < ActionController::Base
           if(Rails.application.config.fission.intercom_io[:secure_mode])
             @intercom_args.merge!(
               :user_hash => OpenSSL::HMAC.hexdigest(
-                'sha256',
-                current_user.email
+                OpenSSL::Digest.new('sha256'),
+                user_email,
+                Rails.application.config.fission.intercom_io[:secure_mode]
               )
             )
           end
