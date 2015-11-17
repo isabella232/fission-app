@@ -363,12 +363,14 @@ class ApplicationController < ActionController::Base
       unless(session[:intercom_args])
         user_email = current_user.email || current_user.default_identity.infos[:email]
         if(user_email)
+          user_prodname = [current_user.username, @product.try(:internal_name)].compact.join('@')
           @intercom_args = {
-            :name => current_user.username,
+            :name => user_prodname,
             :email => user_email,
+            :user_id => user_prodname,
+            :full_name => current_user.default_identity.infos[:name],
             :created_at => current_user.created_at.to_time.to_i,
-            :app_id => Rails.application.config.fission.intercom_io[:app_id],
-            :accounts => current_user.accounts.size
+            :app_id => Rails.application.config.fission.intercom_io[:app_id]
           }
           if(Rails.application.config.fission.intercom_io[:secure_mode])
             @intercom_args.merge!(
