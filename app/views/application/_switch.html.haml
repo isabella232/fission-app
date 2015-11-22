@@ -1,18 +1,19 @@
-- accounts.sort_by(&:name).each_slice(4) do |items|
-  .row
-    - items.each do |item|
-      :ruby
-        if(item.name == current_user.username)
-          image_path = current_user.default_identity.infos.fetch(:image, image_url('no-logo.png'))
-        else
-          image_path = item.metadata.fetch(:avatar_url, image_url('no-logo.png'))
-        end
-      .col-md-3
-        .panel.panel-default.account-switcher{'acct-id' => item.id, :id => "acct-#{item.id}"}
-          .panel-body
-            %img.img-responsive.center-block{:src => image_path}
-            %center
-              %b= "@#{item.name}"
+- accounts.sort_by(&:name).each_slice(3) do |items|
+  .container-fluid
+    .row
+      - items.each do |item|
+        :ruby
+          if(item.name == current_user.username)
+            image_path = current_user.default_identity.infos.fetch(:image, image_url('no-logo.png'))
+          else
+            image_path = item.metadata.fetch(:avatar_url, image_url('no-logo.png'))
+          end
+        .col-xs-4.col-md-4
+          .panel.panel-default.account-switcher{'acct-id' => item.id, :id => "acct-#{item.id}"}
+            .panel-body
+              %img.img-responsive.center-block{:src => image_path}
+              %center
+                %b= "@#{item.name}"
 :javascript
   $(document).ready(
     function(){
