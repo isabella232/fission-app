@@ -112,4 +112,6 @@ gem 'jackal-nellie'
 gem 'jackal-slack'
 gem 'jackal-packagecloud'
 
+gem 'bootstrap-editable-rails'
+
 gemspec

@@ -20,6 +20,7 @@
 //= require sparkle_ui
 //= require sparkle_builder
 //= require d3c3_rails
+//= require bootstrap-editable
 //= require_tree ./application
 
 // enable popovers helper
@@ -37,10 +38,15 @@ function enable_linked_items(){
   });
 }
 
+function enable_editables(){
+  $('.editable').editable();
+}
+
 function run_enablers(){
   enable_popovers();
   enable_timepickers();
   enable_linked_items();
+  enable_editables();
 }
 
 $(document).ready(run_enablers);
