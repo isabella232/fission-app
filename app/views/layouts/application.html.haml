@@ -18,6 +18,7 @@
       = javascript_include_tag script
     - if @intercom_args
       = javascript_include_tag 'intercom-io'
+    = javascript_include_tag '/cytoscape/cytoscape.min.js'
     = csrf_meta_tags
 
   %body{ "data-spy" => "scroll", "data-target" => "#sitenav" }
