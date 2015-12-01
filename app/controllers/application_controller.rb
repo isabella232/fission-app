@@ -260,6 +260,21 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # @return [Array<Product>]
+  def current_products
+    current_user.run_state.products
+  end
+
+  # @return [Array<ProductFeature>]
+  def current_product_features
+    current_user.run_state.product_features
+  end
+
+  # @return [Array<Permission>]
+  def active_permissions
+    current_user.run_state.active_permissions
+  end
+
   # @return [Array<Fission::Models::Permission>] default permissions
   def default_user_permissions
     Rails.application.railties.engines.sort_by(&:engine_name).map do |eng|
