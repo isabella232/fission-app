@@ -297,7 +297,12 @@ class ApplicationController < ActionController::Base
           )
         end
         format.html do
-          flash[:error] = msg
+          # Only set error if no error is already defined. This allows
+          # redirects to non-permissable paths to be auto redirected
+          # and still provide the original message
+          unless(flash[:error])
+            flash[:error] = msg
+          end
           if(session[:redirect_count] > 5)
             Rails.logger.error 'Caught in redirect loop. Bailing out!'
             raise default_url
