@@ -95,6 +95,15 @@ class ApplicationController < ActionController::Base
     )
   end
 
+  # Dummy override to allow multiple redirect calls with the first
+  # being the "winner"
+  def redirect_to(*args, &block)
+    unless(@_redirect_applied)
+      @_redirect_applied = true
+      super(*args, &block)
+    end
+  end
+
   protected
 
   # Used for event notification on actions. This is the generic
