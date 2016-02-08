@@ -144,6 +144,8 @@ class ApplicationController < ActionController::Base
             flash[:error] = 'User validation failed! You have been logged out!'
             @current_user = nil
           end
+        else
+          session[:user_id] = nil
         end
         unless(@current_user)
           force_logout!
@@ -578,7 +580,7 @@ class ApplicationController < ActionController::Base
 
   # Scrub all session data for current user
   def force_logout!
-    current_user.clear_session!
+    current_user.clear_session! if current_user
     reset_session
     @current_user = nil
   end
