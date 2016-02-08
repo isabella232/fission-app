@@ -29,7 +29,7 @@ module FissionApp
     unless(existing)
       Fission::Data::Models::Product.create(
         :internal_name => internal_name,
-        :display_name => display_name
+        :name => display_name
       )
     else
       existing
