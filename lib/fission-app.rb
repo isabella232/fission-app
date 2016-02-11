@@ -36,4 +36,17 @@ module FissionApp
     end
   end
 
+  # Subscribe to a fission app event
+  #
+  # @param event_name [String, Symbol] name of event
+  # @yield block to process event
+  # @return [TrueClass]
+  def self.subscribe(event_name, &block)
+    unless(block)
+      raise ArgumentError.new 'Block is required for processing event!'
+    end
+    ActiveSupport::Notifications.subscribe("#{event_name}.fission_app", &block)
+    true
+  end
+
 end

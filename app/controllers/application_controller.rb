@@ -67,17 +67,19 @@ class ApplicationController < ActionController::Base
 
   # Proxy for account switching
   def switch
-    flash[:notice] = "Account updated! (#{current_user.run_state.current_account.name})"
-    session.keys.each do |key|
-      unless(PROTECTED_SESSION_KEYS.include?(key.to_s))
-        session.delete(key)
-      end
-    end
     respond_to do |format|
       format.js do
         @accounts = current_user.accounts
       end
       format.html do
+        notify!(:account_switch, :user => current_user, :account => current_user.run_state.current_account) do
+          flash[:notice] = "Account updated! (#{current_user.run_state.current_account.name})"
+          session.keys.each do |key|
+            unless(PROTECTED_SESSION_KEYS.include?(key.to_s))
+              session.delete(key)
+            end
+          end
+        end
         redirect_to dashboard_url
       end
     end
@@ -111,7 +113,8 @@ class ApplicationController < ActionController::Base
   # configuration
   #
   # @return [TrueClass]
-  def notify!
+  def notify!(event_name, data={}, &block)
+    ActiveSupport::Notifications.instrument("#{event_name}.fission_app", data, &block)
     true
   end
 
@@ -580,8 +583,10 @@ class ApplicationController < ActionController::Base
 
   # Scrub all session data for current user
   def force_logout!
-    current_user.clear_session! if current_user
-    reset_session
+    notify!(:user_logout, :user => current_user) do
+      current_user.clear_session! if current_user
+      reset_session
+    end
     @current_user = nil
   end
 
