@@ -114,7 +114,16 @@ class ApplicationController < ActionController::Base
   #
   # @return [TrueClass]
   def notify!(event_name, data={}, &block)
-    ActiveSupport::Notifications.instrument("#{event_name}.fission_app", data, &block)
+    ActiveSupport::Notifications.instrument(
+      "#{event_name}.fission_app",
+      Smash.new(
+        :user => @current_user,
+        :account => @account,
+        :product => @product,
+        :isolated_product => @isolated_product
+      ).merge(data),
+      &block
+    )
     true
   end
 
