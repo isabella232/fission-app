@@ -29,7 +29,7 @@ function enable_popovers(){
 }
 
 function enable_timepickers(){
-  $('.timepicker').datetimepicker();
+  $('.timepicker').datetimepicker({format: 'YYYY-MM-DD hh:mm:ss ZZ'});
 }
 
 function enable_linked_items(){
