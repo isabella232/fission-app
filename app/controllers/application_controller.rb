@@ -114,8 +114,15 @@ class ApplicationController < ActionController::Base
   #
   # @return [TrueClass]
   def notify!(event_name, data={}, &block)
+    generated_event_name = [
+      event_name,
+      Bogo::Utility.snake(self.class.name).sub(
+        '_controller', ''
+      ).split('::').reverse.join('.'),
+      'fission_app'
+    ].join('.')
     ActiveSupport::Notifications.instrument(
-      "#{event_name}.fission_app",
+      generated_event_name,
       Smash.new(
         :user => @current_user,
         :account => @account,
