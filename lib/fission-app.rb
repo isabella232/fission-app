@@ -67,6 +67,7 @@ module FissionApp
   # @option [Hash] :condition Condition to display (:name and :args)
   # @option [Integer] :duration Number of seconds to display
   # @option [Integer] :delay Number of seconds to delay display
+  # @option [String] :id Notification identifier
   # @return String
   def self.auto_popup_formatter(data)
     data = data.to_smash
