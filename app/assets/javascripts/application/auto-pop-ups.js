@@ -1,5 +1,9 @@
 var auto_popups = {items: []};
 
+if(!sessionStorage.getItem('auto-popup-registry')){
+  sessionStorage.setItem('auto-popup-registry', []);
+}
+
 // {dom_id: '', title: '', content: '', location: '', condition: '', duration: 0}
 
 always_true = function(){ return true; }
@@ -9,17 +13,34 @@ auto_popups.show_popups = function(){
   auto_popups['items'] = [];
   $.each(all_items, function(idx, item){
     if(window[item['condition']['name']](item['condition']['args'])){
-      if(item['delay']){
-        setTimeout(function(p_item){
-          auto_popups.display(p_item);
-        }, item['delay'] * 1000, item);
-      } else {
-        auto_popups.display(item);
+      if(auto_popups.register(item)){
+        if(item['delay']){
+          setTimeout(function(p_item){
+            auto_popups.display(p_item);
+          }, item['delay'] * 1000, item);
+        } else {
+          auto_popups.display(item);
+        }
       }
     } else {
       auto_popups['items'].push(item);
     }
   });
+}
+
+auto_popups.register = function(item){
+  if(item['id']){
+    item_ids = sessionStorage.getItem('auto-popup-registry').split(',');
+    if(!item_ids.includes(item['id'])){
+      item_ids.push(item['id']);
+      sessionStorage.setItem('auto-popup-registry', item_ids);
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return true;
+  }
 }
 
 auto_popups.display = function(item){
