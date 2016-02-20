@@ -44,6 +44,9 @@ class ApplicationController < ActionController::Base
   # Check user is permitted on path
   before_action :validate_access!, :if => lambda{ user_mode? && valid_user? }, :except => [:error, :switch, :status]
 
+  # Generate pre-execution notification
+  before_action :default_before_notification!
+
   # Run any registered pre action callbacks
   before_action :pre_registered_callbacks
 
@@ -55,6 +58,9 @@ class ApplicationController < ActionController::Base
 
   # Add content_for entries
   before_action :register_default_icons
+
+  # Generate post-execution notification
+  after_action :default_after_notification!
 
   # Run any registered post action callbacks
   after_action :post_registered_callbacks
@@ -106,7 +112,26 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Wrap up render to allow customized notification
+  # before and after render action
+  def render(*args, &block)
+    notify!("before_render.#{action_name}")
+    result = super(*args, &block)
+    notify!("after_render.#{action_name}", :response => response)
+    result
+  end
+
   protected
+
+  # Generate default notification prior to action
+  def default_before_notification!
+    notify!("before.#{action_name}")
+  end
+
+  # Generate default notification after action
+  def default_after_notification!
+    notify!("after.#{action_name}")
+  end
 
   # Used for event notification on actions. This is the generic
   # notifier with notifications being enabled/disabled via
