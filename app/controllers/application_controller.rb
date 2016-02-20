@@ -115,7 +115,9 @@ class ApplicationController < ActionController::Base
   # Wrap up render to allow customized notification
   # before and after render action
   def render(*args, &block)
-    notify!("before_render.#{action_name}")
+    notify!("before_render.#{action_name}",
+      :response => response
+    )
     result = super(*args, &block)
     notify!("after_render.#{action_name}",
       :response => response,
@@ -198,6 +200,7 @@ class ApplicationController < ActionController::Base
           force_logout!
         else
           @current_user.run_state.random_sec = session[:random]
+          @current_user.run_state.script_inject = []
         end
       end
     end
