@@ -14,6 +14,8 @@ module FissionApp
   # @return [String] default internal name of root product
   DEFAULT_PRODUCT_NAME = 'fission'
 
+  extend RailsJavaScriptHelpers
+
   # If product does not exist via internal name lookup, create the
   # product
   #
@@ -45,8 +47,30 @@ module FissionApp
     unless(block)
       raise ArgumentError.new 'Block is required for processing event!'
     end
-    ActiveSupport::Notifications.subscribe("#{event_name.map(&:to_s).join('.')}.fission_app", &block)
+    if(event_name.size == 1 && event_name.first.is_a?(Regexp))
+      e_name = event_name.first
+    else
+      e_name = event_name.map(&:to_s).push('fission-app').join('.')
+    end
+    ActiveSupport::Notifications.subscribe(e_name, &block)
     true
+  end
+
+  # Generate data structure string for auto popups
+  #
+  # @param data [Hash]
+  # @option [String] :dom_id ID of item to attach popup
+  # @option [String] :title Title of popup
+  # @option [String] :content Content of popup
+  # @option [String] :location Placement of popup
+  # @option [Hash] :condition Condition to display (:name and :args)
+  # @option [Integer] :duration Number of seconds to display
+  # @return String
+  def self.auto_popup_formatter(data)
+    data = data.to_smash
+    data[:location] ||= 'auto'
+    data.set(:condition, :name, 'always_true') unless data.get(:condition, :name)
+    format_type_to_js(data)
   end
 
 end
