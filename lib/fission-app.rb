@@ -71,7 +71,7 @@ module FissionApp
   def self.auto_popup_formatter(data)
     data = data.to_smash
     data[:location] ||= 'auto'
-    data[:delay] ||= 2
+    data[:delay] ||= 1
     data.set(:condition, :name, 'always_true') unless data.get(:condition, :name)
     "auto_popups['items'].push(#{format_type_to_js(data)});".html_safe
   end
