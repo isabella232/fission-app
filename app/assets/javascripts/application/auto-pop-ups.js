@@ -29,3 +29,5 @@ auto_popups.display = function(item){
     }, item['duration'] * 1000);
   }
 }
+
+$(document).ajaxComplete(auto_popups.show_popups);
