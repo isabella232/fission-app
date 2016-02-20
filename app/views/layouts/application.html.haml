@@ -46,3 +46,7 @@
 
     - if @intercom_args
       = render :partial => 'layouts/intercom_io'
+
+    - if current_user && current_user.run_state.script_inject.present?
+      :javascript
+        #{current_user.run_state.script_inject.join("\n")}
