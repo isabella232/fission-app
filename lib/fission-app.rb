@@ -9,6 +9,7 @@ require 'will_paginate/array'
 require 'will_paginate/sequel'
 require 'will_paginate-bootstrap'
 require 'content_for_in_controllers'
+require 'rails_javascript_helpers'
 
 module FissionApp
   # @return [String] default internal name of root product
@@ -65,12 +66,14 @@ module FissionApp
   # @option [String] :location Placement of popup
   # @option [Hash] :condition Condition to display (:name and :args)
   # @option [Integer] :duration Number of seconds to display
+  # @option [Integer] :delay Number of seconds to delay display
   # @return String
   def self.auto_popup_formatter(data)
     data = data.to_smash
     data[:location] ||= 'auto'
+    data[:delay] ||= 2
     data.set(:condition, :name, 'always_true') unless data.get(:condition, :name)
-    format_type_to_js(data)
+    "auto_popups['items'].push(#{format_type_to_js(data)});".html_safe
   end
 
 end
