@@ -117,7 +117,10 @@ class ApplicationController < ActionController::Base
   def render(*args, &block)
     notify!("before_render.#{action_name}")
     result = super(*args, &block)
-    notify!("after_render.#{action_name}", :response => response)
+    notify!("after_render.#{action_name}",
+      :response => response,
+      :body => result
+    )
     result
   end
 
