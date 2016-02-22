@@ -45,7 +45,8 @@
   },
   "stripe": {
     "publishable_key": "pk_test_y4g9kOk27pcJES5iZ5Sp7LK2",
-    "secret_key": "sk_test_GleaJrgPFnD25GLsTvDdhApI"
+    "secret_key": "sk_test_GleaJrgPFnD25GLsTvDdhApI",
+    "plan_redirect": false
   },
   "static_pages": {
     "path": null,
