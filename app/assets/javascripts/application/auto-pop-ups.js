@@ -13,19 +13,31 @@ auto_popups.show_popups = function(){
   auto_popups['items'] = [];
   $.each(all_items, function(idx, item){
     if(window[item['condition']['name']](item['condition']['args'])){
-      if(auto_popups.register(item)){
+      if(!auto_popups.is_registered(item)){
         if(item['delay']){
           setTimeout(function(p_item){
             auto_popups.display(p_item);
+            auto_popups.register(p_item);
           }, item['delay'] * 1000, item);
         } else {
           auto_popups.display(item);
+          auto_popups.register(item);
         }
       }
     } else {
       auto_popups['items'].push(item);
     }
   });
+}
+
+auto_popups.is_registered = function(item){
+  if(item['id']){
+    item_ids = sessionStorage.getItem('auto-popup-registry').split(',');
+    if(item_ids.includes(item['id'])){
+      return true;
+    }
+  }
+  return false;
 }
 
 auto_popups.register = function(item){
