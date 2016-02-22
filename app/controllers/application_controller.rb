@@ -108,8 +108,11 @@ class ApplicationController < ActionController::Base
   def redirect_to(*args, &block)
     unless(@_redirect_applied)
       @_redirect_applied = true
-      super(*args, &block)
+      notify!("before_redirect.#{action_name}")
+      @_redirect_result = super(*args, &block)
+      notify!("after_redirect.#{action_name}")
     end
+    @_redirect_result
   end
 
   # Wrap up render to allow customized notification
