@@ -53,6 +53,9 @@ class ApplicationController < ActionController::Base
   # Set helpdesk variables
   before_action :helpdesk
 
+  # Set custom pipeline assets
+  before_action :set_pipeline_assets
+
   # Define navigation
   before_action :set_navigation, :if => lambda{ user_mode? && valid_user? }
 
@@ -621,7 +624,7 @@ class ApplicationController < ActionController::Base
   # @param j_name [String, Symbol] name of javascript file
   # @return [TrueClass, FalseClass]
   def add_javascript_expansion(j_name)
-    @javscript_expansions ||= []
+    @javascript_expansions ||= []
     j_name = j_name.to_s
     unless(@javascript_expansions.include?(j_name))
       @javascript_expansions.push(j_name)
@@ -638,6 +641,22 @@ class ApplicationController < ActionController::Base
       reset_session
     end
     @current_user = nil
+  end
+
+  def set_pipeline_assets
+    klass = self.class.name
+    items = Rails.application.config.asset_mappings.detect do |key, value|
+      value.fetch(:controllers, []).include?(klass)
+    end || []
+    items = items.last
+    if(items)
+      items[:css].each do |css_item|
+        add_stylesheet_expansion(css_item)
+      end
+      items[:js].each do |js_item|
+        add_javascript_expansion(js_item)
+      end
+    end
   end
 
 end

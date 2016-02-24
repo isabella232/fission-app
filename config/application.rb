@@ -28,19 +28,31 @@ module FissionApp
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
+    config.asset_mappings = {}
     Rails::Engine.descendants.each do |klass|
       next unless klass.respond_to?(:root)
       if(File.exists?(klass.root.join('app/assets')))
-        config.assets.paths << klass.root.join('app/assets').to_path
-        Dir.glob(klass.root.join('app/assets/stylesheets/*.scss').to_path).each do |s_path|
-          config.assets.precompile << File.basename(s_path).sub('.scss', '')
-        end
-        Dir.glob(klass.root.join('app/assets/javascripts/*.js').to_path).each do |j_path|
-          config.assets.precompile << File.basename(j_path)
+        if(File.exists?(klass.root.join('app/controllers')))
+          config.asset_mappings[klass] = {
+            :controllers => Dir.glob(File.join(klass.root.join('app/controllers').to_path, '**', '*.rb')).map{ |path|
+              path.sub("#{klass.root.join('app/controllers').to_path}/", '').sub('.rb', '').camelize
+            },
+            :css => [],
+            :js => []
+          }
+          assets_path = klass.root.join('app/assets').to_path
+          config.assets.paths << assets_path.sub('/assets', '')
+          Dir.glob(klass.root.join('app/assets/stylesheets/*.scss').to_path).each do |s_path|
+            config.asset_mappings[klass][:css].push(File.basename(s_path).sub('.scss', '').sub('.css', ''))
+            config.assets.precompile << File.basename(s_path).sub('.scss', '')
+          end
+          Dir.glob(klass.root.join('app/assets/javascripts/*.js').to_path).each do |j_path|
+            config.asset_mappings[klass][:js].push(File.basename(j_path).sub('.js', ''))
+            config.assets.precompile << File.basename(j_path)
+          end
         end
       end
     end
-
     config.json_format = :jsend
     config.railties_order = [:main_app, :all, FissionApp::Static::Engine]
   end
