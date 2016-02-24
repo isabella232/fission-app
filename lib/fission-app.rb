@@ -71,6 +71,7 @@ module FissionApp
   # @return String
   def self.auto_popup_formatter(data)
     data = data.to_smash
+    data[:content] = data[:content].md_to_html
     data[:location] ||= 'auto'
     data[:delay] ||= 1
     data.set(:condition, :name, 'always_true') unless data.get(:condition, :name)
