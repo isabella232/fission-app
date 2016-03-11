@@ -30,6 +30,7 @@ module FissionApp
 
     config.asset_mappings = {}
     Rails::Engine.descendants.each do |klass|
+      next if ['FissionApp::Application', 'Rails::Application'].include?(klass.name)
       next unless klass.respond_to?(:root)
       if(File.exists?(klass.root.join('app/assets')))
         if(File.exists?(klass.root.join('app/controllers')))
