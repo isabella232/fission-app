@@ -34,7 +34,7 @@ gem 'font-awesome-sass'
 gem 'bootstrap_form'
 
 group :development do
-  gem 'warbler', '1.4.0'
+  gem 'warbler' #, '1.4.0'
   gem 'pry-rails'
 end
 
@@ -72,38 +72,39 @@ if(ENV['FISSION_LOCALS'] == 'true')
   gem 'fission-repository-publisher', path: '../fission-repository-publisher'
   gem 'fission-stacks', path: '../fission-stacks'
   gem 'sparkle_ui', :git => 'git@github.com:sparkleformation/sparkle_ui.git', :branch => 'develop'
-  gem 'sparkle_builder', :git => 'git@github.com:sparkleformation/sparkle_builder.git', :branch => 'develop'
+  gem 'sparkle_builder', :git => 'https://github.com/sparkleformation/sparkle_builder.git', :branch => 'develop'
 else
-  source 'https://fission:8sYl7Bo0ql2OA9OPThUngg@gems.pkgd.io' do
-    gem 'fission', '0.3.14'
-    gem 'fission-app-multiuser'
-    gem 'fission-app-jobs'
-    gem 'fission-data'
-    gem 'fission-app-stripe'
-    gem 'fission-app-woodchuck'
-    gem 'fission-app-static'
-    gem 'fission-app-sparkles'
-    gem 'fission-app-docs'
-    gem 'fission-app-repositories'
-    gem 'fission-app-services'
-    gem 'fission-app-routes'
-    gem 'fission-app-chat'
-    gem 'fission-assets'
-    gem 'fission-nellie'
-    gem 'fission-package-builder'
-    gem 'fission-repository-generator'
-    gem 'fission-repository-publisher'
-    gem 'fission-stacks'
-    gem 'sparkle_ui'
-    gem 'sparkle_builder'
-  end
+#  source 'https://fission:8sYl7Bo0ql2OA9OPThUngg@gems.pkgd.io' do
+  gem 'fission', :git => 'https://github.com/hw-product/fission.git', :branch => 'develop'
+  #'0.3.14'
+    gem 'fission-app-multiuser', :git => 'https://github.com/hw-product/fission-app-multiuser.git', :branch => 'develop'
+    gem 'fission-app-jobs', :git => 'https://github.com/hw-product/fission-app-jobs.git', :branch => 'develop'
+    gem 'fission-data', :git => 'https://github.com/hw-product/fission-data.git', :branch => 'develop'
+    gem 'fission-app-stripe', :git => 'https://github.com/hw-product/fission-app-stripe.git', :branch => 'develop'
+    gem 'fission-app-woodchuck', :git => 'https://github.com/hw-product/fission-app-woodchuck.git', :branch => 'develop'
+    gem 'fission-app-static', :git => 'https://github.com/hw-product/fission-app-static.git', :branch => 'develop'
+    gem 'fission-app-sparkles', :git => 'https://github.com/hw-product/fission-app-sparkles.git', :branch => 'develop'
+    gem 'fission-app-docs', :git => 'https://github.com/hw-product/fission-app-docs.git', :branch => 'develop'
+    gem 'fission-app-repositories', :git => 'https://github.com/hw-product/fission-app-repositories.git', :branch => 'develop'
+    gem 'fission-app-services', :git => 'https://github.com/hw-product/fission-app-services.git', :branch => 'develop'
+    gem 'fission-app-routes', :git => 'https://github.com/hw-product/fission-app-routes.git', :branch => 'develop'
+    gem 'fission-app-chat', :git => 'https://github.com/hw-product/fission-app-chat.git', :branch => 'develop'
+    gem 'fission-assets', :git => 'https://github.com/hw-product/fission-assets.git', :branch => 'develop'
+    gem 'fission-nellie', :git => 'https://github.com/hw-product/fission-nellie.git', :branch => 'develop'
+    gem 'fission-package-builder', :git => 'https://github.com/hw-product/fission-package-builder.git', :branch => 'develop'
+    gem 'fission-repository-generator', :git => 'https://github.com/hw-product/fission-repository-generator.git', :branch => 'develop'
+    gem 'fission-repository-publisher', :git => 'https://github.com/hw-product/fission-repository-publisher.git', :branch => 'develop'
+    gem 'fission-stacks', :git => 'https://github.com/hw-product/fission-stacks.git', :branch => 'develop'
+    gem 'sparkle_ui', :git => 'https://github.com/sparkleformation/sparkle_ui.git', :branch => 'develop'
+    gem 'sparkle_builder', :git => 'https://github.com/sparkleformation/sparkle_builder.git', :branch => 'develop'
+#  end
 end
 
-source 'https://fission:8sYl7Bo0ql2OA9OPThUngg@gems.pkgd.io' do
-end
+# source 'https://fission:8sYl7Bo0ql2OA9OPThUngg@gems.pkgd.io' do
+# end
 
 gem 'kramdown-rails'
-gem 'window_rails'
+gem 'window_rails', :git => 'git://github.com/chrisroberts/window_rails.git', :branch => 'develop'
 gem 'sfn'
 # List all the services available to users to allow auto registration
 gem 'jackal-code-fetcher'
